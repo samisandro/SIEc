@@ -12,9 +12,16 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
     </properties>
 
     <dependencies>
+        
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -26,6 +33,12 @@
             <groupId>org.primefaces</groupId>  
             <artifactId>primefaces</artifactId>  
             <version>3.4</version>  
+        </dependency>
+        <!-- Primefaces Theme Dependecy -->
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>south-street</artifactId>
+            <version>1.0.8</version>
         </dependency>
         <!-- Hibernate Dependencys -->
         <dependency>
