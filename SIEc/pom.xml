@@ -13,14 +13,32 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
+        <org.springframework.version>3.2.3.RELEASE</org.springframework.version>
     </properties>
 
     <dependencies>
-        
         <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <type>jar</type>
+            <version>1.0.1.Final</version>
+        </dependency>
+        <!-- ### FACELETS-TAGLIB-JSF2.0-SPRING-3 ### -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>facelets-taglib-jsf20-spring-3</artifactId>
+            <version>0.5</version>
+        </dependency> 
+        <!-- JavaEE Dependecies -->
+        <dependency>
+            <groupId>antlr</groupId>
+            <artifactId>antlr</artifactId>
+            <version>2.7.7</version>
+        </dependency>
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.1</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -28,6 +46,16 @@
             <version>6.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0.2</version>
+        </dependency> 
         <!-- Primefaces Dependency -->
         <dependency>  
             <groupId>org.primefaces</groupId>  
@@ -76,17 +104,91 @@
             <artifactId>simple-log-sl4j</artifactId>
             <version>1.7</version>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>1.0.1.Final</version>
-        </dependency>
         <!-- MySQL Connector Dependency -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.24</version>
         </dependency>
+        <!-- Others Dependecies -->
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <!-- Spring Dependecies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- Spring Security Dependecies -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>3.1.4.RELEASE</version>
+        </dependency> 
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>3.1.4.RELEASE</version>
+        </dependency> 
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>3.1.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>3.1.4.RELEASE</version>
+        </dependency>
+        
     </dependencies>
 
     <build>
@@ -101,6 +203,7 @@
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
+                    <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
             <plugin>
@@ -145,6 +248,16 @@
             <id>PrimeFaces-maven-lib</id>
             <layout>default</layout>
             <name>Repository for library PrimeFaces-maven-lib</name>
+        </repository>
+        <repository>
+            <id>springsource-repo</id>
+            <name>SpringSource Repository</name>
+            <url>http://repo.springsource.org/release</url>
+        </repository>
+        <!-- FACELETS TAGLIBRARIES REPOSITORY -->        
+        <repository>
+            <id>org.springframework.security.taglibs.facelets</id>
+            <url>http://spring-security-facelets-taglib.googlecode.com/svn/repo/</url>
         </repository>
     </repositories>
 </project>

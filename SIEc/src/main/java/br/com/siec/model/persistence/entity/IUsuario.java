@@ -1,13 +1,16 @@
 package br.com.siec.model.persistence.entity;
 
 import br.com.siec.model.persistence.util.TipoUsuario;
+import java.io.Serializable;
 import java.util.Date;
 
-public interface IUsuario {
-
-    public void Usuario(IPessoa pessoa);
+public interface IUsuario extends Serializable {
 
     public String getLogin();
+    
+    public void setLogin(String login);
+    
+    public void setPessoa(IPessoa p);
 
     public String getSenha();
 
@@ -21,7 +24,7 @@ public interface IUsuario {
 
     public void setDataCadastro(Date dataCadastro);
 
-    public String getTipo();
+    public TipoUsuario getTipo();
 
     public void setTipo(TipoUsuario tipo);
 

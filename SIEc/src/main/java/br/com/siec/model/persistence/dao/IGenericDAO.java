@@ -2,7 +2,7 @@ package br.com.siec.model.persistence.dao;
 
 import java.util.List;
 
-public interface IGenericDao<T> {
+public interface IGenericDAO<T> {
 
     public boolean salve(T t);
 
@@ -15,4 +15,6 @@ public interface IGenericDao<T> {
     public boolean update(T t);
 
     public List<T> listAll();
+    
+    public T validate(T t);
 }

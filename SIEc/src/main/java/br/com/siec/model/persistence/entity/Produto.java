@@ -1,9 +1,12 @@
 package br.com.siec.model.persistence.entity;
 
 import br.com.siec.model.persistence.util.Categorias;
+import br.com.siec.model.persistence.util.TamanhoPizza;
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
-public interface Produto {
+public interface Produto extends Serializable {
 
     public long getId();
 
@@ -15,7 +18,7 @@ public interface Produto {
 
     public void addPreço(String chave, double preco);
 
-    public Map<String, Double> getPrecos();
+    public HashMap<String, Double> getPrecos();
 
     public Categorias getCategoria();
 
@@ -25,9 +28,9 @@ public interface Produto {
 
     public void setImagem(byte[] imagem);
 
-    public void addComponente(Componente componente);
+    public void addComponente(Produto componente);
 
-    public void removeComponente(Componente componente);
+    public void removeComponente(Produto componente);
 
-    public void getComponente(int i);
+    public Produto getComponente(int i);
 }

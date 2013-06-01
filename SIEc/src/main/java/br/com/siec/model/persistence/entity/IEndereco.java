@@ -2,9 +2,10 @@ package br.com.siec.model.persistence.entity;
 
 import br.com.siec.model.persistence.util.Estados;
 import br.com.siec.model.persistence.util.TipoEndereco;
+import java.io.Serializable;
 import java.util.List;
 
-public interface IEndereco {
+public interface IEndereco extends Serializable{
  
 	public void setId(long id);
 	public long getId();

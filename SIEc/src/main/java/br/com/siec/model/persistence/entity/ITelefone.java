@@ -1,19 +1,19 @@
 package br.com.siec.model.persistence.entity;
 
 import br.com.siec.model.persistence.util.TipoTelefone;
-import java.util.List;
+import java.io.Serializable;
 
-public interface ITelefone {
+public interface ITelefone extends Serializable{
  
 	public long getId();
 	public void setId(long id);
-	public long getNumero();
-	public void setNumero(long numero);
+	public String getNumero();
+	public void setNumero(String numero);
 	public String getDdd();
 	public void setDdd(String ddd);
 	public TipoTelefone getTipo();
 	public void setTipo(TipoTelefone tipo);
-	public List<IPessoa> getPessoas();
-	public void addPessoa(IPessoa pessoa);
+	public IPessoa getPessoa();
+	public void setPessoa(IPessoa pessoa);
 }
  

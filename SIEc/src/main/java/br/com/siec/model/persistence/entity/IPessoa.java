@@ -1,8 +1,9 @@
 package br.com.siec.model.persistence.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface IPessoa {
+public interface IPessoa extends Serializable{
 
     public long getId();
 
@@ -23,4 +24,8 @@ public interface IPessoa {
     public void addTelefone(ITelefone telefone);
 
     public List<ITelefone> getTelefones();
+
+    public void setUser(IUsuario user);
+
+    public IUsuario getUser();
 }
