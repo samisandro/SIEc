@@ -11,7 +11,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Any;
 import org.hibernate.annotations.AnyMetaDef;
 import org.hibernate.annotations.MetaValue;
-import org.hibernate.envers.Audited;
 
 @Entity
 @Table(name = "TB_ITEMPEDIDO_ITM")
@@ -26,6 +25,7 @@ public class ItemPedido implements Serializable {
         @MetaValue(targetEntity = Pedido.class, value = "PEDIDO")})
     @JoinColumn(name = "PDD_CODIGO")
     private IPedido pedido;
+    
     @Any(metaColumn =
             @Column(name = "TIPO_PRODUTO"))
     @AnyMetaDef(idType = "long", metaType = "string", metaValues = {

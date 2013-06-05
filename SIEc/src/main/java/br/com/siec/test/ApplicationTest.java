@@ -82,14 +82,14 @@ public class ApplicationTest {
 */
         AbstractFactory appFactory = ApplicationFactory.getInstance();
         AbstractFactory produtoFactory = appFactory.createObject(ClassType.ProdutoFactory);
+        AbstractFactory serviceFactory = appFactory.createObject(ClassType.ServiceFactory);
         
         Produto pizza = produtoFactory.createObject(ClassType.Componente);
         Produto mussarella = produtoFactory.createObject(ClassType.Componente);
         Produto presunto = produtoFactory.createObject(ClassType.Componente);
         Produto massa = produtoFactory.createObject(ClassType.Componente);        
         Produto refrigerante = produtoFactory.createObject(ClassType.Acompanhamento);
-        
-        
+                
         mussarella.setCategoria(Categorias.Ingredientes);
         mussarella.setNome("Mussarella");
         mussarella.addPreço(TamanhoPizza.Pequena.toString(), 1.99);
@@ -120,7 +120,13 @@ public class ApplicationTest {
         pizza.addComponente(presunto);
         pizza.addComponente(massa);
         
+        IService produtoService = serviceFactory.createObject(ClassType.ProdutoService);
         
+        if(produtoService.save(pizza)){
+            System.out.println("OK");
+        } else {
+            System.out.println("Not OK");
+        }
         
         
         

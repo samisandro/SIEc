@@ -50,7 +50,7 @@ public class Acompanhamento implements Produto, Serializable {
     private String nome;
     @Column(name = "ACP_PRECOS")
     @MapKey(name = "tamanho")
-    private HashMap<String, Double> precos;
+    private HashMap<String, Double> precos = new HashMap<String, Double>();
     @Column(name = "ACP_CATEGORIA")
     @Enumerated(EnumType.STRING)
     private Categorias categoria;
@@ -67,7 +67,7 @@ public class Acompanhamento implements Produto, Serializable {
      * @param categoria
      * @param imagem
      */
-    public Acompanhamento(String nome,
+    /*public Acompanhamento(String nome,
             HashMap<String, Double> precos,
             Categorias categoria,
             byte[] imagem) {
@@ -76,7 +76,7 @@ public class Acompanhamento implements Produto, Serializable {
         this.precos = precos;
         this.categoria = categoria;
         this.imagem = imagem;
-    }
+    }*/
 
     /**
      * @see

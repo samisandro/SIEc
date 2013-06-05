@@ -20,25 +20,27 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.MetaValue;
 import org.hibernate.envers.Audited;
+
 @Entity
-@Table(name="TB_ENDERECO_END", schema = "siec")
+@Table(name = "TB_ENDERECO_END", schema = "siec")
 public class Endereco implements IEndereco, Serializable {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="END_CODIGO")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "END_CODIGO")
     private long id;
-    @Column(name="END_LOGRADOURO")
+    @Column(name = "END_LOGRADOURO")
     private String logradouro;
-    @Column(name="END_NUMERO")
+    @Column(name = "END_NUMERO")
     private int numero;
-    @Column(name="END_COMPLEMENTO")
+    @Column(name = "END_COMPLEMENTO")
     private String complemento;
-    @Column(name="END_CEP")
+    @Column(name = "END_CEP")
     private String cep;
-    @Column(name="END_ESTADO")
+    @Column(name = "END_ESTADO")
     private Estados estado;
     @Enumerated(EnumType.STRING)
-    @Column(name="END_TIPO")
+    @Column(name = "END_TIPO")
     private TipoEndereco tipoEndereco;
     @ManyToAny(metaColumn =
             @Column(name = "TIPO_PESSOA"))

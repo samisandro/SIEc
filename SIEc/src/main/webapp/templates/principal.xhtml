@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Smart Pizzaria</title>
+        <style type="text/css">
+            body {background-color: #9E9E9E; font-size: 12px}
+        </style> 
+    </h:head>
+
+    <h:body>
+        <div align="center">
+            <p:layout style="min-width:1020px;max-width:1020px;min-height:1000px">
+                <p:layoutUnit position="north" size="120">
+                    <ui:insert name="topo">                        
+                            <p:graphicImage library="default"
+                                            name="images/topo2.png" 
+                                            alt="Logo Site" 
+                                            title="Logo Site"
+                                            style="border: none"/>
+                        
+                    </ui:insert>
+                </p:layoutUnit>
+                <p:layoutUnit position="west" 
+                              size="180"
+                              collapsible="true">
+                    <ui:insert name="menu">
+                        <p:menu>
+                            <p:menuitem value="Seja o Chef!" url="/compositionProduct.jsf" />
+                        </p:menu>
+                    </ui:insert>
+                </p:layoutUnit>
+                <p:layoutUnit position="center">                
+                    <ui:insert name="content">
+                        Content
+                    </ui:insert>                
+                </p:layoutUnit>
+                <p:layoutUnit position="south" size="25">
+                    <ui:insert name="bottom">
+                        Website Designs by Josimar Alves - Copyright © All Rights Reserved.
+                    </ui:insert>
+                </p:layoutUnit>
+            </p:layout>
+        </div>
+    </h:body>
+
+</html>

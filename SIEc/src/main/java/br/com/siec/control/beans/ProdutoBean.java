@@ -5,7 +5,7 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class CompositomBean {
+public class ProdutoBean {
  
 }
  

@@ -20,6 +20,7 @@ package br.com.siec.model.persistence.entity;
 
 import br.com.siec.model.persistence.util.Categorias;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -60,7 +61,7 @@ public class Componente implements Produto, Serializable {
     private String nome;
     @Column(name = "CPT_PRECOS")
     @MapKey(name = "tamanho")
-    private HashMap<String, Double> precos;
+    private HashMap<String, Double> precos = new HashMap<String, Double>();
     @Column(name = "CPT_CATEGORIA")
     @Enumerated(EnumType.STRING)
     private Categorias categoria;
@@ -78,7 +79,7 @@ public class Componente implements Produto, Serializable {
             @JoinColumn(name = "CPT_CODIGO"),
             inverseJoinColumns =
             @JoinColumn(name = "ACP_CODIGO"))
-    private List<Produto> produtos;
+    private List<Produto> produtos = new ArrayList<Produto>();
 
     public Componente() {
     }
@@ -89,16 +90,16 @@ public class Componente implements Produto, Serializable {
      * @param categoria
      * @param imagem
      */
-    public Componente(String nome,
+    /*public Componente(String nome,
             HashMap<String, Double> precos,
             Categorias categoria,
             byte[] imagem) {
 
         this.nome = nome;
-        this.precos = precos;
+        this.precos = new HashMap<String, Double>();
         this.categoria = categoria;
         this.imagem = imagem;
-    }
+    }*/
 
     /**
      * @see

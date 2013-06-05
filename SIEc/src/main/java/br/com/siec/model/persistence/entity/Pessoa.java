@@ -82,6 +82,7 @@ public abstract class Pessoa implements IPessoa, Serializable {
             inverseJoinColumns =
             @JoinColumn(name = "TLF_CODIGO"))
     private List<ITelefone> telefones;
+    
     @Any(metaColumn =
             @Column(name = "TIPO_USUARIO"))
     @AnyMetaDef(idType = "long", metaType = "string", metaValues = {

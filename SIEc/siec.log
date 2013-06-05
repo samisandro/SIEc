@@ -1543,3 +1543,584 @@ java.lang.NullPointerException
 (TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
 (SchemaUpdate.java:240) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
 (EntityManagerFactoryImpl.java:155) INFO main org.hibernate.ejb.EntityManagerFactoryImpl - Encountered deprecated setting [hibernate.ejb.metamodel.generation], use [hibernate.ejb.metamodel.population] instead
+(Version.java:37) INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+(Version.java:41) INFO main org.hibernate.Version - HHH000412: Hibernate Core {4.2.0.Final}
+(Environment.java:239) INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+(Environment.java:342) INFO main org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+(ConnectionProviderInitiator.java:188) INFO main org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider
+(C3P0ConnectionProvider.java:128) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH010002: C3P0 using driver: com.mysql.jdbc.Driver at URL: jdbc:mysql://localhost:3306/siec
+(C3P0ConnectionProvider.java:129) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000046: Connection properties: {user=siecAdmin, password=****, autocommit=true, release_mode=auto}
+(C3P0ConnectionProvider.java:132) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000006: Autocommit mode: true
+(MLog.java:80) INFO main com.mchange.v2.log.MLog - MLog clients using log4j logging.
+(C3P0Registry.java:204) INFO main com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.1 [built 16-January-2007 14:46:42; debug? true; trace: 10]
+(AbstractPoolBackedDataSource.java:462) INFO main com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@a4204d22 [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@9ccb9704 [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> z8kfsx8v4u8nw1pth429|67384ff1, idleConnectionTestPeriod -> 3000, initialPoolSize -> 3, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@41d2264e [ description -> null, driverClass -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v4u8nw1pth429|3515025f, jdbcUrl -> jdbc:mysql://localhost:3306/siec, properties -> {user=******, password=******, autocommit=true, release_mode=auto} ], preferredTestQuery -> null, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v4u8nw1pth429|7052732e, numHelperThreads -> 3 ]
+(Dialect.java:128) INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+(LobCreatorBuilder.java:120) INFO main org.hibernate.engine.jdbc.internal.LobCreatorBuilder - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+(TransactionFactoryInitiator.java:73) INFO main org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+(ASTQueryTranslatorFactory.java:48) INFO main org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+(SchemaUpdate.java:182) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+(SchemaUpdate.java:193) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+(SchemaUpdate.java:205) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_PEDIDO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, tipo_pedido, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkf7389f5df0553a7f]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkf7389f5df0553a7f]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ITEMPEDIDO_ITM
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, tipo_pedido, tipo_produto, pdd_codigo, itm_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_ITENS_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [itm_codigo, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_ENDERECO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_endereco, tipo_pessoa, end_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_PSS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_codigo, pss_email, pss_nome, pss_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_TELEFONE_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_telefone, tlf_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fke0d1e5d3248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fke0d1e5d3248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PRODUTO_ACOMPANHAMENTO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_codigo, cpt_codigo, tipo_produto]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3e748374cc32dbe1]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3e748374cc32dbe1]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ACOMPANHAMENTO_ACP
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_categoria, acp_codigo, acp_precos, acp_nome, acp_imagem]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_CLT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, usr_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_COMPONENTE_CPT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, cpt_imagem, cpt_precos, cpt_nome, cpt_categoria]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ENDERECO_END
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [end_codigo, end_estado, end_tipo, end_complemento, end_cep, end_numero, end_logradouro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_PDD
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, pdd_datacompra, pdd_total, tipo_cliente, pdd_status, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAFISICA_PSF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [datanascimento, sexo, psf_cpf, psf_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkd8e3b773de1e93e4]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary, fkd8e3b773de1e93e4]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAJURIDICA_PSJ
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [psj_cnpj, psj_codigo, psj_razaosocial, psj_inscricao]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3286c5657da34760]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3286c5657da34760, primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_TELEFONE_TLF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_pessoa, tlf_codigo, tlf_numero, pss_codigo, tlf_tipo, tlf_ddd]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_USUARIO_USR
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_senha, clt_codigo, usr_codigo, tipo_pessoa, usr_lembrete, usr_ativo, tipo, usr_login, tipo_cliente, pss_codigo, usr_datacadastro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(SchemaUpdate.java:240) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
+(Version.java:37) INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+(Version.java:41) INFO main org.hibernate.Version - HHH000412: Hibernate Core {4.2.0.Final}
+(Environment.java:239) INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+(Environment.java:342) INFO main org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+(ConnectionProviderInitiator.java:188) INFO main org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider
+(C3P0ConnectionProvider.java:128) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH010002: C3P0 using driver: com.mysql.jdbc.Driver at URL: jdbc:mysql://localhost:3306/siec
+(C3P0ConnectionProvider.java:129) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000046: Connection properties: {user=siecAdmin, password=****, autocommit=true, release_mode=auto}
+(C3P0ConnectionProvider.java:132) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000006: Autocommit mode: true
+(MLog.java:80) INFO main com.mchange.v2.log.MLog - MLog clients using log4j logging.
+(C3P0Registry.java:204) INFO main com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.1 [built 16-January-2007 14:46:42; debug? true; trace: 10]
+(AbstractPoolBackedDataSource.java:462) INFO main com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@d33d1180 [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@d9cd46ae [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> z8kfsx8v4w35i1yb4sb5|22088c28, idleConnectionTestPeriod -> 3000, initialPoolSize -> 3, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@2fa2770c [ description -> null, driverClass -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v4w35i1yb4sb5|2db6394c, jdbcUrl -> jdbc:mysql://localhost:3306/siec, properties -> {user=******, password=******, autocommit=true, release_mode=auto} ], preferredTestQuery -> null, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v4w35i1yb4sb5|35080a9e, numHelperThreads -> 3 ]
+(Dialect.java:128) INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+(LobCreatorBuilder.java:120) INFO main org.hibernate.engine.jdbc.internal.LobCreatorBuilder - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+(TransactionFactoryInitiator.java:73) INFO main org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+(ASTQueryTranslatorFactory.java:48) INFO main org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+(SchemaUpdate.java:182) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+(SchemaUpdate.java:193) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+(SchemaUpdate.java:205) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_PEDIDO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, tipo_pedido, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkf7389f5df0553a7f]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkf7389f5df0553a7f]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ITEMPEDIDO_ITM
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, tipo_pedido, tipo_produto, pdd_codigo, itm_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_ITENS_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [itm_codigo, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_ENDERECO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_endereco, tipo_pessoa, end_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_PSS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_codigo, pss_email, pss_nome, pss_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_TELEFONE_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_telefone, tlf_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fke0d1e5d3248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fke0d1e5d3248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PRODUTO_ACOMPANHAMENTO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_codigo, cpt_codigo, tipo_produto]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3e748374cc32dbe1]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3e748374cc32dbe1]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ACOMPANHAMENTO_ACP
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_categoria, acp_codigo, acp_precos, acp_nome, acp_imagem]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_CLT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, usr_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_COMPONENTE_CPT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, cpt_imagem, cpt_precos, cpt_nome, cpt_categoria]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ENDERECO_END
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [end_codigo, end_estado, end_tipo, end_complemento, end_cep, end_numero, end_logradouro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_PDD
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, pdd_datacompra, pdd_total, tipo_cliente, pdd_status, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAFISICA_PSF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [datanascimento, sexo, psf_cpf, psf_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkd8e3b773de1e93e4]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary, fkd8e3b773de1e93e4]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAJURIDICA_PSJ
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [psj_cnpj, psj_codigo, psj_razaosocial, psj_inscricao]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3286c5657da34760]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3286c5657da34760, primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_TELEFONE_TLF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_pessoa, tlf_codigo, tlf_numero, pss_codigo, tlf_tipo, tlf_ddd]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_USUARIO_USR
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_senha, clt_codigo, usr_codigo, tipo_pessoa, usr_lembrete, usr_ativo, tipo, usr_login, tipo_cliente, pss_codigo, usr_datacadastro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(SchemaUpdate.java:240) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
+(Version.java:37) INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+(Version.java:41) INFO main org.hibernate.Version - HHH000412: Hibernate Core {4.2.0.Final}
+(Environment.java:239) INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+(Environment.java:342) INFO main org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+(ConnectionProviderInitiator.java:188) INFO main org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider
+(C3P0ConnectionProvider.java:128) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH010002: C3P0 using driver: com.mysql.jdbc.Driver at URL: jdbc:mysql://localhost:3306/siec
+(C3P0ConnectionProvider.java:129) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000046: Connection properties: {user=siecAdmin, password=****, autocommit=true, release_mode=auto}
+(C3P0ConnectionProvider.java:132) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000006: Autocommit mode: true
+(MLog.java:80) INFO main com.mchange.v2.log.MLog - MLog clients using log4j logging.
+(C3P0Registry.java:204) INFO main com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.1 [built 16-January-2007 14:46:42; debug? true; trace: 10]
+(AbstractPoolBackedDataSource.java:462) INFO main com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@d6f73b07 [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@b621217c [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> z8kfsx8v5u3sn11tadt0|20cb6d74, idleConnectionTestPeriod -> 3000, initialPoolSize -> 3, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@7418de69 [ description -> null, driverClass -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v5u3sn11tadt0|36dce5c, jdbcUrl -> jdbc:mysql://localhost:3306/siec, properties -> {user=******, password=******, autocommit=true, release_mode=auto} ], preferredTestQuery -> null, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v5u3sn11tadt0|5e80188f, numHelperThreads -> 3 ]
+(Dialect.java:128) INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+(LobCreatorBuilder.java:120) INFO main org.hibernate.engine.jdbc.internal.LobCreatorBuilder - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+(TransactionFactoryInitiator.java:73) INFO main org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+(ASTQueryTranslatorFactory.java:48) INFO main org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+(SchemaUpdate.java:182) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+(SchemaUpdate.java:193) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+(SchemaUpdate.java:205) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_PEDIDO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, tipo_pedido, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkf7389f5df0553a7f]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkf7389f5df0553a7f]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ITEMPEDIDO_ITM
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, tipo_pedido, tipo_produto, pdd_codigo, itm_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_ITENS_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [itm_codigo, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_ENDERECO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_endereco, tipo_pessoa, end_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_PSS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_codigo, pss_email, pss_nome, pss_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_TELEFONE_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_telefone, tlf_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fke0d1e5d3248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fke0d1e5d3248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PRODUTO_ACOMPANHAMENTO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_codigo, cpt_codigo, tipo_produto]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3e748374cc32dbe1]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3e748374cc32dbe1]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ACOMPANHAMENTO_ACP
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_categoria, acp_codigo, acp_precos, acp_nome, acp_imagem]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_CLT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, usr_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_COMPONENTE_CPT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, cpt_imagem, cpt_precos, cpt_nome, cpt_categoria]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ENDERECO_END
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [end_codigo, end_estado, end_tipo, end_complemento, end_cep, end_numero, end_logradouro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_PDD
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, pdd_datacompra, pdd_total, tipo_cliente, pdd_status, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAFISICA_PSF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [datanascimento, sexo, psf_cpf, psf_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkd8e3b773de1e93e4]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary, fkd8e3b773de1e93e4]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAJURIDICA_PSJ
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [psj_cnpj, psj_codigo, psj_razaosocial, psj_inscricao]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3286c5657da34760]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3286c5657da34760, primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_TELEFONE_TLF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_pessoa, tlf_codigo, tlf_numero, pss_codigo, tlf_tipo, tlf_ddd]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_USUARIO_USR
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_senha, clt_codigo, usr_codigo, tipo_pessoa, usr_lembrete, usr_ativo, tipo, usr_login, tipo_cliente, pss_codigo, usr_datacadastro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(SchemaUpdate.java:240) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
+(Version.java:37) INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+(Version.java:41) INFO main org.hibernate.Version - HHH000412: Hibernate Core {4.2.0.Final}
+(Environment.java:239) INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+(Environment.java:342) INFO main org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+(ConnectionProviderInitiator.java:188) INFO main org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider
+(C3P0ConnectionProvider.java:128) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH010002: C3P0 using driver: com.mysql.jdbc.Driver at URL: jdbc:mysql://localhost:3306/siec
+(C3P0ConnectionProvider.java:129) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000046: Connection properties: {user=siecAdmin, password=****, autocommit=true, release_mode=auto}
+(C3P0ConnectionProvider.java:132) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000006: Autocommit mode: true
+(MLog.java:80) INFO main com.mchange.v2.log.MLog - MLog clients using log4j logging.
+(C3P0Registry.java:204) INFO main com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.1 [built 16-January-2007 14:46:42; debug? true; trace: 10]
+(AbstractPoolBackedDataSource.java:462) INFO main com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@137d77fe [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@45f2528b [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> z8kfsx8v5v4fl3nqlqs|b7eeb7e, idleConnectionTestPeriod -> 3000, initialPoolSize -> 3, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@3617a6af [ description -> null, driverClass -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v5v4fl3nqlqs|1e06fbc6, jdbcUrl -> jdbc:mysql://localhost:3306/siec, properties -> {user=******, password=******, autocommit=true, release_mode=auto} ], preferredTestQuery -> null, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v5v4fl3nqlqs|2bcc84c1, numHelperThreads -> 3 ]
+(Dialect.java:128) INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+(LobCreatorBuilder.java:120) INFO main org.hibernate.engine.jdbc.internal.LobCreatorBuilder - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+(TransactionFactoryInitiator.java:73) INFO main org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+(ASTQueryTranslatorFactory.java:48) INFO main org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+(SchemaUpdate.java:182) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+(SchemaUpdate.java:193) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+(SchemaUpdate.java:205) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_PEDIDO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, tipo_pedido, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkf7389f5df0553a7f]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkf7389f5df0553a7f]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ITEMPEDIDO_ITM
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, tipo_pedido, tipo_produto, pdd_codigo, itm_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_ITENS_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [itm_codigo, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_ENDERECO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_endereco, tipo_pessoa, end_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_PSS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_codigo, pss_email, pss_nome, pss_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_TELEFONE_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_telefone, tlf_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fke0d1e5d3248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fke0d1e5d3248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PRODUTO_ACOMPANHAMENTO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_codigo, cpt_codigo, tipo_produto]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3e748374cc32dbe1]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3e748374cc32dbe1]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ACOMPANHAMENTO_ACP
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_categoria, acp_codigo, acp_precos, acp_nome, acp_imagem]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_CLT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, usr_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_COMPONENTE_CPT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, cpt_imagem, cpt_precos, cpt_nome, cpt_categoria]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ENDERECO_END
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [end_codigo, end_estado, end_tipo, end_complemento, end_cep, end_numero, end_logradouro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_PDD
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, pdd_datacompra, pdd_total, tipo_cliente, pdd_status, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAFISICA_PSF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [datanascimento, sexo, psf_cpf, psf_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkd8e3b773de1e93e4]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary, fkd8e3b773de1e93e4]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAJURIDICA_PSJ
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [psj_cnpj, psj_codigo, psj_razaosocial, psj_inscricao]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3286c5657da34760]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3286c5657da34760, primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_TELEFONE_TLF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_pessoa, tlf_codigo, tlf_numero, pss_codigo, tlf_tipo, tlf_ddd]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_USUARIO_USR
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_senha, clt_codigo, usr_codigo, tipo_pessoa, usr_lembrete, usr_ativo, tipo, usr_login, tipo_cliente, pss_codigo, usr_datacadastro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(SchemaUpdate.java:240) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
+(Version.java:37) INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+(Version.java:41) INFO main org.hibernate.Version - HHH000412: Hibernate Core {4.2.0.Final}
+(Environment.java:239) INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+(Environment.java:342) INFO main org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+(ConnectionProviderInitiator.java:188) INFO main org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider
+(C3P0ConnectionProvider.java:128) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH010002: C3P0 using driver: com.mysql.jdbc.Driver at URL: jdbc:mysql://localhost:3306/siec
+(C3P0ConnectionProvider.java:129) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000046: Connection properties: {user=siecAdmin, password=****, autocommit=true, release_mode=auto}
+(C3P0ConnectionProvider.java:132) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000006: Autocommit mode: true
+(MLog.java:80) INFO main com.mchange.v2.log.MLog - MLog clients using log4j logging.
+(C3P0Registry.java:204) INFO main com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.1 [built 16-January-2007 14:46:42; debug? true; trace: 10]
+(AbstractPoolBackedDataSource.java:462) INFO main com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@4d03bd2 [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@980dc437 [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> z8kfsx8v5vudq1ev52b1|b7eeb7e, idleConnectionTestPeriod -> 3000, initialPoolSize -> 3, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@50167301 [ description -> null, driverClass -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v5vudq1ev52b1|36dce5c, jdbcUrl -> jdbc:mysql://localhost:3306/siec, properties -> {user=******, password=******, autocommit=true, release_mode=auto} ], preferredTestQuery -> null, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v5vudq1ev52b1|2bcc84c1, numHelperThreads -> 3 ]
+(Dialect.java:128) INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+(LobCreatorBuilder.java:120) INFO main org.hibernate.engine.jdbc.internal.LobCreatorBuilder - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+(TransactionFactoryInitiator.java:73) INFO main org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+(ASTQueryTranslatorFactory.java:48) INFO main org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+(SchemaUpdate.java:182) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+(SchemaUpdate.java:193) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+(SchemaUpdate.java:205) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_PEDIDO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, tipo_pedido, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkf7389f5df0553a7f]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkf7389f5df0553a7f]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ITEMPEDIDO_ITM
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, tipo_pedido, tipo_produto, pdd_codigo, itm_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_ITENS_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [itm_codigo, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_ENDERECO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_endereco, tipo_pessoa, end_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_PSS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_codigo, pss_email, pss_nome, pss_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_TELEFONE_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_telefone, tlf_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fke0d1e5d3248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fke0d1e5d3248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PRODUTO_ACOMPANHAMENTO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_codigo, cpt_codigo, tipo_produto]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3e748374cc32dbe1]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3e748374cc32dbe1]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ACOMPANHAMENTO_ACP
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_categoria, acp_codigo, acp_precos, acp_nome, acp_imagem]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_CLT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, usr_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_COMPONENTE_CPT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, cpt_imagem, cpt_precos, cpt_nome, cpt_categoria]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ENDERECO_END
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [end_codigo, end_estado, end_tipo, end_complemento, end_cep, end_numero, end_logradouro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_PDD
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, pdd_datacompra, pdd_total, tipo_cliente, pdd_status, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAFISICA_PSF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [datanascimento, sexo, psf_cpf, psf_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkd8e3b773de1e93e4]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary, fkd8e3b773de1e93e4]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAJURIDICA_PSJ
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [psj_cnpj, psj_codigo, psj_razaosocial, psj_inscricao]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3286c5657da34760]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3286c5657da34760, primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_TELEFONE_TLF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_pessoa, tlf_codigo, tlf_numero, pss_codigo, tlf_tipo, tlf_ddd]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_USUARIO_USR
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_senha, clt_codigo, usr_codigo, tipo_pessoa, usr_lembrete, usr_ativo, tipo, usr_login, tipo_cliente, pss_codigo, usr_datacadastro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(SchemaUpdate.java:240) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
+(Version.java:37) INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+(Version.java:41) INFO main org.hibernate.Version - HHH000412: Hibernate Core {4.2.0.Final}
+(Environment.java:239) INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+(Environment.java:342) INFO main org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+(ConnectionProviderInitiator.java:188) INFO main org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider
+(C3P0ConnectionProvider.java:128) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH010002: C3P0 using driver: com.mysql.jdbc.Driver at URL: jdbc:mysql://localhost:3306/siec
+(C3P0ConnectionProvider.java:129) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000046: Connection properties: {user=siecAdmin, password=****, autocommit=true, release_mode=auto}
+(C3P0ConnectionProvider.java:132) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000006: Autocommit mode: true
+(MLog.java:80) INFO main com.mchange.v2.log.MLog - MLog clients using log4j logging.
+(C3P0Registry.java:204) INFO main com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.1 [built 16-January-2007 14:46:42; debug? true; trace: 10]
+(AbstractPoolBackedDataSource.java:462) INFO main com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@8b8ac10a [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@53077ce6 [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> z8kfsx8v5wq261i2laxm|50ad588a, idleConnectionTestPeriod -> 3000, initialPoolSize -> 3, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@6ecbf997 [ description -> null, driverClass -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v5wq261i2laxm|3515025f, jdbcUrl -> jdbc:mysql://localhost:3306/siec, properties -> {user=******, password=******, autocommit=true, release_mode=auto} ], preferredTestQuery -> null, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v5wq261i2laxm|20b59262, numHelperThreads -> 3 ]
+(Dialect.java:128) INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+(LobCreatorBuilder.java:120) INFO main org.hibernate.engine.jdbc.internal.LobCreatorBuilder - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+(TransactionFactoryInitiator.java:73) INFO main org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+(ASTQueryTranslatorFactory.java:48) INFO main org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+(SchemaUpdate.java:182) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+(SchemaUpdate.java:193) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+(SchemaUpdate.java:205) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_PEDIDO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, tipo_pedido, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkf7389f5df0553a7f]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkf7389f5df0553a7f]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ITEMPEDIDO_ITM
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, tipo_pedido, tipo_produto, pdd_codigo, itm_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_ITENS_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [itm_codigo, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_ENDERECO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_endereco, tipo_pessoa, end_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_PSS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_codigo, pss_email, pss_nome, pss_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_TELEFONE_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_telefone, tlf_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fke0d1e5d3248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fke0d1e5d3248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PRODUTO_ACOMPANHAMENTO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_codigo, cpt_codigo, tipo_produto]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3e748374cc32dbe1]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3e748374cc32dbe1]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ACOMPANHAMENTO_ACP
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_categoria, acp_codigo, acp_precos, acp_nome, acp_imagem]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_CLT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, usr_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_COMPONENTE_CPT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, cpt_imagem, cpt_precos, cpt_nome, cpt_categoria]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ENDERECO_END
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [end_codigo, end_estado, end_tipo, end_complemento, end_cep, end_numero, end_logradouro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_PDD
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, pdd_datacompra, pdd_total, tipo_cliente, pdd_status, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAFISICA_PSF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [datanascimento, sexo, psf_cpf, psf_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkd8e3b773de1e93e4]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary, fkd8e3b773de1e93e4]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAJURIDICA_PSJ
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [psj_cnpj, psj_codigo, psj_razaosocial, psj_inscricao]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3286c5657da34760]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3286c5657da34760, primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_TELEFONE_TLF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_pessoa, tlf_codigo, tlf_numero, pss_codigo, tlf_tipo, tlf_ddd]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_USUARIO_USR
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_senha, clt_codigo, usr_codigo, tipo_pessoa, usr_lembrete, usr_ativo, tipo, usr_login, tipo_cliente, pss_codigo, usr_datacadastro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(SchemaUpdate.java:240) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete
+(Version.java:37) INFO main org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+(Version.java:41) INFO main org.hibernate.Version - HHH000412: Hibernate Core {4.2.0.Final}
+(Environment.java:239) INFO main org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+(Environment.java:342) INFO main org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+(ConnectionProviderInitiator.java:188) INFO main org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator - HHH000130: Instantiating explicit connection provider: org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider
+(C3P0ConnectionProvider.java:128) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH010002: C3P0 using driver: com.mysql.jdbc.Driver at URL: jdbc:mysql://localhost:3306/siec
+(C3P0ConnectionProvider.java:129) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000046: Connection properties: {user=siecAdmin, password=****, autocommit=true, release_mode=auto}
+(C3P0ConnectionProvider.java:132) INFO main org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider - HHH000006: Autocommit mode: true
+(MLog.java:80) INFO main com.mchange.v2.log.MLog - MLog clients using log4j logging.
+(C3P0Registry.java:204) INFO main com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.1 [built 16-January-2007 14:46:42; debug? true; trace: 10]
+(AbstractPoolBackedDataSource.java:462) INFO main com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@70245959 [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@a5748b68 [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> z8kfsx8v607jlfkbzaf|248ff567, idleConnectionTestPeriod -> 3000, initialPoolSize -> 3, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@176a268f [ description -> null, driverClass -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v607jlfkbzaf|3515025f, jdbcUrl -> jdbc:mysql://localhost:3306/siec, properties -> {user=******, password=******, autocommit=true, release_mode=auto} ], preferredTestQuery -> null, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, factoryClassLocation -> null, identityToken -> z8kfsx8v607jlfkbzaf|709d70b4, numHelperThreads -> 3 ]
+(Dialect.java:128) INFO main org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+(LobCreatorBuilder.java:120) INFO main org.hibernate.engine.jdbc.internal.LobCreatorBuilder - HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+(TransactionFactoryInitiator.java:73) INFO main org.hibernate.engine.transaction.internal.TransactionFactoryInitiator - HHH000268: Transaction strategy: org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+(ASTQueryTranslatorFactory.java:48) INFO main org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+(SchemaUpdate.java:182) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000228: Running hbm2ddl schema update
+(SchemaUpdate.java:193) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000102: Fetching database metadata
+(SchemaUpdate.java:205) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000396: Updating schema
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_PEDIDO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, tipo_pedido, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkf7389f5df0553a7f]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkf7389f5df0553a7f]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ITEMPEDIDO_ITM
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, tipo_pedido, tipo_produto, pdd_codigo, itm_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_ITENS_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [itm_codigo, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk9edd5b188bc225b6, fk9edd5b185e52c0b5]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_ENDERECO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_endereco, tipo_pessoa, end_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fkc27f5b32af3800ee, fkc27f5b32248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_PSS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_codigo, pss_email, pss_nome, pss_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOA_TELEFONE_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_telefone, tlf_codigo, pss_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fke0d1e5d3248ddb37]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fke0d1e5d3248ddb37]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PRODUTO_ACOMPANHAMENTO_ASS
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_codigo, cpt_codigo, tipo_produto]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3e748374cc32dbe1]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3e748374cc32dbe1]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ACOMPANHAMENTO_ACP
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [acp_categoria, acp_codigo, acp_precos, acp_nome, acp_imagem]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_CLIENTE_CLT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, usr_codigo, tipo_usuario]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_COMPONENTE_CPT
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [cpt_codigo, cpt_imagem, cpt_precos, cpt_nome, cpt_categoria]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_ENDERECO_END
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [end_codigo, end_estado, end_tipo, end_complemento, end_cep, end_numero, end_logradouro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PEDIDO_PDD
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [clt_codigo, pdd_datacompra, pdd_total, tipo_cliente, pdd_status, pdd_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAFISICA_PSF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [datanascimento, sexo, psf_cpf, psf_codigo]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fkd8e3b773de1e93e4]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary, fkd8e3b773de1e93e4]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_PESSOAJURIDICA_PSJ
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [psj_cnpj, psj_codigo, psj_razaosocial, psj_inscricao]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: [fk3286c5657da34760]
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [fk3286c5657da34760, primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_TELEFONE_TLF
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [tipo_pessoa, tlf_codigo, tlf_numero, pss_codigo, tlf_tipo, tlf_ddd]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(TableMetadata.java:65) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000261: Table found: siec.TB_USUARIO_USR
+(TableMetadata.java:66) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000037: Columns: [usr_senha, clt_codigo, usr_codigo, tipo_pessoa, usr_lembrete, usr_ativo, tipo, usr_login, tipo_cliente, pss_codigo, usr_datacadastro]
+(TableMetadata.java:68) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000108: Foreign keys: []
+(TableMetadata.java:69) INFO main org.hibernate.tool.hbm2ddl.TableMetadata - HHH000126: Indexes: [primary]
+(SchemaUpdate.java:240) INFO main org.hibernate.tool.hbm2ddl.SchemaUpdate - HHH000232: Schema update complete

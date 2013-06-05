@@ -7,8 +7,20 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
               http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
-    <!-- Integração Spring e JSF -->
+    
+    
     <application>
-        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+        <!-- i18n/L19n -->        
+        <resource-bundle>
+            <base-name>br.com.siec.properties.Messages</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <locale-config>
+            <default-locale>pt</default-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>        
+        <!-- Integração Spring e JSF -->
+        <!--  <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver> -->
     </application>
+    
 </faces-config>

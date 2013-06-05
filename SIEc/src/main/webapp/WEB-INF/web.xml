@@ -5,6 +5,7 @@
          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <display-name>SIEc</display-name>
     <!-- Configuracao do Spring -->
+    <!--
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/Spring/applicationContext.xml</param-value>
@@ -22,7 +23,7 @@
         <url-pattern>/*</url-pattern>
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
+    </filter-mapping>-->
     <!-- Configuracao DO JSF --> 
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
@@ -35,6 +36,10 @@
     <context-param>
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
         <param-value>client</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
     </context-param>
     <!-- Theme of Primefaces - South Street -->
     <context-param>
