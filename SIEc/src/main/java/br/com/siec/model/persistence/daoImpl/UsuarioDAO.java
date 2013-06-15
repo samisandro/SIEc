@@ -20,6 +20,7 @@ package br.com.siec.model.persistence.daoImpl;
 
 import br.com.siec.model.persistence.dao.IUsuarioDAO;
 import br.com.siec.model.persistence.entity.IUsuario;
+import br.com.siec.model.persistence.entity.Usuario;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ import java.util.List;
  * @version 1.00 21 May 2013
  * @author Josimar Alves
  */
-public class UsuarioDAO extends GenericDAOImpl<IUsuario> implements IUsuarioDAO {
+public class UsuarioDAO extends GenericDAOImpl<Usuario> implements IUsuarioDAO {
 
     @Override
     public boolean authenticate(IUsuario user) {

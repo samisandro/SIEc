@@ -4,12 +4,12 @@
  */
 package br.com.siec.model.persistence.dao;
 
-import br.com.siec.model.persistence.entity.Cliente;
+import br.com.siec.model.persistence.entity.Componente;
 
 /**
  *
  * @author josimar
  */
-public interface IClienteDAO extends IGenericDAO<Cliente> {
+public interface IComponenteDAO extends IGenericDAO<Componente> {
     
 }

@@ -19,7 +19,7 @@
 package br.com.siec.model.persistence.daoImpl;
 
 import br.com.siec.model.persistence.dao.IPessoaDAO;
-import br.com.siec.model.persistence.entity.IPessoa;
+import br.com.siec.model.persistence.entity.Pessoa;
 
 /**
  * PessoaDAO
@@ -27,6 +27,6 @@ import br.com.siec.model.persistence.entity.IPessoa;
  * @version 1.00 24 May 2013
  * @author  Josimar Alves
  */
-public class PessoaDAO extends GenericDAOImpl<IPessoa> implements IPessoaDAO{
+public class PessoaDAO extends GenericDAOImpl<Pessoa> implements IPessoaDAO{
     
 }

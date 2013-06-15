@@ -3,13 +3,20 @@ package br.com.siec.util.factory.entity;
 import br.com.siec.util.factory.AbstractFactory;
 import br.com.siec.util.factory.ClassType;
 import br.com.siec.util.factory.Factory;
+import br.com.siec.util.factory.qualifiers.PessoaFactoryQualifier;
 import java.util.List;
 
+/**
+ *
+ * @author josimar
+ */
+@PessoaFactoryQualifier
 public class PessoaFactory extends Factory implements AbstractFactory {
 
     private static PessoaFactory pessoaFactory;
-
-    private PessoaFactory() {
+    
+    public PessoaFactory(){
+        
     }
 
     public static AbstractFactory getInstance() {

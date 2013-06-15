@@ -4,9 +4,6 @@
  */
 package br.com.siec.util.factory;
 
-import br.com.siec.model.persistence.daoImpl.PessoaDAO;
-import br.com.siec.model.persistence.daoImpl.ProdutoDAO;
-import br.com.siec.model.persistence.daoImpl.UsuarioDAO;
 import br.com.siec.model.persistence.entity.Acompanhamento;
 import br.com.siec.model.persistence.entity.Cliente;
 import br.com.siec.model.persistence.entity.Componente;
@@ -88,9 +85,9 @@ public abstract class Factory implements AbstractFactory {
         classLibrary.put(ClassType.UserFactory, UserFactory.getInstance());
         classLibrary.put(ClassType.DAOFactory, DAOFactory.getInstance());
         classLibrary.put(ClassType.ServiceFactory, ServiceFactory.getInstance());
-        classLibrary.put(ClassType.PessoaService, new PessoaService(new PessoaDAO()));
-        classLibrary.put(ClassType.ProdutoService, new ProdutoService(new ProdutoDAO()));
-        classLibrary.put(ClassType.UsuarioService, new UsuarioService(new UsuarioDAO()));
+        classLibrary.put(ClassType.PessoaService, new PessoaService());
+        classLibrary.put(ClassType.ProdutoService, new ProdutoService());
+        classLibrary.put(ClassType.UsuarioService, new UsuarioService());
 
     }
 }

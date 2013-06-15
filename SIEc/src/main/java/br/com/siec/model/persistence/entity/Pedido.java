@@ -7,24 +7,28 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.hibernate.annotations.Any;
-import org.hibernate.annotations.AnyMetaDef;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.ManyToAny;
-import org.hibernate.annotations.MetaValue;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 @Entity
 @Table(name="TB_PEDIDO_PDD", schema="siec")
+@Audited
+@AuditTable(value="TB_PEDIDO_AUDIT")
 public class Pedido implements IPedido {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,21 +42,16 @@ public class Pedido implements IPedido {
     @Temporal(TemporalType.DATE)
     @Column(name="PDD_DATACOMPRA")
     private Date dataCompra;
-    @Any(metaColumn =
-            @Column(name = "TIPO_CLIENTE"))
-    @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-        @MetaValue(targetEntity = Cliente.class, value = "CLIENTE")})
-    @JoinColumn(name = "CLT_CODIGO")
-    private ICliente iCliente;
-    @ManyToAny(metaColumn =
-            @Column(name = "TIPO_ITEM"))
-    @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-        @MetaValue(targetEntity = Pf.class, value = "ITEM")})
-    @Cascade({CascadeType.SAVE_UPDATE})
-    @JoinTable(name = "TB_PEDIDO_ITENS_ASS", joinColumns =
-            @JoinColumn(name = "PDD_CODIGO"),
-            inverseJoinColumns =
-            @JoinColumn(name = "ITM_CODIGO"))
+    
+    @ManyToOne(targetEntity = Cliente.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "CLT_CODIGO", nullable = false, insertable = true, updatable = true)
+    @Fetch(FetchMode.JOIN)
+    @Cascade(CascadeType.SAVE_UPDATE)
+    private ICliente cliente;
+    
+    @NotAudited
+    @OneToMany(targetEntity=ItemPedido.class, mappedBy="pedido", fetch = FetchType.EAGER)
+    @Cascade(CascadeType.ALL)
     private List<ItemPedido> itens;
 
     @Override
@@ -97,12 +96,12 @@ public class Pedido implements IPedido {
 
     @Override
     public ICliente getICliente() {
-        return this.iCliente;
+        return this.cliente;
     }
 
     @Override
     public void setICliente(ICliente iCliente) {
-        this.iCliente = iCliente;
+        this.cliente = iCliente;
     }
 
     public List<ItemPedido> getItens() {

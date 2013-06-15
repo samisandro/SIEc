@@ -18,36 +18,47 @@
  */
 package br.com.siec.model.persistence.dao;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Disposes;
+import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- * JPAUtil: Efetua a criação do EntityManager 
- * para a utilização das classes Data Acess Object - DAO.
+ * JPAUtil: Efetua a criação do EntityManager para a utilização das classes Data
+ * Acess Object - DAO.
  *
  * @version 1.00 21 May 2013
- * @author  Josimar Alves
+ * @author Josimar Alves
  */
 public class JPAUtil {
 
     /**
-     * EntityManagerFactory compartilhado por toda a aplicação,
-     * para melhor desempenho.
+     * <p> Metodo usado através de Injeção de Dependências </p>
+     * @return EntityManagerFactory
      */
-    private static final EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("SIECPU");
+    @Produces @ApplicationScoped
+    public EntityManagerFactory criaFactory() {
+        return Persistence.createEntityManagerFactory("SIECPU");
+    }
 
     /**
-     * Construtor privado, para evitar a instaciação
-     * da classe.
+     *
+     * @param factory
+     * @return EntityManeger
      */
-    private JPAUtil() {}
-    /**
-     * 
-     * @return EntityManager
-     */
-    public static EntityManager getEntityManager() {
-        return emf.createEntityManager();
+    @Produces @RequestScoped
+    public EntityManager criaEM(EntityManagerFactory factory) {
+        return factory.createEntityManager();
     }
+    
+    /**
+     *
+     * @param manager
+     */
+    public void finaliza(@Disposes EntityManager manager) {
+      manager.close();
+   }
 }

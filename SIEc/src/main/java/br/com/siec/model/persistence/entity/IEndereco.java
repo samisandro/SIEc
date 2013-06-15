@@ -3,7 +3,7 @@ package br.com.siec.model.persistence.entity;
 import br.com.siec.model.persistence.util.Estados;
 import br.com.siec.model.persistence.util.TipoEndereco;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 
 public interface IEndereco extends Serializable{
  
@@ -21,7 +21,7 @@ public interface IEndereco extends Serializable{
 	public void setEstado(Estados estado);
 	public TipoEndereco getTipoEndereco();
 	public void setTipoEndereco(TipoEndereco tipo);
-	public List<IPessoa> getPessoas();
+	public Collection<IPessoa> getPessoas();
 	public void addPessoa(IPessoa pessoa);
 }
  

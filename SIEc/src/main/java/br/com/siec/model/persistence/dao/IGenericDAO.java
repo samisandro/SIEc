@@ -8,7 +8,7 @@ public interface IGenericDAO<T> {
 
     public boolean delete(T t);
 
-    public T find(Object id);
+    public T find(Long id);
 
     public List<T> findBy(String param, String attribute);
 

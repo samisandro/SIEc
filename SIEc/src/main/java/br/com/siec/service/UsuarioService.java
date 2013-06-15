@@ -18,10 +18,11 @@
  */
 package br.com.siec.service;
 
-import br.com.siec.model.persistence.dao.IGenericDAO;
 import br.com.siec.model.persistence.dao.IUsuarioDAO;
-import br.com.siec.model.persistence.daoImpl.UsuarioDAO;
-import br.com.siec.model.persistence.entity.IUsuario;
+import br.com.siec.model.persistence.entity.Usuario;
+import br.com.siec.service.qualifiers.UsuarioServiceQualifier;
+import java.util.List;
+import javax.inject.Inject;
 
 /**
  * UsuarioService :
@@ -29,20 +30,58 @@ import br.com.siec.model.persistence.entity.IUsuario;
  * @version 1.00 21 May 2013
  * @author Josimar Alves
  */
-public class UsuarioService extends Service<IUsuario> implements IUsuarioService {
+@UsuarioServiceQualifier
+public class UsuarioService implements Service<Usuario>{
 
+    @Inject
     IUsuarioDAO userDao;
 
-    public UsuarioService(IGenericDAO dao){
-        super(dao);        
-    }
-    @Override
-    public boolean authenticate(IUsuario user) {
-        userDao = (IUsuarioDAO) super.dao;
+
+    public boolean authenticate(Usuario user) {
         if (userDao.authenticate(user)) {
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public Usuario create(String classType) {
+       return new Usuario();
+    }
+
+    @Override
+    public boolean save(Usuario t) {
+        return userDao.salve(t);
+    }
+
+    @Override
+    public boolean update(Usuario t) {
+        return userDao.update(t);
+    }
+
+    @Override
+    public boolean delete(Usuario t) {
+        return userDao.delete(t);
+    }
+
+    @Override
+    public Usuario findById(long id) {
+        return userDao.find(id);
+    }
+
+    @Override
+    public List<Usuario> listAll() {
+        return userDao.listAll();
+    }
+
+    @Override
+    public Usuario validate(Usuario t) {
+        return userDao.validate(t);
+    }
+
+    @Override
+    public List<Usuario> findBy(String param, String atribute) {
+        return userDao.findBy(param, atribute);
     }
 }

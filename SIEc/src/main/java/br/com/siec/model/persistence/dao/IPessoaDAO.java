@@ -4,12 +4,12 @@
  */
 package br.com.siec.model.persistence.dao;
 
-import br.com.siec.model.persistence.entity.IPessoa;
+import br.com.siec.model.persistence.entity.Pessoa;
 
 /**
  *
  * @author josimar
  */
-public interface IPessoaDAO extends IGenericDAO<IPessoa> {
+public interface IPessoaDAO extends IGenericDAO<Pessoa> {
     
 }

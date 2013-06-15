@@ -3,13 +3,15 @@ package br.com.siec.util.factory.entity;
 import br.com.siec.util.factory.AbstractFactory;
 import br.com.siec.util.factory.ClassType;
 import br.com.siec.util.factory.Factory;
+import br.com.siec.util.factory.qualifiers.ProdutoFactoryQualifier;
 import java.util.List;
 
+@ProdutoFactoryQualifier
 public class ProdutoFactory extends Factory implements AbstractFactory {
 
     private static ProdutoFactory factory;
 
-    private ProdutoFactory() {
+    public ProdutoFactory() {
     }
 
     public static AbstractFactory getInstance() {

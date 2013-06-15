@@ -10,17 +10,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.hibernate.annotations.Any;
-import org.hibernate.annotations.AnyMetaDef;
-import org.hibernate.annotations.MetaValue;
 import org.hibernate.envers.Audited;
 
 @Entity
 @Table(name = "TB_USUARIO_USR", schema = "siec")
+@Audited
 public class Usuario implements IUsuario, Serializable {
 
     @Id
@@ -40,26 +38,18 @@ public class Usuario implements IUsuario, Serializable {
     private boolean ativo;
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipo;
-    @Any(metaColumn =
-            @Column(name = "TIPO_PESSOA"))
-    @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-        @MetaValue(targetEntity = Pf.class, value = "PF"),
-        @MetaValue(targetEntity = Pj.class, value = "PJ")})
-    @JoinColumn(name = "PSS_CODIGO")
-    private IPessoa iPessoa;
-    @Any(metaColumn =
-            @Column(name = "TIPO_CLIENTE"))
-    @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-        @MetaValue(targetEntity = Cliente.class, value = "CLIENTE")})
-    @JoinColumn(name = "CLT_CODIGO")
-    private ICliente iCliente;
+    @OneToOne(targetEntity=Pessoa.class)
+    private IPessoa pessoa;
+    
+    @OneToOne(mappedBy="usuario", targetEntity=Cliente.class)
+    private ICliente cliente;
 
     public Usuario() {
     }
 
     
     public Usuario(IPessoa pessoa) {
-        this.iPessoa = pessoa;
+        this.pessoa = pessoa;
     }
 
     @Override
@@ -69,7 +59,7 @@ public class Usuario implements IUsuario, Serializable {
     
     @Override
     public void setPessoa(IPessoa p){
-        this.iPessoa = p;
+        this.pessoa = p;
     }
 
     @Override
@@ -137,8 +127,8 @@ public class Usuario implements IUsuario, Serializable {
         hash = 23 * hash + (this.dataCadastro != null ? this.dataCadastro.hashCode() : 0);
         hash = 23 * hash + (this.ativo ? 1 : 0);
         hash = 23 * hash + (this.tipo != null ? this.tipo.hashCode() : 0);
-        hash = 23 * hash + (this.iPessoa != null ? this.iPessoa.hashCode() : 0);
-        hash = 23 * hash + (this.iCliente != null ? this.iCliente.hashCode() : 0);
+        hash = 23 * hash + (this.pessoa != null ? this.pessoa.hashCode() : 0);
+        hash = 23 * hash + (this.cliente != null ? this.cliente.hashCode() : 0);
         return hash;
     }
 
@@ -172,10 +162,10 @@ public class Usuario implements IUsuario, Serializable {
         if (this.tipo != other.tipo) {
             return false;
         }
-        if (this.iPessoa != other.iPessoa && (this.iPessoa == null || !this.iPessoa.equals(other.iPessoa))) {
+        if (this.pessoa != other.pessoa && (this.pessoa == null || !this.pessoa.equals(other.pessoa))) {
             return false;
         }
-        if (this.iCliente != other.iCliente && (this.iCliente == null || !this.iCliente.equals(other.iCliente))) {
+        if (this.cliente != other.cliente && (this.cliente == null || !this.cliente.equals(other.cliente))) {
             return false;
         }
         return true;

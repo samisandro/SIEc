@@ -3,7 +3,7 @@ package br.com.siec.model.persistence.entity;
 import br.com.siec.model.persistence.util.Estados;
 import br.com.siec.model.persistence.util.TipoEndereco;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,18 +11,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.AnyMetaDef;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.ManyToAny;
-import org.hibernate.annotations.MetaValue;
 import org.hibernate.envers.Audited;
 
 @Entity
 @Table(name = "TB_ENDERECO_END", schema = "siec")
+@Audited
 public class Endereco implements IEndereco, Serializable {
 
     @Id
@@ -39,20 +34,15 @@ public class Endereco implements IEndereco, Serializable {
     private String cep;
     @Column(name = "END_ESTADO")
     private Estados estado;
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "END_TIPO")
     private TipoEndereco tipoEndereco;
-    @ManyToAny(metaColumn =
-            @Column(name = "TIPO_PESSOA"))
-    @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-        @MetaValue(targetEntity = Pf.class, value = "PF"),
-        @MetaValue(targetEntity = Pj.class, value = "PJ")})
-    @Cascade({CascadeType.SAVE_UPDATE})
-    @JoinTable(name = "TB_PESSOA_ENDERECO_ASS", joinColumns =
-            @JoinColumn(name = "END_CODIGO"),
-            inverseJoinColumns =
-            @JoinColumn(name = "PSS_CODIGO"))
-    private List<IPessoa> pessoas;
+    /*
+     * Relacionamento 3:1 - Endereco : Pessoa
+     */
+    @ManyToMany(targetEntity=Pessoa.class, mappedBy="enderecos")
+    private Collection<IPessoa> pessoas;
 
     @Override
     public void setId(long id) {
@@ -125,7 +115,7 @@ public class Endereco implements IEndereco, Serializable {
     }
 
     @Override
-    public List<IPessoa> getPessoas() {
+    public Collection<IPessoa> getPessoas() {
         return this.pessoas;
     }
 

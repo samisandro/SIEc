@@ -33,6 +33,9 @@
       <property name="hibernate.c3p0.timeout" value="300"/>
       <property name="hibernate.c3p0.max_statements" value="50"/>
       <property name="hibernate.c3p0.idle_test_period" value="3000"/>
+      <!-- Configuração do Hibernate Envers -->
+      <property name="post-insert" value="org.hibernate.ejb.event.EJB3PostInsertEventListener, org.hibernate.envers.event.EnversListener" />
+      <property name="post-update" value="org.hibernate.ejb.event.EJB3PostUpdateEventListener, org.hibernate.envers.event.EnversListener" />
     </properties>
   </persistence-unit>
 </persistence>

@@ -26,17 +26,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.Any;
-import org.hibernate.annotations.AnyMetaDef;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.ManyToAny;
-import org.hibernate.annotations.MetaValue;
+import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
 /**
@@ -47,27 +42,18 @@ import org.hibernate.envers.Audited;
  */
 @Entity
 @Table(name = "TB_CLIENTE_CLT", schema = "siec")
+@Audited
+@AuditTable(value="TB_CLIENTE_AUDIT")
 public class Cliente implements ICliente, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CLT_CODIGO")
     private long id;
-    @Any(metaColumn =
-            @Column(name = "TIPO_USUARIO"))
-    @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-        @MetaValue(targetEntity = Usuario.class, value = "USUARIO")})
-    @JoinColumn(name = "USR_CODIGO")
+    @OneToOne(targetEntity=Usuario.class)
     private IUsuario usuario;
-    @ManyToAny(metaColumn =
-            @Column(name = "TIPO_PEDIDO"))
-    @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-        @MetaValue(targetEntity = Pedido.class, value = "PEDIDO")})
-    @Cascade({CascadeType.SAVE_UPDATE})
-    @JoinTable(name = "TB_CLIENTE_PEDIDO_ASS", joinColumns =
-            @JoinColumn(name = "CLT_CODIGO"),
-            inverseJoinColumns =
-            @JoinColumn(name = "PDD_CODIGO"))
+    @OneToMany(mappedBy="cliente", targetEntity=Pedido.class, fetch = FetchType.LAZY)
+    @Cascade(CascadeType.ALL)
     private List<IPedido> pedidos;
 
     public Cliente() {

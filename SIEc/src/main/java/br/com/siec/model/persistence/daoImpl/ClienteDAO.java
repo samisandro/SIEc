@@ -19,7 +19,7 @@
 package br.com.siec.model.persistence.daoImpl;
 
 import br.com.siec.model.persistence.dao.IClienteDAO;
-import br.com.siec.model.persistence.entity.ICliente;
+import br.com.siec.model.persistence.entity.Cliente;
 
 /**
  * ClienteDAO
@@ -27,6 +27,6 @@ import br.com.siec.model.persistence.entity.ICliente;
  * @version 1.00 24 May 2013
  * @author Josimar Alves
  */
-public class ClienteDAO extends GenericDAOImpl<ICliente> implements IClienteDAO {
+public class ClienteDAO extends GenericDAOImpl<Cliente> implements IClienteDAO {
     
 }

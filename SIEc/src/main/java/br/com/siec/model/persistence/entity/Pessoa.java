@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,13 +30,14 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.Any;
-import org.hibernate.annotations.AnyMetaDef;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.ManyToAny;
-import org.hibernate.annotations.MetaValue;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  * Pessoa
@@ -46,6 +48,8 @@ import org.hibernate.annotations.MetaValue;
 @Entity
 @Table(name = "TB_PESSOA_PSS")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Audited
+@AuditTable(value="TB_PESSOA_AUDIT")
 public abstract class Pessoa implements IPessoa, Serializable {
 
     @Id
@@ -57,12 +61,9 @@ public abstract class Pessoa implements IPessoa, Serializable {
     @Column(name = "PSS_EMAIL")
     private String email;
     /*
-     * Relacionamento Polimorfico - Pessoa : Telefone 
+     * Relacionamento 1:3 - Pessoa : Endereco 
      */
-    @ManyToAny(metaColumn =
-            @Column(name = "TIPO_ENDERECO"))
-    @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-        @MetaValue(targetEntity = Endereco.class, value = "ENDERECO")})
+    @ManyToMany(targetEntity = Endereco.class)
     @Cascade({CascadeType.SAVE_UPDATE})
     @JoinTable(name = "TB_PESSOA_ENDERECO_ASS", joinColumns =
             @JoinColumn(name = "PSS_CODIGO"),
@@ -70,24 +71,14 @@ public abstract class Pessoa implements IPessoa, Serializable {
             @JoinColumn(name = "END_CODIGO"))
     private List<IEndereco> enderecos;
     /*
-     * Relacionamento Polimorfico - Pessoa : Telefone
+     * Relacionamento 1 : N - Pessoa : Telefone
      */
-    @ManyToAny(metaColumn =
-            @Column(name = "TIPO_TELEFONE"))
-    @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-        @MetaValue(targetEntity = Telefone.class, value = "TELEFONE")})
-    @Cascade({CascadeType.SAVE_UPDATE})
-    @JoinTable(name = "TB_PESSOA_TELEFONE_ASS", joinColumns =
-            @JoinColumn(name = "PSS_CODIGO"),
-            inverseJoinColumns =
-            @JoinColumn(name = "TLF_CODIGO"))
+    @OneToMany(mappedBy = "pessoa", targetEntity = Telefone.class, fetch = FetchType.LAZY)
+    @Cascade(CascadeType.ALL)
     private List<ITelefone> telefones;
     
-    @Any(metaColumn =
-            @Column(name = "TIPO_USUARIO"))
-    @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
-        @MetaValue(targetEntity = Usuario.class, value = "USUARIO")})
-    @JoinColumn(name = "USR_CODIGO")
+    @OneToOne(mappedBy="pessoa", targetEntity= Usuario.class)
+    @Cascade(CascadeType.ALL)
     private IUsuario usuario;
 
     public Pessoa() {

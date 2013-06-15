@@ -12,12 +12,12 @@
     <application>
         <!-- i18n/L19n -->        
         <resource-bundle>
-            <base-name>br.com.siec.properties.Messages</base-name>
+            <base-name>br.com.siec.i18n.Messages</base-name>
             <var>bundle</var>
         </resource-bundle>
         <locale-config>
-            <default-locale>pt</default-locale>
-            <supported-locale>en</supported-locale>
+            <default-locale>en</default-locale>
+            <supported-locale>pt</supported-locale>
         </locale-config>        
         <!-- Integração Spring e JSF -->
         <!--  <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver> -->

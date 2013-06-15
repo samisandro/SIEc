@@ -16,33 +16,17 @@
  * ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR
  * DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
-package br.com.siec.service;
+package br.com.siec.model.persistence.daoImpl;
 
-
-import br.com.siec.model.persistence.dao.IGenericDAO;
-import br.com.siec.model.persistence.daoImpl.GenericDAOImpl;
-import java.util.List;
+import br.com.siec.model.persistence.dao.IAcompanhamentoDAO;
+import br.com.siec.model.persistence.entity.Acompanhamento;
 
 /**
- * JPAUtil: Efetua a criação do EntityManager para a utilização das classes Data
- * Acess Object - DAO.
+ * ProdutoDAO
  *
  * @version 1.00 24 May 2013
  * @author Josimar Alves
  */
-public interface IService<T> {
-
-    public boolean save(T t);
-
-    public boolean update(T t);
-
-    public boolean delete(T t);
-
-    public T findById(long id);
-
-    public List<T> listAll();
-
-    public T validate(T t);
-
-    public List<T> findBy(String param, String atribute);
+public class AcompanhamentoDAO extends GenericDAOImpl<Acompanhamento>
+                          implements IAcompanhamentoDAO {
 }

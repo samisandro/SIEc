@@ -19,7 +19,7 @@
 package br.com.siec.model.persistence.daoImpl;
 
 import br.com.siec.model.persistence.dao.IPedidoDAO;
-import br.com.siec.model.persistence.entity.IPedido;
+import br.com.siec.model.persistence.entity.Pedido;
 
 /**
  * PedidoDAO
@@ -27,6 +27,6 @@ import br.com.siec.model.persistence.entity.IPedido;
  * @version 1.00 24 May 2013
  * @author  Josimar Alves
  */
-public class PedidoDAO extends GenericDAOImpl<IPedido> implements IPedidoDAO {
+public class PedidoDAO extends GenericDAOImpl<Pedido> implements IPedidoDAO {
     
 }

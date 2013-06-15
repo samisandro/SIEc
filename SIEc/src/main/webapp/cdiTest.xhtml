@@ -1,5 +1,3 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
@@ -7,23 +5,26 @@
 
     <ui:composition template="/templates/siec.xhtml">
         <ui:define name="content">
-            <p:fieldset legend="Cadastrar Produto">
+            <p:fieldset legend="Cadastrar Pessoa">
                 <p:tabView id="tbv1" dynamic="true" cache="true">
-                    <p:tab title="Produto">
+                    <p:tab title="Pessoa">
                         <h:form prependId="false" id="formProduct">
                             <p:growl id="msg0"/>
                             <h:panelGrid columns="2" cellpadding="5" styleClass="panelGrid" id="grid0">
 
-                                <h:outputLabel for="nomeProduto" value="Nome" />
-                                <p:inputText id="nomeProduto" value="#{produtoBean.nome}"
+                                <h:outputLabel for="nomePessoa" value="Nome" />
+                                <p:inputText id="nomePessoa" value="#{pessoaMB.pessoa.nome}"
                                              onkeyup="this.value = this.value.toUpperCase()" required="true"
                                              requiredMessage="O Campo [Nome] é obrigatório."/>
+                                
+                                <h:outputLabel for="email" value="Email" />
+                                <p:inputText id="email" value="#{pessoaMB.pessoa.email}"
+                                             onkeyup="this.value = this.value.toUpperCase()" required="true"
+                                             requiredMessage="O Campo [E-mail] é obrigatório."/>
 
                                 <p:panel>
-                                    <p:commandButton value="Salvar" action="#{produtoBean.save()}"
-                                                     image="ui-icon ui-icon-disk" update="@form"/>
-                                    <p:commandButton value="Cancelar" action="#{produtoBean.returnIndex()}" 
-                                                     image="ui-icon ui-icon-close"/>                                
+                                    <p:commandButton value="Salvar" action="#{pessoaMB.save()}"
+                                                     image="ui-icon ui-icon-disk" update="@form"/>                             
                                 </p:panel>
                             </h:panelGrid>
                         </h:form>

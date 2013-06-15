@@ -19,46 +19,46 @@
 package br.com.siec.model.persistence.daoImpl;
 
 import br.com.siec.model.persistence.dao.IGenericDAO;
-import br.com.siec.model.persistence.dao.JPAUtil;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Example;
 
 /**
- * GenericDAOImpl<T> : DAO generico parametrizado 
- * com a Classe ao qual o DAO será usado.
+ * GenericDAOImpl<T> : DAO padrão da aplicação.
  *
  * @version 1.00 21 May 2013
  * @author Josimar Alves
  */
 public abstract class GenericDAOImpl<T> implements IGenericDAO<T> {
 
-    
+    /**
+     * EntityManager criado através de Injeção de Dependências.
+     */
+    @Inject
     protected EntityManager entityManager;
     private Class<T> typeClass;
 
-    public GenericDAOImpl() {        
+    public GenericDAOImpl() {
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         typeClass = (Class) pt.getActualTypeArguments()[0];
-        this.entityManager = JPAUtil.getEntityManager();
     }
 
     @Override
     public boolean salve(T t) {
         try {
-            this.entityManager.getTransaction().begin();
             this.entityManager.persist(t);
-            this.entityManager.getTransaction().commit();
-            this.entityManager.close();
             return true;
         } catch (Exception e) {
-            System.out.println(e);
             return false;
         }
     }
@@ -75,7 +75,7 @@ public abstract class GenericDAOImpl<T> implements IGenericDAO<T> {
     }
 
     @Override
-    public T find(Object id) {
+    public T find(Long id) {
         try {
             return (T) this.entityManager.find(typeClass, id);
         } catch (Exception e) {
@@ -101,7 +101,13 @@ public abstract class GenericDAOImpl<T> implements IGenericDAO<T> {
 
     @Override
     public boolean update(T t) {
-        return false;
+        try {
+            this.entityManager.refresh(entityManager.merge(t));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
 
     }
 
@@ -114,10 +120,23 @@ public abstract class GenericDAOImpl<T> implements IGenericDAO<T> {
         }
 
     }
-    
+
+    /**
+     *
+     * @param t
+     * @return
+     */
+    @SuppressWarnings("unchecked")
     @Override
-    public T validate(T t){
-        return null;
-        
+    public T validate(T t) {
+        try {
+            final Session session = (Session) this.entityManager.getDelegate();
+            final Criteria crt = session.createCriteria(typeClass);
+            List<T> results = crt.add(Example.create(t)).list();
+            return results.get(0);
+        } catch (Exception e) {
+            salve(t);
+            return t;
+        }
     }
 }

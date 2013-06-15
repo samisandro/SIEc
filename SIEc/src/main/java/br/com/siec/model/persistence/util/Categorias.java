@@ -4,6 +4,7 @@ public enum Categorias {
 
     Acompanhamento,
     Borda,
+    Composicao,
     Ingredientes,
     Massa,
     Bebidas;

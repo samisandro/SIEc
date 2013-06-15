@@ -4,12 +4,11 @@
  */
 package br.com.siec.model.persistence.dao;
 
-import br.com.siec.model.persistence.entity.Produto;
+import br.com.siec.model.persistence.entity.Acompanhamento;
 
 /**
  *
  * @author josimar
  */
-public interface IProdutoDAO extends IGenericDAO<Produto> {
-    
+public interface IAcompanhamentoDAO extends IGenericDAO<Acompanhamento> {
 }

@@ -31,6 +31,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.MapKey;
 import javax.persistence.Table;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 /**
  * Acompanhamento
@@ -40,6 +42,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "TB_ACOMPANHAMENTO_ACP", schema="siec")
+@Audited
+@AuditTable(value="TB_ACOMPANHAMENTO_AUDIT")
 public class Acompanhamento implements Produto, Serializable {
 
     @Id

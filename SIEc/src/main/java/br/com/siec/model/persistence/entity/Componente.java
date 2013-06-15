@@ -42,6 +42,9 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.MetaValue;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 /**
  * Componente
@@ -51,6 +54,8 @@ import org.hibernate.annotations.MetaValue;
  */
 @Entity
 @Table(name = "TB_COMPONENTE_CPT", schema = "siec")
+@Audited
+@AuditTable(value="TB_COMPONENTE_AUDIT")
 public class Componente implements Produto, Serializable {
 
     @Id
@@ -68,6 +73,7 @@ public class Componente implements Produto, Serializable {
     @Column(name = "CPT_IMAGEM")
     @Lob
     private byte[] imagem;
+    @NotAudited
     @ManyToAny(metaColumn =
             @Column(name = "TIPO_PRODUTO"))
     @AnyMetaDef(idType = "long", metaType = "string", metaValues = {

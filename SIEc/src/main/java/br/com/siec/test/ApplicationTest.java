@@ -18,21 +18,10 @@
  */
 package br.com.siec.test;
 
-import br.com.siec.model.persistence.entity.IPessoa;
-import br.com.siec.model.persistence.entity.IPf;
-import br.com.siec.model.persistence.entity.IUsuario;
-import br.com.siec.model.persistence.entity.Pf;
-import br.com.siec.model.persistence.entity.Pj;
 import br.com.siec.model.persistence.entity.Produto;
-import br.com.siec.model.persistence.entity.Usuario;
 import br.com.siec.model.persistence.util.Categorias;
 import br.com.siec.model.persistence.util.TamanhoPizza;
-import br.com.siec.service.IPessoaService;
-import br.com.siec.service.IService;
-import br.com.siec.service.IUsuarioService;
-import br.com.siec.service.PessoaService;
 import br.com.siec.service.Service;
-import br.com.siec.service.UsuarioService;
 import br.com.siec.util.factory.AbstractFactory;
 import br.com.siec.util.factory.ApplicationFactory;
 import br.com.siec.util.factory.ClassType;
@@ -46,7 +35,9 @@ import br.com.siec.util.factory.ClassType;
 public class ApplicationTest {
 
     public static void main(String args[]) {
- /*       
+        
+
+   /* 
         AbstractFactory appFactory = ApplicationFactory.getInstance();
         AbstractFactory pessoaFactory = appFactory.createObject(ClassType.PessoaFactory);
         AbstractFactory userFactory = appFactory.createObject(ClassType.UserFactory);
@@ -115,21 +106,26 @@ public class ApplicationTest {
         refrigerante.setNome("Coca-Cola");
         refrigerante.addPreço("Bebida", 4.99);
         
+        pizza.setNome("Pizza Presunto Mussarella");
         pizza.addComponente(refrigerante);
         pizza.addComponente(mussarella);
         pizza.addComponente(presunto);
         pizza.addComponente(massa);
         
-        IService produtoService = serviceFactory.createObject(ClassType.ProdutoService);
+        Service produtoService = serviceFactory.createObject(ClassType.ProdutoService);
         
         if(produtoService.save(pizza)){
             System.out.println("OK");
         } else {
             System.out.println("Not OK");
         }
+        /*
+        Produto p = (Produto) produtoService.findById(1);
         
-        
-        
-        
+        if(p != null){
+            System.out.println("OK");
+        } else {
+            System.out.println("Not OK");
+        }*/    
     }
 }
