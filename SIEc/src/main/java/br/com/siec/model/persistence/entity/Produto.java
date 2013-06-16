@@ -16,7 +16,7 @@ public interface Produto extends Serializable {
 
     public void setNome(String nome);
 
-    public void addPreço(String chave, double preco);
+    public void addPreco(String chave, double preco);
 
     public HashMap<String, Double> getPrecos();
 

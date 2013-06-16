@@ -13,6 +13,7 @@ public enum ClassType {
     Acompanhamento,
     Cliente,
     Componente,
+    Categorias,
     Endereco,
     Pedido,
     PJ,

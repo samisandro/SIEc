@@ -23,13 +23,10 @@ import javax.inject.Inject;
 @RequestScoped
 public class PessoaBean implements Serializable {
 
-    @Inject @PessoaServiceQualifier
+    @Inject
+    @PessoaServiceQualifier
     private Service<Pessoa> pessoaService;
     private Pessoa pessoa;
-    
-    public PessoaBean(){
-        this.pessoa = this.pessoaService.create("PF");
-    }
 
     public void save() {
         if (this.pessoaService.save(pessoa)) {
@@ -43,7 +40,7 @@ public class PessoaBean implements Serializable {
     }
 
     public Pessoa getPessoa() {
-        return pessoa;
+        return pessoa = pessoaService.create("PF");
     }
 
     public void setPessoa(Pessoa pessoa) {

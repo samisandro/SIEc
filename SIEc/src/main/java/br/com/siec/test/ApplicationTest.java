@@ -83,28 +83,28 @@ public class ApplicationTest {
                 
         mussarella.setCategoria(Categorias.Ingredientes);
         mussarella.setNome("Mussarella");
-        mussarella.addPreço(TamanhoPizza.Pequena.toString(), 1.99);
-        mussarella.addPreço(TamanhoPizza.Média.toString(), 1.99);
-        mussarella.addPreço(TamanhoPizza.Grande.toString(), 1.99);
-        mussarella.addPreço(TamanhoPizza.Família.toString(), 1.99);
+        mussarella.addPreco(TamanhoPizza.Pequena.toString(), 1.99);
+        mussarella.addPreco(TamanhoPizza.Média.toString(), 1.99);
+        mussarella.addPreco(TamanhoPizza.Grande.toString(), 1.99);
+        mussarella.addPreco(TamanhoPizza.Família.toString(), 1.99);
         
         presunto.setCategoria(Categorias.Ingredientes);
         presunto.setNome("Presunto");
-        presunto.addPreço(TamanhoPizza.Pequena.toString(), 1.99);
-        presunto.addPreço(TamanhoPizza.Média.toString(), 1.99);
-        presunto.addPreço(TamanhoPizza.Grande.toString(), 1.99);
-        presunto.addPreço(TamanhoPizza.Família.toString(), 1.99);
+        presunto.addPreco(TamanhoPizza.Pequena.toString(), 1.99);
+        presunto.addPreco(TamanhoPizza.Média.toString(), 1.99);
+        presunto.addPreco(TamanhoPizza.Grande.toString(), 1.99);
+        presunto.addPreco(TamanhoPizza.Família.toString(), 1.99);
         
         massa.setCategoria(Categorias.Massa);
         massa.setNome("Massa Recheada");
-        massa.addPreço(TamanhoPizza.Pequena.toString(), 1.99);
-        massa.addPreço(TamanhoPizza.Média.toString(), 1.99);
-        massa.addPreço(TamanhoPizza.Grande.toString(), 1.99);
-        massa.addPreço(TamanhoPizza.Família.toString(), 1.99);
+        massa.addPreco(TamanhoPizza.Pequena.toString(), 1.99);
+        massa.addPreco(TamanhoPizza.Média.toString(), 1.99);
+        massa.addPreco(TamanhoPizza.Grande.toString(), 1.99);
+        massa.addPreco(TamanhoPizza.Família.toString(), 1.99);
         
         refrigerante.setCategoria(Categorias.Bebidas);
         refrigerante.setNome("Coca-Cola");
-        refrigerante.addPreço("Bebida", 4.99);
+        refrigerante.addPreco("Bebida", 4.99);
         
         pizza.setNome("Pizza Presunto Mussarella");
         pizza.addComponente(refrigerante);

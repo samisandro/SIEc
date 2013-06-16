@@ -2,34 +2,95 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:composition template="/templates/siec.xhtml">
         <ui:define name="content">
-            <p:fieldset legend="Cadastrar Produto">
-                <p:tabView id="tbv1" dynamic="true" cache="true">
-                    <p:tab title="Produto">
-                        <h:form prependId="false" id="formProduct">
-                            <p:growl id="msg0"/>
-                            <h:panelGrid columns="2" cellpadding="5" styleClass="panelGrid" id="grid0">
+            <p:panel id="panel" header="Cadastro Produto" style="margin-bottom:10px;">
+                <h:form prependId="false" id="formProduct" enctype="multipart/form-data">
+                    <p:growl id="msg0"/>
+                    <h:panelGrid columns="2" id="grid0">
 
-                                <h:outputLabel for="nomeProduto" value="Nome" />
-                                <p:inputText id="nomeProduto" value="#{produtoBean.nome}"
-                                             onkeyup="this.value = this.value.toUpperCase()" required="true"
-                                             requiredMessage="O Campo [Nome] é obrigatório."/>
+                        <h:outputLabel for="nomeProduto" value="Nome" />
+                        <p:inputText id="nomeProduto" 
+                                     value="#{produtoBean.nome}"
+                                     required="true"
+                                     requiredMessage="O Campo [Nome] é obrigatório."/>
 
-                                <p:panel>
-                                    <p:commandButton value="Salvar" action="#{produtoBean.save()}"
-                                                     image="ui-icon ui-icon-disk" update="@form"/>
-                                    <p:commandButton value="Cancelar" action="#{produtoBean.returnIndex()}" 
-                                                     image="ui-icon ui-icon-close"/>                                
-                                </p:panel>
-                            </h:panelGrid>
-                        </h:form>
-                    </p:tab>
-                </p:tabView>
-            </p:fieldset>
+                        <h:outputLabel for="categoria" value="Categoria" />
+                        <h:selectOneMenu id="categoria" value="#{produtoBean.categoria}" >  
+                            <f:selectItems value="#{produtoBean.categorias}" />  
+                            <f:ajax event="change"  render="precos"/>
+                        </h:selectOneMenu>
+                        
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" id="precos" title="Preço" >
+
+                        <h:outputLabel for="preco" 
+                                       value="Preço" 
+                                       rendered="#{!produtoBean.isMultiplePrice()}" />
+                        <p:inputText id="preco" 
+                                     value="#{produtoBean.preco}" 
+                                     rendered="#{!produtoBean.isMultiplePrice()}"/>                           
+
+                        <h:outputLabel for="precoP" 
+                                       value="Pequena" 
+                                       rendered="#{produtoBean.isMultiplePrice()}" />
+                        <p:inputText id="precoP"
+                                     value="#{produtoBean.precoP}"
+                                     rendered="#{produtoBean.isMultiplePrice()}"/> 
+
+                        <h:outputLabel for="precoM" 
+                                       value="Media" 
+                                       rendered="#{produtoBean.isMultiplePrice()}" />
+                        <p:inputText id="precoM" 
+                                     value="#{produtoBean.precoM}"
+                                     rendered="#{produtoBean.isMultiplePrice()}"/> 
+
+                        <h:outputLabel for="precoG" 
+                                       value="Grande" 
+                                       rendered="#{produtoBean.isMultiplePrice()}" />
+                        <p:inputText id="precoG"
+                                     value="#{produtoBean.precoG}"
+                                     rendered="#{produtoBean.isMultiplePrice()}"/> 
+
+                        <h:outputLabel for="precoF" 
+                                       value="Familia" 
+                                       rendered="#{produtoBean.isMultiplePrice()}" />
+                        <p:inputText id="precoF" 
+                                     value="#{produtoBean.precoF}"
+                                     rendered="#{produtoBean.isMultiplePrice()}"/> 
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1" id="grid2">
+
+                        <p:fileUpload fileUploadListener="#{imageBean.handleFileUpload}"
+                                      label="Procurar Imagem"
+                                      showButtons="false"
+                                      mode="advanced"
+                                      multiple="false"
+                                      update="imagem"  
+                                      auto="true"  
+                                      sizeLimit="100000"   
+                                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/> 
+
+                        <p:graphicImage value="#{imageBean.image}" 
+                                        id="imagem"
+                                        height="100px"
+                                        width="100px"
+                                        cache="false"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" >
+                        <p:commandButton value="Salvar" action="#{produtoBean.save()}"
+                                         image="ui-icon ui-icon-disk" update="@form"/>
+                        <p:commandButton value="Cancelar" action="#{produtoBean.returnIndex()}" 
+                                         image="ui-icon ui-icon-close"/>                                
+                    </h:panelGrid>
+
+                </h:form>
+            </p:panel>
         </ui:define>
     </ui:composition>
 </html>

@@ -13,6 +13,7 @@ import br.com.siec.model.persistence.entity.Pf;
 import br.com.siec.model.persistence.entity.Pj;
 import br.com.siec.model.persistence.entity.Telefone;
 import br.com.siec.model.persistence.entity.Usuario;
+import br.com.siec.model.persistence.util.ListEnun;
 import br.com.siec.service.PessoaService;
 import br.com.siec.service.ProdutoService;
 import br.com.siec.service.UsuarioService;
@@ -88,6 +89,7 @@ public abstract class Factory implements AbstractFactory {
         classLibrary.put(ClassType.PessoaService, new PessoaService());
         classLibrary.put(ClassType.ProdutoService, new ProdutoService());
         classLibrary.put(ClassType.UsuarioService, new UsuarioService());
+        classLibrary.put(ClassType.Categorias, new ListEnun());
 
     }
 }

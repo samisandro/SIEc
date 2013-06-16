@@ -61,4 +61,15 @@ public class ListEnun implements IListEnun {
         categorias.addAll(Arrays.asList(Categorias.values()));
         return categorias;
     }
+
+    @Override
+    public List getCategoriasWithoutComposition() {
+        List categorias = new ArrayList();
+        for (int i = 0; i < Arrays.asList(Categorias.values()).size(); i++) {
+            if (!Arrays.asList(Categorias.values()).get(i).name().equals(Categorias.Composicao.toString())) {
+                categorias.add(Arrays.asList(Categorias.values()).get(i));
+            }
+        }
+        return categorias;
+    }
 }

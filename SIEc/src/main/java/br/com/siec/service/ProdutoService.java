@@ -6,21 +6,23 @@ import br.com.siec.model.persistence.entity.Acompanhamento;
 import br.com.siec.model.persistence.entity.Componente;
 import br.com.siec.model.persistence.entity.Produto;
 import br.com.siec.model.persistence.util.Categorias;
-import br.com.siec.service.qualifiers.UsuarioServiceQualifier;
+import br.com.siec.service.interceptors.Transacional;
+import br.com.siec.service.qualifiers.ProdutoServiceQualifier;
 import br.com.siec.util.factory.AbstractFactory;
 import br.com.siec.util.factory.ClassType;
 import br.com.siec.util.factory.qualifiers.ProdutoFactoryQualifier;
 import java.util.List;
 import javax.inject.Inject;
 
-@UsuarioServiceQualifier
+@ProdutoServiceQualifier
 public class ProdutoService implements Service<Produto> {
 
     @Inject
     private IAcompanhamentoDAO acompanhamentoDao;
     @Inject
     private IComponenteDAO componenteDao;
-    @Inject @ProdutoFactoryQualifier
+    @Inject
+    @ProdutoFactoryQualifier
     AbstractFactory produtoFactory;
 
     @Override
@@ -29,6 +31,7 @@ public class ProdutoService implements Service<Produto> {
     }
 
     @Override
+    @Transacional
     public boolean save(Produto t) {
         if ("Acompanhamento".equals(t.getClass().getSimpleName())) {
             return acompanhamentoDao.salve((Acompanhamento) t);
@@ -38,6 +41,7 @@ public class ProdutoService implements Service<Produto> {
     }
 
     @Override
+    @Transacional
     public boolean update(Produto t) {
         if ("Acompanhamento".equals(t.getClass().getSimpleName())) {
             return acompanhamentoDao.update((Acompanhamento) t);
@@ -47,6 +51,7 @@ public class ProdutoService implements Service<Produto> {
     }
 
     @Override
+    @Transacional
     public boolean delete(Produto t) {
         if ("Acompanhamento".equals(t.getClass().getSimpleName())) {
             return acompanhamentoDao.delete((Acompanhamento) t);
@@ -98,6 +103,7 @@ public class ProdutoService implements Service<Produto> {
         }
     }
 
+    @Transacional
     public Produto validate(Produto t, String classType) {
         if ("Acompanhamento".equals(classType.getClass().getSimpleName())) {
             return (Produto) acompanhamentoDao.validate((Acompanhamento) t);

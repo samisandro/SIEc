@@ -12,5 +12,6 @@ public interface IListEnun {
 	public List getStatusPedido();
 	public List getTamanhoPizza();
 	public List getCategorias();
+        public List getCategoriasWithoutComposition();
 }
  

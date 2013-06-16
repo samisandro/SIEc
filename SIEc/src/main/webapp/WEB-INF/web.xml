@@ -24,15 +24,20 @@
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>-->
-    <!-- Configuracao DO JSF --> 
+    <!-- Configuracao do Primefaces Upload --> 
     <filter>
-        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <filter-name>primeUploadFilter</filter-name>
         <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <filter-name>primeUploadFilter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
+    <mime-mapping>  
+        <extension>jpg</extension>  
+        <mime-type>image/jpeg</mime-type>  
+    </mime-mapping>  
+    <!-- Configuração do JSF -->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>

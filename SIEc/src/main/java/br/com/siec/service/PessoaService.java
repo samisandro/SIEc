@@ -7,11 +7,13 @@ package br.com.siec.service;
 
 import br.com.siec.model.persistence.dao.IPessoaDAO;
 import br.com.siec.model.persistence.entity.Pessoa;
+import br.com.siec.service.interceptors.Transacional;
 import br.com.siec.service.qualifiers.PessoaServiceQualifier;
 import br.com.siec.util.factory.AbstractFactory;
 import br.com.siec.util.factory.ClassType;
 import br.com.siec.util.factory.qualifiers.PessoaFactoryQualifier;
 import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 /**
@@ -30,10 +32,10 @@ public class PessoaService implements Service<Pessoa>{
        
     @Override
     public Pessoa create(String classType) {
-        return pessoaFactory.createObject(ClassType.valueOf(classType));
+        return this.pessoaFactory.createObject(ClassType.valueOf(classType));
     }
     
-    @Override
+    @Override @Transacional
     public boolean save(Pessoa t) {
         if(dao != null){
             System.out.println("Injetado!!!");
@@ -41,12 +43,12 @@ public class PessoaService implements Service<Pessoa>{
         return dao.salve(t);
     }
 
-    @Override
+    @Override @Transacional
     public boolean update(Pessoa t) {
         return dao.update(t);
     }
 
-    @Override
+    @Override @Transacional
     public boolean delete(Pessoa t) {
         return dao.delete(t);
     }
@@ -61,7 +63,7 @@ public class PessoaService implements Service<Pessoa>{
         return dao.listAll();
     }
 
-    @Override
+    @Override @Transacional
     public Pessoa validate(Pessoa t) {
         return dao.validate(t);
     }

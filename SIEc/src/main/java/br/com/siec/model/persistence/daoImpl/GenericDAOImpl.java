@@ -22,6 +22,7 @@ import br.com.siec.model.persistence.dao.IGenericDAO;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -43,7 +44,7 @@ public abstract class GenericDAOImpl<T> implements IGenericDAO<T> {
     /**
      * EntityManager criado através de Injeção de Dependências.
      */
-    @Inject
+    @Inject @Default
     protected EntityManager entityManager;
     private Class<T> typeClass;
 

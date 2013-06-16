@@ -20,6 +20,7 @@ package br.com.siec.model.persistence.dao;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
@@ -39,7 +40,7 @@ public class JPAUtil {
      * <p> Metodo usado através de Injeção de Dependências </p>
      * @return EntityManagerFactory
      */
-    @Produces @ApplicationScoped
+    @Produces @ApplicationScoped 
     public EntityManagerFactory criaFactory() {
         return Persistence.createEntityManagerFactory("SIECPU");
     }

@@ -148,7 +148,7 @@ public class Componente implements Produto, Serializable {
      * br.com.siec.model.persistence.entity.Produto#addComponente(br.com.siec.model.persistence.entity.Componente)
      */
     @Override
-    public void addPreço(String chave, double preco) {
+    public void addPreco(String chave, double preco) {
         this.precos.put(chave, preco);
     }
 
