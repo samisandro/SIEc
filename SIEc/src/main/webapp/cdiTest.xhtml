@@ -19,16 +19,15 @@
                 <p:growl id="msg0"/>
                 <h:panelGrid columns="2" cellpadding="5" styleClass="panelGrid" id="grid0">
 
-                    <p:fileUpload  sizeLimit="204800" auto="true"
-                                   showButtons="true"  
-                                   widgetVar="uploader" label="Procurar..."  
-                                   fileUploadListener="#{produtoBean.handleFileUpload}"
-                                   allowTypes="*.jpg;*.png;" 
-                                   multiple="false"></p:fileUpload>
-                    
-                    <p:graphicImage value="#{faceUtilBean.image}" id="imagem" cache="false"/>
-                    
-                    <p:fileUpload fileUploadListener="#{faceUtilBean.handleFileUpload}"
+                    <h:outputLabel for="nomeProduto" value="Nome" />
+                    <p:inputText id="nomeProduto" 
+                                 value="#{produtoBean.nome}"
+                                 required="true"
+                                 requiredMessage="O Campo [Nome] é obrigatório."/>
+
+                    <p:graphicImage value="#{imageBean.image}" id="imagem" cache="false"/>
+
+                    <p:fileUpload fileUploadListener="#{imageBean.handleFileUpload}"
                                   label="Procurar"
                                   mode="advanced"
                                   multiple="false"

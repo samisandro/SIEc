@@ -1,9 +1,7 @@
 package br.com.siec.model.persistence.entity;
 
 import br.com.siec.model.persistence.util.Categorias;
-import br.com.siec.model.persistence.util.TamanhoPizza;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 
 public interface Produto extends Serializable {
@@ -16,9 +14,9 @@ public interface Produto extends Serializable {
 
     public void setNome(String nome);
 
-    public void addPreco(String chave, double preco);
+    public void addPreco(String chave, Double preco);
 
-    public HashMap<String, Double> getPrecos();
+    public Map<String, Double> getPrecos();
 
     public Categorias getCategoria();
 

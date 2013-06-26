@@ -10,11 +10,16 @@
         <title>Smart Pizzaria</title>
         <style type="text/css">
             body {background-color: #9E9E9E; font-size: 12px}
-        </style> 
+            label {
+                cursor: default;
+                font-weight: bold;
+            }
+        </style>        
     </h:head>
 
     <h:body>
         <h:outputStylesheet library="siec" name="siec_theme.css" />
+        <h:outputScript library="default" name="js/siec.js" />
         <div align="center">
             <p:layout style="min-width:1020px;max-width:1020px;min-height:1000px">
                 <p:layoutUnit position="north" size="120">
@@ -36,6 +41,7 @@
                             </p:submenu>
                             <p:submenu label="Produto">
                                 <p:menuitem value="Produtos" url="/secure/admin/allProduct.jsf" />
+                                <p:menuitem value="Buscar Produto" url="/secure/admin/searchProduct.jsf" />
                                 <p:menuitem value="Cadastrar Novo Produto" url="/secure/admin/registerProduct.jsf" />
                             </p:submenu>
                             <p:submenu label="Composição">

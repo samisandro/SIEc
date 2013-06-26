@@ -4,13 +4,14 @@
  */
 package br.com.siec.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author josimar
  */
-public interface Service<T> {
+public interface Service<T> extends Serializable{
     
     public <T> T create(String classType);
     
@@ -21,11 +22,15 @@ public interface Service<T> {
     public boolean delete(T t);
 
     public T findById(long id);
+    
+    public T findById(long id, String classType);
 
     public List<T> listAll();
 
     public T validate(T t);
 
     public List<T> findBy(String param, String atribute);
+    
+    public List<T> findBy(String param, String atribute, String classType);
     
 }

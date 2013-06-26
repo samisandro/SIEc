@@ -72,5 +72,15 @@ public class PessoaService implements Service<Pessoa>{
     public List<Pessoa> findBy(String param, String atribute) {
         return dao.findBy(param, atribute);
     }    
+
+    @Override
+    public Pessoa findById(long id, String classType) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Pessoa> findBy(String param, String atribute, String classType) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

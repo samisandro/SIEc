@@ -2,15 +2,128 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:composition template="/templates/principal.xhtml">
 
         <ui:define name="content">
+            <h:form id="formProduct" enctype="multipart/form-data">
+                <p:panel id="panel" header="Alterar Produto" style="margin-bottom:10px;">
 
-          
+                    <p:messages id="msgs"/>
+                    <h:panelGrid columns="2" id="grid0">
 
+                        <h:outputLabel for="nomeProduto" value="Nome" />
+                        <p:inputText id="nomeProduto" 
+                                     value="#{produtoBean.nome}"
+                                     required="true"
+                                     requiredMessage="O Nome é obrigatório."/>
+
+                        <h:outputLabel for="categoria" value="Categoria" />
+                        <p:selectOneMenu id="categoria" 
+                                         value="#{produtoBean.categoria}">
+                            <f:selectItems value="#{produtoBean.categorias}" />  
+                            <f:ajax event="change"  render="precos"/>
+                        </p:selectOneMenu>
+
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" id="precos" title="Preço" >
+
+                        <h:outputLabel for="preco" 
+                                       value="Preço R$:" 
+                                       rendered="#{!produtoBean.isMultiplePrice()}" />
+                        <p:inputText id="preco" 
+                                     value="#{produtoBean.preco}"
+                                     required="#{!produtoBean.isMultiplePrice()}"
+                                     requiredMessage="O Preço é obrigatório."
+                                     validatorMessage="Valor Incorreto."
+                                     onkeypress="mascara(this, moeda);"
+                                     rendered="#{!produtoBean.isMultiplePrice()}">
+                            <f:validateDoubleRange minimum="0.01" maximum="999.99"/>
+                            <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2" currencyCode="BRL" /> 
+                        </p:inputText>
+
+                        <h:outputLabel for="precoP" 
+                                       value="Pequena R$:" 
+                                       rendered="#{produtoBean.isMultiplePrice()}" />
+                        <p:inputText id="precoP"
+                                     value="#{produtoBean.precoP}"
+                                     required="#{!produtoBean.isMultiplePrice()}"
+                                     requiredMessage="O Preço para Pizza Pequena é obrigatório."
+                                     onkeypress="mascara(this, moeda);"
+                                     rendered="#{produtoBean.isMultiplePrice()}">
+                            <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2" currencyCode="BRL" /> 
+                        </p:inputText>
+
+                        <h:outputLabel for="precoM" 
+                                       value="Média   R$:" 
+                                       rendered="#{produtoBean.isMultiplePrice()}" />
+                        <p:inputText id="precoM" 
+                                     value="#{produtoBean.precoM}"
+                                     required="#{!produtoBean.isMultiplePrice()}"
+                                     requiredMessage="O Preço para Pizza Média é obrigatório."
+                                     onkeypress="mascara(this, moeda);"
+                                     rendered="#{produtoBean.isMultiplePrice()}">
+                            <f:validateDoubleRange minimum="0.01" maximum="999.99"/>
+                            <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2" currencyCode="BRL" /> 
+                        </p:inputText>
+
+                        <h:outputLabel for="precoG" 
+                                       value="Grande R$:" 
+                                       rendered="#{produtoBean.isMultiplePrice()}" />
+                        <p:inputText id="precoG"
+                                     value="#{produtoBean.precoG}"
+                                     required="#{!produtoBean.isMultiplePrice()}"
+                                     requiredMessage="O Preço para Pizza Grande é obrigatório."
+                                     onkeypress="mascara(this, moeda);"
+                                     rendered="#{produtoBean.isMultiplePrice()}">
+                            <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2" currencyCode="BRL" /> 
+                        </p:inputText>
+
+                        <h:outputLabel for="precoF" 
+                                       value="Familia R$:" 
+                                       rendered="#{produtoBean.isMultiplePrice()}" />
+                        <p:inputText id="precoF" 
+                                     value="#{produtoBean.precoF}"
+                                     required="#{!produtoBean.isMultiplePrice()}"
+                                     requiredMessage="O Preço para Pizza Familia é obrigatório."
+                                     onkeypress="mascara(this, moeda);"
+                                     rendered="#{produtoBean.isMultiplePrice()}">
+                            <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2" currencyCode="BRL" /> 
+                        </p:inputText>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1" id="grid2">
+
+                        <p:fileUpload fileUploadListener="#{imageBean.handleFileUpload}"
+                                      required="true"
+                                      requiredMessage="A Imagem é obrigatória."
+                                      invalidFileMessage="Tipo de arquivo invalido."
+                                      invalidSizeMessage="Tamanho do arquivo invalido."
+                                      label="Procurar Imagem"
+                                      showButtons="false"
+                                      mode="advanced"
+                                      multiple="false"
+                                      update="imagem"  
+                                      auto="true"  
+                                      sizeLimit="1000"   
+                                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/> 
+
+                        <p:graphicImage value="#{imageBean.imagem}" 
+                                        id="imagem"
+                                        height="100px"
+                                        width="100px"
+                                        cache="false"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" >
+                        <p:commandButton value="Alterar" ajax="false" action="#{produtoBean.update()}"
+                                         image="ui-icon ui-icon-disk" update="@form"/>
+                        <p:button value="Cancelar" outcome="home.jsf" />                             
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
         </ui:define>
 
     </ui:composition>

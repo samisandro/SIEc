@@ -84,4 +84,14 @@ public class UsuarioService implements Service<Usuario>{
     public List<Usuario> findBy(String param, String atribute) {
         return userDao.findBy(param, atribute);
     }
+
+    @Override
+    public Usuario findById(long id, String classType) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Usuario> findBy(String param, String atribute, String classType) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

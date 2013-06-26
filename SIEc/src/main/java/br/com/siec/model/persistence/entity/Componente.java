@@ -24,10 +24,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,6 +40,7 @@ import javax.persistence.MapKey;
 import javax.persistence.Table;
 
 import javax.persistence.JoinTable;
+import javax.persistence.MapKeyClass;
 import org.hibernate.annotations.AnyMetaDef;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -65,8 +69,8 @@ public class Componente implements Produto, Serializable {
     @Column(name = "CPT_NOME", length = 30, insertable = true, updatable = true)
     private String nome;
     @Column(name = "CPT_PRECOS")
-    @MapKey(name = "tamanho")
-    private HashMap<String, Double> precos = new HashMap<String, Double>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Map<String, Double> precos = new HashMap<String, Double>();
     @Column(name = "CPT_CATEGORIA")
     @Enumerated(EnumType.STRING)
     private Categorias categoria;
@@ -148,7 +152,7 @@ public class Componente implements Produto, Serializable {
      * br.com.siec.model.persistence.entity.Produto#addComponente(br.com.siec.model.persistence.entity.Componente)
      */
     @Override
-    public void addPreco(String chave, double preco) {
+    public void addPreco(String chave, Double preco) {
         this.precos.put(chave, preco);
     }
 
@@ -157,7 +161,7 @@ public class Componente implements Produto, Serializable {
      * br.com.siec.model.persistence.entity.Produto#addComponente(br.com.siec.model.persistence.entity.Componente)
      */
     @Override
-    public HashMap<String, Double> getPrecos() {
+    public Map<String, Double> getPrecos() {
         return this.precos;
     }
 
@@ -225,13 +229,13 @@ public class Componente implements Produto, Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 47 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 47 * hash + (this.nome != null ? this.nome.hashCode() : 0);
-        hash = 47 * hash + (this.precos != null ? this.precos.hashCode() : 0);
-        hash = 47 * hash + (this.categoria != null ? this.categoria.hashCode() : 0);
-        hash = 47 * hash + Arrays.hashCode(this.imagem);
-        hash = 47 * hash + (this.produtos != null ? this.produtos.hashCode() : 0);
+        int hash = 7;
+        hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 53 * hash + (this.nome != null ? this.nome.hashCode() : 0);
+        hash = 53 * hash + (this.precos != null ? this.precos.hashCode() : 0);
+        hash = 53 * hash + (this.categoria != null ? this.categoria.hashCode() : 0);
+        hash = 53 * hash + Arrays.hashCode(this.imagem);
+        hash = 53 * hash + (this.produtos != null ? this.produtos.hashCode() : 0);
         return hash;
     }
 
@@ -263,5 +267,12 @@ public class Componente implements Produto, Serializable {
             return false;
         }
         return true;
-    }   
+    }
+
+    @Override
+    public String toString() {
+        return "Componente{" + "id=" + id + ", nome=" + nome + ", precos=" + precos + ", categoria=" + categoria + ", imagem=" + imagem + ", produtos=" + produtos + '}';
+    }
+
+      
 }

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/siec.xhtml">
+
+        <ui:define name="content">
+            <h:form id="formProduct" enctype="multipart/form-data">
+                <p:panel id="panel" header="Alterar Produto" style="margin-bottom:10px;">
+
+                    <p:messages id="msgs"/>
+                    <h:panelGrid columns="2" id="grid0">
+                        <h:outputLabel for="codProduto" value="Codigo" />
+                        <p:inputText id="codProduto" 
+                                     value="#{produtoBean.getProductUpdate().id}"
+                                     readonly="true"/>
+
+                        <h:outputLabel for="nomeProduto" value="Nome" />
+                        <p:inputText id="nomeProduto" 
+                                     value="#{produtoBean.getProductUpdate().nome}"
+                                     required="true"
+                                     requiredMessage="O Nome é obrigatório."/>
+
+                        <h:outputLabel for="categoria" value="Categoria" />
+                        <p:inputText id="categoria" 
+                                     value="#{produtoBean.getProductUpdate().categoria}"
+                                     readonly="true"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" id="precos" title="Preço" >
+                        <p:dataTable value="#{produtoBean.getMapKeys()}" var="entry" >
+                            <p:column>
+                                <h:outputLabel for="preco#{entry}">#{entry} R$:</h:outputLabel>                             
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="preco#{entry}"
+                                             value="#{produtoBean.getProductUpdate().precos[entry]}">
+                                    <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2"/> 
+                                </p:inputText>
+                            </p:column>
+                        </p:dataTable>                        
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2" id="grid2">
+
+                        <p:fileUpload fileUploadListener="#{imageBean.handleFileUpload}"
+                                      required="true"
+                                      requiredMessage="A Imagem é obrigatória."
+                                      invalidFileMessage="Tipo de arquivo invalido."
+                                      invalidSizeMessage="Tamanho do arquivo invalido."
+                                      label="Procurar Imagem"
+                                      showButtons="false"
+                                      mode="advanced"
+                                      multiple="false"
+                                      update="imagem"  
+                                      auto="true"  
+                                      sizeLimit="100000"   
+                                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/> 
+
+                        <p:graphicImage value="#{imageBean.imagem}" 
+                                        id="imagem"
+                                        height="100px"
+                                        width="100px"
+                                        cache="false"/>
+
+                        <h:outputLabel for="imagemAtual" value="Imagem Atual"/>
+                        <p:graphicImage value="#{produtoBean.getImagePath()}"
+                                        id="imagemAtual"
+                                        height="100px"
+                                        width="100px"
+                                        cache="false"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" >
+                        <p:commandButton value="Alterar" ajax="false" action="#{produtoBean.update()}"
+                                         image="ui-icon ui-icon-disk" update="@form"/>
+                        <p:button value="Cancelar" outcome="home.jsf" />                             
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+
