@@ -84,9 +84,9 @@ public class ProdutoController implements Serializable {
     }
 
     public void update() {
-        if (getFotoDescricao() != null) {
+        /*if (getFotoDescricao() != null) {
             getProductUpdate().setImagem(getFotoDescricao());
-        }
+        }*/System.out.println("Classe Imagem: "+getProductUpdate().getImagem().getClass().getName());
 
         if (this.produtoService.update(getProductUpdate())) {
             FaceUtil.addMessage("Sucesso", "Registro " + getSelectedProduto().getId() + " alterado.");

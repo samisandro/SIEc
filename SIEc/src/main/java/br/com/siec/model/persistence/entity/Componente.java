@@ -44,6 +44,8 @@ import javax.persistence.MapKeyClass;
 import org.hibernate.annotations.AnyMetaDef;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.MetaValue;
 import org.hibernate.envers.AuditTable;
@@ -78,7 +80,7 @@ public class Componente implements Produto, Serializable {
     @Lob
     private byte[] imagem;
     @NotAudited
-    @ManyToAny(metaColumn =
+    @ManyToAny(fetch = FetchType.EAGER, metaColumn =
             @Column(name = "TIPO_PRODUTO"))
     @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
         @MetaValue(targetEntity = Componente.class, value = "COMPONENTE"),
@@ -89,6 +91,7 @@ public class Componente implements Produto, Serializable {
             @JoinColumn(name = "CPT_CODIGO"),
             inverseJoinColumns =
             @JoinColumn(name = "ACP_CODIGO"))
+    @Fetch(FetchMode.SUBSELECT) 
     private List<Produto> produtos = new ArrayList<Produto>();
 
     public Componente() {
