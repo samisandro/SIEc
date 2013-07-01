@@ -2,6 +2,7 @@ package br.com.siec.service;
 
 import br.com.siec.model.persistence.dao.IAcompanhamentoDAO;
 import br.com.siec.model.persistence.dao.IComponenteDAO;
+import br.com.siec.model.persistence.dao.IProdutoDAO;
 import br.com.siec.model.persistence.entity.Acompanhamento;
 import br.com.siec.model.persistence.entity.Componente;
 import br.com.siec.model.persistence.entity.Produto;
@@ -24,6 +25,8 @@ public class ProdutoService implements Service<Produto> {
     @Inject
     private IComponenteDAO componenteDao;
     @Inject
+    private IProdutoDAO produtoDAO;
+    @Inject
     @ProdutoFactoryQualifier
     AbstractFactory produtoFactory;
     
@@ -37,48 +40,52 @@ public class ProdutoService implements Service<Produto> {
     @Override
     @Transacional
     public boolean save(Produto t) {
-        if ("Acompanhamento".equals(t.getClass().getSimpleName())) {
+        /*if ("Acompanhamento".equals(t.getClass().getSimpleName())) {
             return acompanhamentoDao.salve((Acompanhamento) t);
         } else {
             return componenteDao.salve((Componente) t);
-        }
+        }*/
+        return produtoDAO.salve(t);
     }
 
     @Override
     @Transacional
     public boolean update(Produto t) {
-        if ("Acompanhamento".equals(t.getClass().getSimpleName())) {
+        /*if ("Acompanhamento".equals(t.getClass().getSimpleName())) {
             return acompanhamentoDao.update((Acompanhamento) t);
         } else {
             return componenteDao.update((Componente) t);
-        }
+        }*/
+        return produtoDAO.update(t);
     }
 
     @Override
     @Transacional
     public boolean delete(Produto t) {
-        if ("Acompanhamento".equals(t.getClass().getSimpleName())) {
+        /*if ("Acompanhamento".equals(t.getClass().getSimpleName())) {
             return acompanhamentoDao.delete((Acompanhamento) t);
         } else {
             return componenteDao.delete((Componente) t);
-        }
+        }*/
+        return produtoDAO.delete(t);
     }
 
     @Override
     public Produto findById(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return produtoDAO.find(id);
     }
 
     @Override
     @Transacional
     public List<Produto> listAll() {
-        List<Acompanhamento> acompanhamentos = acompanhamentoDao.listAll();
-        List<Componente> ingredientes = componenteDao.listAll();
+        /*List<Acompanhamento> acompanhamentos = acompanhamentoDao.listAll();
+        List<Componente> ingredientes = componenteDao.listAll();*/
 
-        List<Produto> produtos = new ArrayList<Produto>();
+        //List<Produto> produtos = new ArrayList<Produto>();
+        List<Produto> produtos = produtoDAO.listAll();
 
-        produtos.addAll(ingredientes);
-        produtos.addAll(acompanhamentos);
+        //produtos.addAll(ingredientes);
+        //produtos.addAll(acompanhamentos);
 
         for (int i = 0; i < produtos.size(); i++) {
             if (produtos.get(i).getCategoria().equals(Categorias.Composicao)) {

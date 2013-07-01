@@ -5,6 +5,7 @@
 package br.com.siec.control.beans.util;
 
 import br.com.siec.control.beans.ProdutoController;
+import br.com.siec.model.persistence.entity.Imagem;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +29,7 @@ public class ImageBean implements Serializable {
 
     private StreamedContent imagem;
     private byte[] fotoDescricao;
+    private Imagem img;
 
     /**
      * Creates a new instance of UtilBean
@@ -38,6 +40,9 @@ public class ImageBean implements Serializable {
     public void handleFileUpload(FileUploadEvent event) {
         try {
             this.setImagem(new DefaultStreamedContent(event.getFile().getInputstream(), "image/jpeg"));
+            this.img.setArquivo(event.getFile().getContents());
+            this.img.setExtensao(event.getFile().getContentType());
+            this.img.setDescricao(event.getFile().getFileName());
             byte[] foto = event.getFile().getContents();
             this.fotoDescricao = foto;
         } catch (IOException ex) {
@@ -45,13 +50,14 @@ public class ImageBean implements Serializable {
         }
     }
 
-    public byte[] getFotoDescricao() {
-        return this.fotoDescricao;
+    public Imagem getFotoDescricao() {
+        //return this.fotoDescricao;
+        return this.img;
     }
 
     public StreamedContent getConverted() {
         try {
-            InputStream imagemStream = new ByteArrayInputStream(this.getFotoDescricao());
+            InputStream imagemStream = new ByteArrayInputStream(this.getFotoDescricao().getArquivo());
             StreamedContent image = new DefaultStreamedContent(imagemStream, "image/jpeg", "imageProduct.jpg");
             return image;
         } catch (Exception e) {

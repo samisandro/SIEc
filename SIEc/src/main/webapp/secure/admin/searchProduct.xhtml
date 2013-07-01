@@ -14,7 +14,7 @@
                     <p:panel header="Filtro" id="seachPainel">
                      
                         <p:outputLabel id="searchLabel" for="txtSearch" value="Nome:"/> 
-                        <p:inputText id="txtSearch" value="#{produtoBean.searchParam}">
+                        <p:inputText maxlength="40" id="txtSearch" value="#{produtoBean.searchParam}">
                             <p:ajax event="keyup" listener="#{produtoBean.search()}" update="searchResult" />  
                         </p:inputText>
 
@@ -135,7 +135,7 @@
                             <h:outputText id="preco" value="#{produtoBean.selectedProduto.precos}"/>
 
                             
-                            <p:graphicImage value="/images/#{produtoBean.selectedProduto.id}-#{produtoBean.selectedProduto.categoria}" 
+                            <p:graphicImage value="/images/?id=#{produtoBean.selectedProduto.id}" 
                                             id="imagem"
                                             height="100px"
                                             width="100px"

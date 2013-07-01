@@ -35,7 +35,7 @@ public class AppTestServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        /*
+
         AbstractFactory appFactory = ApplicationFactory.getInstance();
         AbstractFactory produtoFactory = appFactory.createObject(ClassType.ProdutoFactory);
 
@@ -51,41 +51,42 @@ public class AppTestServlet extends HttpServlet {
         mussarella.addPreco(TamanhoPizza.Média.toString(), 1.99);
         mussarella.addPreco(TamanhoPizza.Grande.toString(), 1.99);
         mussarella.addPreco(TamanhoPizza.Família.toString(), 1.99);
-
+        mussarella.setProduto(pizza);
         presunto.setCategoria(Categorias.Ingredientes);
         presunto.setNome("Presunto");
         presunto.addPreco(TamanhoPizza.Pequena.toString(), 1.99);
         presunto.addPreco(TamanhoPizza.Média.toString(), 1.99);
         presunto.addPreco(TamanhoPizza.Grande.toString(), 1.99);
         presunto.addPreco(TamanhoPizza.Família.toString(), 1.99);
-
+        presunto.setProduto(pizza);
         massa.setCategoria(Categorias.Massa);
         massa.setNome("Massa Recheada");
         massa.addPreco(TamanhoPizza.Pequena.toString(), 1.99);
         massa.addPreco(TamanhoPizza.Média.toString(), 1.99);
         massa.addPreco(TamanhoPizza.Grande.toString(), 1.99);
         massa.addPreco(TamanhoPizza.Família.toString(), 1.99);
-
+        massa.setProduto(pizza);
         refrigerante.setCategoria(Categorias.Bebidas);
         refrigerante.setNome("Coca-Cola");
         refrigerante.addPreco("Bebida", 4.99);
+        produtoService.save(refrigerante);
 
         pizza.setNome("Pizza Presunto Mussarella");
-        pizza.addComponente(refrigerante);
+        pizza.setCategoria(Categorias.Composicao);
         pizza.addComponente(mussarella);
         pizza.addComponente(presunto);
         pizza.addComponente(massa);
-        */
-        
-        Produto produto = produtoService.findById(5, "Composicao");
-        
-        produto.addPreco("Família", 6.5);
-        produto.addPreco("Grande", 5.5);
-        produto.addPreco("Média", 4.5);
-        produto.addPreco("Pequena", 3.5);
-                
 
-        if (produtoService.update(produto)) {
+        /*
+         Produto produto = produtoService.findById(5, "Composicao");
+        
+         produto.addPreco("Família", 6.5);
+         produto.addPreco("Grande", 5.5);
+         produto.addPreco("Média", 4.5);
+         produto.addPreco("Pequena", 3.5);
+         */
+
+        if (produtoService.save(pizza)) {
             System.out.println("OK");
         } else {
             System.out.println("Not OK");

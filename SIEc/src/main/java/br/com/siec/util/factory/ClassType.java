@@ -27,6 +27,8 @@ public enum ClassType {
     ServiceFactory,
     PessoaService,
     ProdutoService,
-    UsuarioService;
+    UsuarioService,
+    ListProduto,
+    HashMap;
     
 }

@@ -30,20 +30,20 @@ public class ImageServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-        String id = request.getPathInfo().substring(1).substring(0, request.getPathInfo().lastIndexOf("-") - 1);
-        String categoria = request.getPathInfo().substring(1).substring(request.getPathInfo().lastIndexOf("-"), request.getPathInfo().length() - id.length());
+        long id = Long.parseLong(request.getParameter("id"));
+        //String categoria = request.getParameter("categoria");
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Buscando Imagem.");
             LOGGER.debug("Id do Produto [" + id + "]");
-            LOGGER.debug("Categoria do Produto [" + categoria + "]");
+            //LOGGER.debug("Categoria do Produto [" + categoria + "]");
         }
-        Produto p = produtoService.findById(Long.parseLong(id), categoria);
+        Produto p = produtoService.findById(id);
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Produto Buscado: Nome [" + p.getNome() + "]");
         }
-        response.setContentType("png");
+        response.setContentType(p.getImagem().getExtensao());
         OutputStream out = response.getOutputStream();
-        out.write(p.getImagem());
+        out.write(p.getImagem().getArquivo());
         out.close();
     }
 }

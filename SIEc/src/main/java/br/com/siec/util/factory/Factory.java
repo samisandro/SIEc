@@ -11,6 +11,7 @@ import br.com.siec.model.persistence.entity.Endereco;
 import br.com.siec.model.persistence.entity.Pedido;
 import br.com.siec.model.persistence.entity.Pf;
 import br.com.siec.model.persistence.entity.Pj;
+import br.com.siec.model.persistence.entity.Produto;
 import br.com.siec.model.persistence.entity.Telefone;
 import br.com.siec.model.persistence.entity.Usuario;
 import br.com.siec.model.persistence.util.ListEnun;
@@ -22,7 +23,9 @@ import br.com.siec.util.factory.entity.PessoaFactory;
 import br.com.siec.util.factory.entity.ProdutoFactory;
 import br.com.siec.util.factory.entity.UserFactory;
 import br.com.siec.util.factory.service.ServiceFactory;
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -90,6 +93,8 @@ public abstract class Factory implements AbstractFactory {
         classLibrary.put(ClassType.ProdutoService, new ProdutoService());
         classLibrary.put(ClassType.UsuarioService, new UsuarioService());
         classLibrary.put(ClassType.Categorias, new ListEnun());
+        classLibrary.put(ClassType.HashMap, new HashMap<String, Double>());
+        classLibrary.put(ClassType.ListProduto, new ArrayList<Produto>());
 
     }
 }

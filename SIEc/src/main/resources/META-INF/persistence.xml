@@ -15,6 +15,7 @@
     <class>br.com.siec.model.persistence.entity.Produto</class>
     <class>br.com.siec.model.persistence.entity.Telefone</class>
     <class>br.com.siec.model.persistence.entity.Usuario</class>
+    <class>br.com.siec.model.persistence.entity.Imagem</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
     <properties>

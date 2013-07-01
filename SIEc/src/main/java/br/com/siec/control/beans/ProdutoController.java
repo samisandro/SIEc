@@ -2,6 +2,7 @@ package br.com.siec.control.beans;
 
 import br.com.siec.control.beans.util.FaceUtil;
 import br.com.siec.control.beans.util.ImageBean;
+import br.com.siec.model.persistence.entity.Imagem;
 import br.com.siec.model.persistence.entity.Produto;
 import br.com.siec.model.persistence.util.Categorias;
 import br.com.siec.model.persistence.util.IListEnun;
@@ -38,7 +39,7 @@ public class ProdutoController implements Serializable {
     private IListEnun categorias;
     private String categoria;
     private String nome;
-    private byte[] fotoDescricao;
+    private Imagem fotoDescricao;
     private Double preco = 0.00;
     private Double precoP = 0.00;
     private Double precoM = 0.00;
@@ -195,7 +196,7 @@ public class ProdutoController implements Serializable {
         return this.categoria;
     }
 
-    public byte[] getFotoDescricao() {
+    public Imagem getFotoDescricao() {
         this.imageBean = FaceUtil.findBean("imageBean");
         this.fotoDescricao = this.imageBean.getFotoDescricao();
         return fotoDescricao;

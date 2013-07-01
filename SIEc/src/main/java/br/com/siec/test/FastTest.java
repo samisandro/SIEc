@@ -22,7 +22,13 @@ import java.util.List;
 public class FastTest {
 
     public static void main(String args[]) {
-
+        
+        Produto produto = new Componente();
+        Produto acompanhamento = new Acompanhamento();
+        
+        System.out.println("Produtos:" + produto.getProdutos().size());
+        System.out.println("Acompanhamento:" + acompanhamento.getProdutos().size());
+/*
         IAcompanhamentoDAO acompanhamentoDao = new AcompanhamentoDAO();;
         IComponenteDAO componenteDao = new ComponenteDAO();
 
@@ -43,7 +49,7 @@ public class FastTest {
             System.out.println("Produtos " + produtos.size());
 
         }
-    }
+   */ }
 }
     /**
      * if(categorias.getCategorias().get(i).getClass().getName().equals("Composicao")){
