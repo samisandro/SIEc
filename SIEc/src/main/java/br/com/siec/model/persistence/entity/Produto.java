@@ -43,8 +43,6 @@ public abstract class Produto implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PRT_CODIGO")
     private long id;
-    @Column(name = "PRT_COMPOSICAO", insertable=false, updatable=false)
-    private long idComposicao;
     @Column(name = "PRT_NOME", length = 30, insertable = true, updatable = true)
     private String nome;
     @Column(name = "PRT_PRECOS")
@@ -56,13 +54,13 @@ public abstract class Produto implements Serializable {
     @OneToOne(mappedBy = "produto")
     @Cascade(CascadeType.ALL)
     private Imagem imagem;
-    
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity=Produto.class)
+    @ManyToOne(fetch=FetchType.EAGER, targetEntity = Produto.class)
     @Cascade(CascadeType.SAVE_UPDATE)
+    @JoinColumn(name = "PRT_COMPOSICAO")
     private Produto produto;
-    
-    @OneToMany(mappedBy = "produto", targetEntity=Produto.class)
+    @OneToMany(mappedBy = "produto", targetEntity = Produto.class, fetch=FetchType.EAGER)
     @Cascade(CascadeType.SAVE_UPDATE)
+    @Fetch(FetchMode.SUBSELECT)
     private List<Produto> produtos = new ArrayList<Produto>();
 
     public Produto() {
@@ -107,14 +105,6 @@ public abstract class Produto implements Serializable {
     public void setImagem(Imagem imagem) {
         this.imagem = imagem;
     }
-
-    public long getIdComposicao() {
-        return idComposicao;
-    }
-
-    public void setIdComposicao(long idComposicao) {
-        this.idComposicao = idComposicao;
-    }  
 
     public List<Produto> getProdutos() {
         return this.produtos;

@@ -7,14 +7,99 @@
 
     <ui:composition template="/templates/principal.xhtml">
 
-        <ui:define name="content">
-            
-            <h:outputText value="#{bundle.label_contrucao}"/> 
-            <br />
-           
-            <h:link value="Home" outcome="/secure/admin/home.jsf" />
-            
+        <ui:define name="content">            
+            <div class="wrapper">
+                <div id="templatemo_slider">
+                    <!-- This is the container for the carousel. -->
+                    <div id = "carousel1" style="width:960px; height:280px;background:none;overflow:scroll; margin-top: 20px">            
+                        <!-- All images with class of "cloudcarousel" will be turned into carousel items -->
+                        <!-- You can place links around these images -->
+                        <a href="" rel="lightbox">
+                            <h:graphicImage library="default"
+                                            name="images/home/1.jpg"/>
+                        </a>
+                        <a href="" rel="lightbox">
+                            <h:graphicImage library="default"
+                                            name="images/home/2.jpg"/>
+                        </a>
+                        <a href="" rel="lightbox">
+                            <h:graphicImage library="default"
+                                            name="images/home/3.jpg"/>
+                        </a>
+                        <h:link value="Home" outcome="/secure/admin/home.jsf" rel="lightbox">
+                            <h:graphicImage library="default"
+                                            name="images/home/4.jpg"/>
+                        </h:link>
+                    </div>
 
+                    <!-- Define left and right buttons. -->
+                    <center>
+                        <input id="slider-left-but" type="button" value="" />
+                        <input id="slider-right-but" type="button" value="" />
+                    </center>
+                </div>
+
+                <div class="clear"></div>
+                <div class="border"></div>
+                <div class="home-widget">
+                    <h3>Lorem Ipsum</h3>
+                    <h:graphicImage library="default"
+                                    name="images/home/3.jpg" 
+                                    width="300" 
+                                    alt="" />
+                    <p>Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae.</p>
+                </div>
+                <div class="home-widget">
+                    <h3>Lorem Ipsum</h3>
+                    <h:graphicImage library="default"
+                                    name="images/home/4.jpg" 
+                                    width="300" 
+                                    alt="" />
+                    <p>Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae.</p>
+                </div>
+                <div class="home-widget">
+                    <h3>Lorem Ipsum</h3>
+                    <h:graphicImage library="default"
+                                    name="images/home/3.jpg" 
+                                    width="300" 
+                                    alt="" />
+                    <p>Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae.</p>
+                </div>
+                <div class="border2"></div>
+                <br />
+                <aside id="pricing-table" class="clear">
+                    <div class="plan">
+                        <h3>Breakfast<span>$99</span></h3>
+                        <a class="button" href="">Order Now</a>
+                        <ul>
+                            <li><strong style="text-transform:uppercase">lorem Ipsum</strong> Dolor Sit Amet</li>
+                            <li><strong style="text-transform:uppercase">lorem Ipsum</strong> Dolor Sit Amet</li>
+                            <li><strong style="text-transform:uppercase">lorem Ipsum</strong> Dolor Sit Amet</li>
+                            <li><strong style="text-transform:uppercase">lorem Ipsum</strong> Dolor Sit Amet</li>
+                        </ul>
+                    </div>
+                    <div class="plan">
+                        <h3>Lunch<span>$99</span></h3>
+                        <a class="button" href="">Order Now</a>
+                        <ul>
+                            <li><strong style="text-transform:uppercase">lorem Ipsum</strong> Dolor Sit Amet</li>
+                            <li><strong style="text-transform:uppercase">lorem Ipsum</strong> Dolor Sit Amet</li>
+                            <li><strong style="text-transform:uppercase">lorem Ipsum</strong> Dolor Sit Amet</li>
+                            <li><strong style="text-transform:uppercase">lorem Ipsum</strong> Dolor Sit Amet</li>
+                        </ul>
+                    </div>
+                    <div class="plan">
+                        <h3>Dinner<span>$99</span></h3>
+                        <a class="button" href="">Order Now</a>
+                        <ul>
+                            <li><strong style="text-transform:uppercase">lorem Ipsum</strong> Dolor Sit Amet</li>
+                            <li><strong style="text-transform:uppercase">lorem Ipsum</strong> Dolor Sit Amet</li>
+                            <li><strong style="text-transform:uppercase">lorem Ipsum</strong> Dolor Sit Amet</li>
+                            <li><strong style="text-transform:uppercase">lorem Ipsum</strong> Dolor Sit Amet</li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
         </ui:define>
 
     </ui:composition>

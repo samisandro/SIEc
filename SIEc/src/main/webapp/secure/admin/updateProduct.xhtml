@@ -37,7 +37,8 @@
                             </p:column>
                             <p:column>
                                 <p:inputText id="preco#{entry}"
-                                             value="#{produtoBean.getProductUpdate().precos[entry]}">
+                                             value="#{produtoBean.getProductUpdate().precos[entry]}" 
+                                             converter="javax.faces.Double">
                                     <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2"/> 
                                 </p:inputText>
                             </p:column>

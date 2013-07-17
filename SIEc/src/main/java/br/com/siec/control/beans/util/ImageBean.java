@@ -39,7 +39,7 @@ public class ImageBean implements Serializable {
 
     public void handleFileUpload(FileUploadEvent event) {
         try {
-            this.setImagem(new DefaultStreamedContent(event.getFile().getInputstream(), "image/jpeg"));
+            this.imagem = new DefaultStreamedContent(event.getFile().getInputstream(), "image/jpeg");
             this.img.setArquivo(event.getFile().getContents());
             this.img.setExtensao(event.getFile().getContentType());
             this.img.setDescricao(event.getFile().getFileName());
@@ -67,7 +67,7 @@ public class ImageBean implements Serializable {
     }
 
     public StreamedContent getImagem() {
-        return imagem;
+        return this.imagem;
     }
 
     public void setImagem(StreamedContent imagem) {
