@@ -7,28 +7,33 @@
 
     <ui:composition template="/templates/principal.xhtml">
 
-        <ui:define name="content">            
+        <ui:define name="content">
+            
             <div class="wrapper">
-                <div id="templatemo_slider">
+                <div id="templatemo_slider" class="pikachoose">
                     <!-- This is the container for the carousel. -->
                     <div id = "carousel1" style="width:960px; height:280px;background:none;overflow:scroll; margin-top: 20px">            
                         <!-- All images with class of "cloudcarousel" will be turned into carousel items -->
-                        <!-- You can place links around these images -->
+                        <!-- You can place links around these images -->                        
                         <a href="" rel="lightbox">
                             <h:graphicImage library="default"
-                                            name="images/home/1.jpg"/>
+                                            class="cloudcarousel"
+                                            name="images/gallery/1.jpeg"/>
                         </a>
                         <a href="" rel="lightbox">
                             <h:graphicImage library="default"
-                                            name="images/home/2.jpg"/>
+                                            class="cloudcarousel"
+                                            name="images/gallery/2.jpg"/>
                         </a>
                         <a href="" rel="lightbox">
                             <h:graphicImage library="default"
-                                            name="images/home/3.jpg"/>
+                                            class="cloudcarousel"
+                                            name="images/gallery/3.jpeg"/>
                         </a>
-                        <h:link value="Home" outcome="/secure/admin/home.jsf" rel="lightbox">
+                        <h:link outcome="/secure/admin/home.jsf" rel="lightbox">
                             <h:graphicImage library="default"
-                                            name="images/home/4.jpg"/>
+                                            class="cloudcarousel"
+                                            name="images/gallery/4.jpg"/>
                         </h:link>
                     </div>
 
