@@ -36,7 +36,7 @@
                                 <h:outputLabel for="preco#{entry}">#{entry} R$:</h:outputLabel>                             
                             </p:column>
                             <p:column>
-                                <p:inputText id="preco#{entry}"
+                                <p:inputText id="preco#{entry.toString()}"
                                              value="#{produtoBean.getProductUpdate().precos[entry]}" 
                                              converter="javax.faces.Double">
                                     <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2"/> 

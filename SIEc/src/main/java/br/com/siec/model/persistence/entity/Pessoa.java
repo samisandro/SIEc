@@ -18,7 +18,12 @@
  */
 package br.com.siec.model.persistence.entity;
 
+import br.com.siec.model.persistence.interfaces.IEndereco;
+import br.com.siec.model.persistence.interfaces.IUsuario;
+import br.com.siec.model.persistence.interfaces.IPessoa;
+import br.com.siec.model.persistence.interfaces.ITelefone;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -69,13 +74,13 @@ public abstract class Pessoa implements IPessoa, Serializable {
             @JoinColumn(name = "PSS_CODIGO"),
             inverseJoinColumns =
             @JoinColumn(name = "END_CODIGO"))
-    private List<IEndereco> enderecos;
+    private List<IEndereco> enderecos = new ArrayList<IEndereco>();
     /*
      * Relacionamento 1 : N - Pessoa : Telefone
      */
     @OneToMany(mappedBy = "pessoa", targetEntity = Telefone.class, fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
-    private List<ITelefone> telefones;
+    private List<ITelefone> telefones = new ArrayList<ITelefone>();
     
     @OneToOne(mappedBy="pessoa", targetEntity= Usuario.class)
     @Cascade(CascadeType.ALL)

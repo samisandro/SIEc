@@ -18,12 +18,12 @@
  */
 package br.com.siec.test;
 
-import br.com.siec.model.persistence.entity.IPJ;
-import br.com.siec.model.persistence.entity.IPf;
+import br.com.siec.model.persistence.interfaces.IPJ;
+import br.com.siec.model.persistence.interfaces.IPf;
 import br.com.siec.model.persistence.entity.Produto;
-import br.com.siec.util.factory.AbstractFactory;
-import br.com.siec.util.factory.ApplicationFactory;
-import br.com.siec.util.factory.ClassType;
+import br.com.siec.api.factory.AbstractFactory;
+import br.com.siec.api.factory.ApplicationFactory;
+import br.com.siec.api.factory.ClassType;
 
 /**
  * Creational : Classe de Testes

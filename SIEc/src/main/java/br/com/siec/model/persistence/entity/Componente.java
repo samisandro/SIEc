@@ -18,11 +18,25 @@
  */
 package br.com.siec.model.persistence.entity;
 
+import br.com.siec.model.persistence.interfaces.Composite;
+import br.com.siec.model.persistence.interfaces.IComponente;
+import br.com.siec.model.persistence.util.TipoPreco;
+import br.com.siec.business.pricestrategy.MultiplePrice;
+import br.com.siec.business.pricestrategy.isMultiplePrice;
+import br.com.siec.business.pricestrategy.notMultiplePrice;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import javax.persistence.PrimaryKeyJoinColumn;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
@@ -37,34 +51,17 @@ import org.hibernate.envers.Audited;
 @Table(name = "TB_COMPONENTE_CPT", schema = "siec")
 @Audited
 @AuditTable(value = "TB_COMPONENTE_AUDIT")
-public class Componente extends Produto implements Serializable {
+public class Componente extends Produto implements IComponente, Serializable {
+
+    @ManyToMany(targetEntity = Composicao.class, mappedBy = "componentes")
+    private List<Composite> composicoes = new ArrayList<Composite>();
 
     public Componente() {
+        super.setTypePrice(new isMultiplePrice());
     }
 
-    /**
-     * @see
-     * br.com.siec.model.persistence.entity.Produto#addComponente(br.com.siec.model.persistence.entity.Componente)
-     */
     @Override
-    public void addComponente(Produto componente) {
-        super.getProdutos().add(componente);
-    }
-
-    /**
-     * @see
-     * br.com.siec.model.persistence.entity.Produto#removeComponente(br.com.siec.model.persistence.entity.Componente)
-     */
-    @Override
-    public void removeComponente(Produto componente) {
-        super.getProdutos().remove(componente);
-    }
-
-    /**
-     * @see br.com.siec.model.persistence.entity.Produto#getComponente(int)
-     */
-    @Override
-    public Produto getComponente(int i) {
-        return super.getProdutos().get(i);
+    public void addPreco(Preco preco) {
+       super.getTypePrice().addPrice(super.getPrecos(),preco);
     }
 }

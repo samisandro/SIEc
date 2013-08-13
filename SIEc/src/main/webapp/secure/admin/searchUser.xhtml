@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/siec.xhtml">
+        <ui:define name="content">
+
+            <p:panel id="panel" header="Produtos" style="margin-bottom:10px;">
+                <h:form prependId="true" id="form1">
+                    <p:panel header="Filtro" id="seachPainel">
+                     
+                        <p:outputLabel id="searchLabel" for="txtSearch" value="Nome:"/> 
+                        <p:inputText maxlength="40" id="txtSearch" value="#{produtoBean.searchParam}">
+                            <p:ajax event="keyup" listener="#{produtoBean.search()}" update="searchResult" />  
+                        </p:inputText>
+
+                    </p:panel>
+                    <p:panel id="searchResult">
+                        <p:dataTable id="panelResultSearch"
+                                     value="#{produtoBean.resultSearch}" 
+                                     paginator="true"
+                                     rows="15"
+                                     emptyMessage="Nenhum Produto encontrado com este filtro."
+                                     var="produto">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ID"/>
+                                </f:facet>
+                                #{produto.id}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nome"/>
+                                </f:facet>
+                                #{produto.nome}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Categoria"/>
+                                </f:facet>
+                                #{produto.categoria}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Preço"/>
+                                </f:facet>
+                                #{produto.precos}
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Ações"/>
+                                </f:facet>
+                                <p:commandLink update=":formDialogVisualizar:visualizarDialog" oncomplete="visualizar.show();">
+                                    <f:setPropertyActionListener value="#{produto}" target="#{produtoBean.selectedProduto}"/>
+                                    <h:graphicImage library="default"
+                                                    name="images/view.png" 
+                                                    alt="Visualizar" 
+                                                    title="Visualizar" 
+                                                    style="border: none"
+                                                    height="30px"
+                                                    width="30px"/>                                 
+                                </p:commandLink>
+                                <p:commandLink type="submit" ajax="false" action="#{produtoBean.goUpdate()}">
+                                    <f:setPropertyActionListener value="#{produto}" target="#{produtoBean.selectedProduto}"/>
+                                    <h:graphicImage library="default"
+                                                    name="images/edit.png" 
+                                                    alt="Alterar" 
+                                                    title="Alterar" 
+                                                    style="border: none"
+                                                    height="30px"
+                                                    width="30px"/>                                 
+                                </p:commandLink>
+                                <p:commandLink oncomplete="confirmDelete.show();">
+                                    <f:setPropertyActionListener value="#{produto}" target="#{produtoBean.selectedProduto}"/>
+                                    <h:graphicImage library="default"
+                                                    name="images/x.png" 
+                                                    alt="Excluir" 
+                                                    title="Excluir" 
+                                                    style="border: none"
+                                                    height="30px"
+                                                    width="30px"/>                                 
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+                <h:form id="formConfirmDialogExcluir">
+                    <p:growl id="messages" showDetail="true" sticky="true"/>
+                    <p:confirmDialog id="confirmDelete" 
+                                     message="Você tem certeza que deseja excluir o registro?"    
+                                     header="Exclusão de Registro" 
+                                     severity="alert" 
+                                     widgetVar="confirmDelete"
+                                     appendToBody="true">
+
+                        <p:commandButton id="confirm" 
+                                         value="Sim"
+                                         process="@this"
+                                         action="#{produtoBean.deleteSearch()}"
+                                         oncomplete="confirmDelete.hide();"
+                                         update=":form1:searchResult, messages">
+
+                        </p:commandButton>
+
+                        <p:commandButton id="decline" 
+                                         value="Não" 
+                                         onclick="confirmDelete.hide();" 
+                                         type="button" />     
+
+                    </p:confirmDialog>     
+                </h:form>
+                <h:form id="formDialogVisualizar" >
+                    <p:dialog id="visualizarDialog"
+                              widgetVar="visualizar" 
+                              header="Visualizar Produto" 
+                              width="400" 
+                              appendToBody="true" 
+                              modal="true">
+                        <h:panelGrid cellspacing="3" columns="2">    
+                            <h:outputLabel for="codigoProduto" value="Codigo:" />
+                            <h:outputText id="codigoProduto" value="#{produtoBean.selectedProduto.id}"/>
+                            
+                            <h:outputLabel for="nomeProduto" value="Nome:" />
+                            <h:outputText id="nomeProduto" value="#{produtoBean.selectedProduto.nome}"/>
+
+                            <h:outputLabel for="categoria" value="Categoria:" />
+                            <h:outputText id="categoria" value="#{produtoBean.selectedProduto.categoria}"/>
+
+                            <h:outputLabel for="preco" value="Preços:" />
+                            <h:outputText id="preco" value="#{produtoBean.selectedProduto.precos}"/>
+
+                            
+                            <p:graphicImage value="/images/?id=#{produtoBean.selectedProduto.id}" 
+                                            id="imagem"
+                                            height="100px"
+                                            width="100px"
+                                            cache="false"/>
+                        </h:panelGrid>
+                        <center>
+                            <p:commandButton id="ok" 
+                                             value="Ok" 
+                                             onclick="visualizar.hide();" 
+                                             type="button" />
+                        </center>
+                    </p:dialog>
+                </h:form>
+            </p:panel>                      
+
+        </ui:define>
+    </ui:composition>
+</html>
+

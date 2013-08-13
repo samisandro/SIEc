@@ -18,6 +18,9 @@
  */
 package br.com.siec.model.persistence.entity;
 
+import br.com.siec.model.persistence.interfaces.IPedido;
+import br.com.siec.model.persistence.interfaces.IUsuario;
+import br.com.siec.model.persistence.interfaces.ICliente;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -43,16 +46,16 @@ import org.hibernate.envers.Audited;
 @Entity
 @Table(name = "TB_CLIENTE_CLT", schema = "siec")
 @Audited
-@AuditTable(value="TB_CLIENTE_AUDIT")
+@AuditTable(value = "TB_CLIENTE_AUDIT")
 public class Cliente implements ICliente, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CLT_CODIGO")
     private long id;
-    @OneToOne(targetEntity=Usuario.class)
+    @OneToOne(targetEntity = Usuario.class)
     private IUsuario usuario;
-    @OneToMany(mappedBy="cliente", targetEntity=Pedido.class, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cliente", targetEntity = Pedido.class, fetch = FetchType.LAZY)
     @Cascade(CascadeType.ALL)
     private List<IPedido> pedidos;
 
@@ -85,5 +88,40 @@ public class Cliente implements ICliente, Serializable {
 
     public IUsuario getUsuario() {
         return this.usuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "id=" + id + ", usuario=" + usuario + ", pedidos=" + pedidos + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 97 * hash + (this.usuario != null ? this.usuario.hashCode() : 0);
+        hash = 97 * hash + (this.pedidos != null ? this.pedidos.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cliente other = (Cliente) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.usuario != other.usuario && (this.usuario == null || !this.usuario.equals(other.usuario))) {
+            return false;
+        }
+        if (this.pedidos != other.pedidos && (this.pedidos == null || !this.pedidos.equals(other.pedidos))) {
+            return false;
+        }
+        return true;
     }
 }

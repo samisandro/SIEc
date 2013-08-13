@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface Service<T> extends Serializable{
     
-    public <T> T create(String classType);
+    public T create(String classType);
     
     public boolean save(T t);
 
@@ -22,15 +22,11 @@ public interface Service<T> extends Serializable{
     public boolean delete(T t);
 
     public T findById(long id);
-    
-    public T findById(long id, String classType);
 
     public List<T> listAll();
 
     public T validate(T t);
 
     public List<T> findBy(String param, String atribute);
-    
-    public List<T> findBy(String param, String atribute, String classType);
     
 }

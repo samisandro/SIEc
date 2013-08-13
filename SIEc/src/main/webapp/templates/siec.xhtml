@@ -123,6 +123,12 @@
                     <li ><a href="sign-up.html">Sign Up</a></li>
                     <li ><a href="reset-password.html">Reset Password</a></li>
                 </ul>
+                <a href="#users-menu" class="nav-header" data-toggle="collapse"><i class="icon-fire"></i>#{bundle.label_system_user}</a>
+                <ul id="users-menu" class="nav nav-list collapse">
+                    <li ><h:link outcome="/secure/admin/allUsers.jsf">#{bundle.label_system_compositions}</h:link></li>                    
+                    <li ><h:link outcome="/secure/admin/registerUser.jsf">#{bundle.label_system_user_new}</h:link></li>                    
+                    <li ><h:link outcome="/secure/admin/searchUser.jsf">#{bundle.label_system_user_search}</h:link></li>                    
+                </ul>
             </div>
         </ui:insert>  
         

@@ -4,16 +4,19 @@
  */
 package br.com.siec.test;
 
-import br.com.siec.model.persistence.dao.IAcompanhamentoDAO;
-import br.com.siec.model.persistence.dao.IComponenteDAO;
-import br.com.siec.model.persistence.daoImpl.AcompanhamentoDAO;
-import br.com.siec.model.persistence.daoImpl.ComponenteDAO;
 import br.com.siec.model.persistence.entity.Acompanhamento;
 import br.com.siec.model.persistence.entity.Componente;
-import br.com.siec.model.persistence.entity.Produto;
+import br.com.siec.model.persistence.entity.Composicao;
+import br.com.siec.model.persistence.entity.Preco;
+import br.com.siec.model.persistence.interfaces.Composite;
+import br.com.siec.model.persistence.interfaces.IAcompanhamento;
+import br.com.siec.model.persistence.interfaces.IComponente;
+import br.com.siec.model.persistence.interfaces.IPreco;
 import br.com.siec.model.persistence.util.Categorias;
-import java.util.ArrayList;
-import java.util.List;
+import br.com.siec.model.persistence.util.TipoPreco;
+import br.com.siec.api.factory.AbstractFactory;
+import br.com.siec.api.factory.ApplicationFactory;
+import br.com.siec.api.factory.ClassType;
 
 /**
  *
@@ -23,35 +26,75 @@ public class FastTest {
 
     public static void main(String args[]) {
         
-        Produto produto = new Componente();
-        Produto acompanhamento = new Acompanhamento();
+        AbstractFactory appFactory = ApplicationFactory.getInstance();
+        AbstractFactory produtoFactory = appFactory.createObject(ClassType.ProdutoFactory);
         
-        System.out.println("Produtos:" + produto.getProdutos().size());
-        System.out.println("Acompanhamento:" + acompanhamento.getProdutos().size());
-/*
-        IAcompanhamentoDAO acompanhamentoDao = new AcompanhamentoDAO();;
-        IComponenteDAO componenteDao = new ComponenteDAO();
+        IComponente mussarela = produtoFactory.createObject(ClassType.Componente);
+        IComponente calabresa = produtoFactory.createObject(ClassType.Componente);
+        IComponente massa = produtoFactory.createObject(ClassType.Componente);
+        IAcompanhamento refrigerante = produtoFactory.createObject(ClassType.Componente);
+        Composite pizza = produtoFactory.createObject(ClassType.Composite);
+        Preco precoC = produtoFactory.createObject(ClassType.Preco);
+        Preco precoP = produtoFactory.createObject(ClassType.Preco);
+        Preco precoM = produtoFactory.createObject(ClassType.Preco);
+        Preco precoG = produtoFactory.createObject(ClassType.Preco);
+        Preco precoF = produtoFactory.createObject(ClassType.Preco);
 
-        List<Acompanhamento> acompanhamentos = acompanhamentoDao.listAll();
-        List<Componente> ingredientes = componenteDao.listAll();
-        System.out.println("acompanhamentos " + acompanhamentos.size());
-        System.out.println("ingredientes " + ingredientes.size());
-        List<Produto> produtos = new ArrayList<Produto>();
+        precoC.setTipo(TipoPreco.COMUM);
+        precoC.setValor(4.99);
+        precoP.setTipo(TipoPreco.PEQUENA);
+        precoP.setValor(1.99);
+        precoM.setTipo(TipoPreco.MEDIA);
+        precoM.setValor(2.99);
+        precoG.setTipo(TipoPreco.GRANDE);
+        precoG.setValor(3.99);
+        precoF.setTipo(TipoPreco.FAMILIA);
+        precoF.setValor(4.99);
 
-        produtos.addAll(ingredientes);
-        produtos.addAll(acompanhamentos);
+        mussarela.setCategoria(Categorias.Ingredientes);
+        mussarela.setNome("Mussarela");
+        mussarela.addPreco(precoP);
+        mussarela.addPreco(precoM);
+        mussarela.addPreco(precoG);
+        mussarela.addPreco(precoF);
 
-        for (int i = 0; i < produtos.size(); produtos.size()) {
-            if (produtos.get(i).getCategoria().equals(Categorias.Composicao)) {
-                produtos.remove(i);
-            }
+        calabresa.setCategoria(Categorias.Ingredientes);
+        calabresa.setNome("Calabresa");
+        calabresa.addPreco(precoP);
+        calabresa.addPreco(precoM);
+        calabresa.addPreco(precoG);
+        calabresa.addPreco(precoF);
 
-            System.out.println("Produtos " + produtos.size());
+        massa.setCategoria(Categorias.Massa);
+        massa.setNome("Massa");
+        massa.addPreco(precoP);
+        massa.addPreco(precoM);
+        massa.addPreco(precoG);
+        massa.addPreco(precoF);
 
+        refrigerante.setCategoria(Categorias.Bebidas);
+        refrigerante.setNome("Coca-Cola");
+        refrigerante.addPreco(precoC);
+
+        pizza.setNome("Pizza Tradicional");
+        pizza.addComponente(mussarela);
+        pizza.addComponente(calabresa);
+        pizza.addComponente(massa);
+
+
+        for (Preco preco : pizza.getPrecos()) {
+            System.out.println("Pizza Tradicional - Tamanho:" + preco.getTipo().toString() + " Preco: " + preco.getValor());
         }
-   */ }
+        for (Preco preco : refrigerante.getPrecos()) {
+            System.out.println("Refrigerante:" + preco.getTipo().toString() + " Preco: " + preco.getValor());
+        }
+
+        refrigerante.addPreco(precoF);
+
+        for (Preco preco : refrigerante.getPrecos()) {
+            System.out.println("Refrigerante:" + preco.getTipo().toString() + " Preco: " + preco.getValor());
+        }
+
+
+    }
 }
-    /**
-     * if(categorias.getCategorias().get(i).getClass().getName().equals("Composicao")){
-     * categorias.getCategorias().remove(i); }
-     */

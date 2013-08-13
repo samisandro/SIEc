@@ -29,9 +29,8 @@
                                                  styleClass="btn btn-primary"
                                                  action="#{produtoBean.save()}"
                                                  update="@form"> 
-                                    <i class="icon-save"></i>
+                                    
                                 </p:commandButton></a>
-
 
                             <h:link styleClass="btn" outcome="/secure/admin/home.jsf">#{bundle.label_system_cancel}</h:link>                             
                             <div class="btn-group">
@@ -40,118 +39,125 @@
                         <div class="well">
 
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#data" data-toggle="tab">Profile</a></li>
-                                <li><a href="#image" data-toggle="tab">Password</a></li>
+                                <li class="active"><a href="#data" data-toggle="tab">Dados Principais</a></li>
+                                <li><a href="#image" data-toggle="tab">Imagem</a></li>
                             </ul>
                             <div id="myTabContent" class="tab-content">
-                                <div class="tab-pane active in" id="data">
-                                    <div class="alert alert-info">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>
-                                        <strong><p:messages id="msgs"/></strong>
-                                    </div>
+                                <div class="tab-pane active in" id="data">                                                                 
 
                                     <h:outputLabel for="nomeProduto" value="Nome" />
                                     <p:inputText id="nomeProduto" 
-                                                 value="#{produtoBean.nome}"
+                                                 value="#{produtoBean.produto.nome}"
                                                  maxlength="40"
                                                  required="true"
                                                  styleClass="input-xlarge"
-                                                 requiredMessage="O Nome é obrigatório."/>
-
-                                    <p:message id="defaultMessage" for="nomeProduto" /> 
+                                                 requiredMessage="#{bundle.label_system_required}"/>
+                                    <h:message for="nomeProduto"/>
 
                                     <h:outputLabel for="categoria" value="Categoria" />
                                     <p:selectOneMenu id="categoria"
                                                      styleClass="input-xlarge"
-                                                     value="#{produtoBean.categoria}">
+                                                     value="#{produtoBean.produto.categoria}">
                                         <f:selectItems value="#{produtoBean.categorias}" />  
-                                        <f:ajax event="change"  render="precos"/>
+                                        <f:ajax listener="#{produtoBean.changeProduto}" event="change" render="precos"/>
                                     </p:selectOneMenu>
-                                    <h:panelGrid columns="1" id="precos" title="Preço" >
 
-                                        <h:outputLabel for="preco" 
-                                                       value="Preço R$:" 
-                                                       rendered="#{!produtoBean.isMultiplePrice()}" />
-                                        <p:inputText id="preco" 
-                                                     value="#{produtoBean.preco}"
-                                                     required="#{!produtoBean.isMultiplePrice()}"
-                                                     requiredMessage="O Preço é obrigatório."
-                                                     validatorMessage="Preço: Valor Incorreto."
+                                    <p:panel id="precos">
+
+                                        <h:outputLabel for="precoC" 
+                                                       value="#{bundle.label_form_price} #{produtoBean.precoC.tipo.descricao} R$:"
+                                                       rendered="#{!produtoBean.produto.typePrice.multiplePrice}"/>
+
+                                        <h:inputText id="precoC" 
+                                                     value="#{produtoBean.precoC.valor}"
+                                                     required="#{!produtoBean.produto.typePrice.multiplePrice}"
+                                                     rendered="#{!produtoBean.produto.typePrice.multiplePrice}"
+                                                     requiredMessage="#{bundle.label_system_required}"
+                                                     validatorMessage="#{bundle.label_system_invalid}"
                                                      converter="javax.faces.Double" 
                                                      styleClass="input-xlarge"
-                                                     onkeypress="mascara(this, moeda);"
-                                                     rendered="#{!produtoBean.isMultiplePrice()}">
+                                                     onkeypress="mascara(this, moeda);">
                                             <f:validateDoubleRange minimum="0.01" maximum="999.99"/>
                                             <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2" currencyCode="BRL" /> 
-                                        </p:inputText>
-
+                                        </h:inputText>
+                                        <h:message for="precoC"/>
+                                        
                                         <h:outputLabel for="precoP" 
-                                                       value="Pequena R$:" 
-                                                       rendered="#{produtoBean.isMultiplePrice()}" />
-                                        <p:inputText id="precoP"
-                                                     value="#{produtoBean.precoP}"
-                                                     required="#{!produtoBean.isMultiplePrice()}"
-                                                     converter="javax.faces.Double"
-                                                     requiredMessage="O Preço para Pizza Pequena é obrigatório."
-                                                     validatorMessage="Preço Pequena: Valor Incorreto."
+                                                       value="#{bundle.label_form_pricePizza} #{produtoBean.precoP.tipo.descricao} R$:"
+                                                       rendered="#{produtoBean.produto.typePrice.multiplePrice}"/>
+
+                                        <h:inputText id="precoP" 
+                                                     value="#{produtoBean.precoP.valor}"
+                                                     required="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     rendered="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     requiredMessage="#{bundle.label_system_required}"
+                                                     validatorMessage="#{bundle.label_system_invalid}"
+                                                     converter="javax.faces.Double" 
                                                      styleClass="input-xlarge"
-                                                     onkeypress="mascara(this, moeda);"
-                                                     rendered="#{produtoBean.isMultiplePrice()}">
+                                                     onkeypress="mascara(this, moeda);">
                                             <f:validateDoubleRange minimum="0.01" maximum="999.99"/>
                                             <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2" currencyCode="BRL" /> 
-                                        </p:inputText>
-
+                                        </h:inputText>
+                                        <h:message for="precoP"/>
+                                        
                                         <h:outputLabel for="precoM" 
-                                                       value="Média   R$:" 
-                                                       rendered="#{produtoBean.isMultiplePrice()}" />
-                                        <p:inputText id="precoM" 
-                                                     value="#{produtoBean.precoM}"
-                                                     required="#{!produtoBean.isMultiplePrice()}"
+                                                       value="#{bundle.label_form_pricePizza} #{produtoBean.precoM.tipo.descricao} R$:"
+                                                       rendered="#{produtoBean.produto.typePrice.multiplePrice}"/>
+
+                                        <h:inputText id="precoM" 
+                                                     value="#{produtoBean.precoM.valor}"
+                                                     required="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     rendered="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     requiredMessage="#{bundle.label_system_required}"
+                                                     validatorMessage="#{bundle.label_system_invalid}"
                                                      converter="javax.faces.Double" 
-                                                     requiredMessage="O Preço para Pizza Média é obrigatório."
-                                                     validatorMessage="Preço Medio: Valor Incorreto."
                                                      styleClass="input-xlarge"
-                                                     onkeypress="mascara(this, moeda);"
-                                                     rendered="#{produtoBean.isMultiplePrice()}">
+                                                     onkeypress="mascara(this, moeda);">
                                             <f:validateDoubleRange minimum="0.01" maximum="999.99"/>
                                             <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2" currencyCode="BRL" /> 
-                                        </p:inputText>
-
+                                        </h:inputText>
+                                        <h:message for="precoM"/>
+                                        
                                         <h:outputLabel for="precoG" 
-                                                       value="Grande R$:" 
-                                                       rendered="#{produtoBean.isMultiplePrice()}" />
-                                        <p:inputText id="precoG"
-                                                     value="#{produtoBean.precoG}"
-                                                     required="#{!produtoBean.isMultiplePrice()}"
-                                                     converter="javax.faces.Double" 
-                                                     requiredMessage="O Preço para Pizza Grande é obrigatório."
-                                                     validatorMessage="Preço Grande: Valor Incorreto."
-                                                     styleClass="input-xlarge"
-                                                     onkeypress="mascara(this, moeda);"
-                                                     rendered="#{produtoBean.isMultiplePrice()}">
-                                            <f:validateDoubleRange minimum="0.01" maximum="999.99"/>
-                                            <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2" currencyCode="BRL" /> 
-                                        </p:inputText>
+                                                       value="#{bundle.label_form_pricePizza} #{produtoBean.precoG.tipo.descricao} R$:"
+                                                       rendered="#{produtoBean.produto.typePrice.multiplePrice}"/>
 
-                                        <h:outputLabel for="precoF" 
-                                                       value="Familia R$:" 
-                                                       rendered="#{produtoBean.isMultiplePrice()}" />
-                                        <p:inputText id="precoF" 
-                                                     value="#{produtoBean.precoF}"
-                                                     required="#{!produtoBean.isMultiplePrice()}"
+                                        <h:inputText id="precoG" 
+                                                     value="#{produtoBean.precoG.valor}"
+                                                     required="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     rendered="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     requiredMessage="#{bundle.label_system_required}"
+                                                     validatorMessage="#{bundle.label_system_invalid}"
                                                      converter="javax.faces.Double" 
-                                                     requiredMessage="O Preço para Pizza Familia é obrigatório."
-                                                     validatorMessage="Preço Familia: Valor Incorreto."
                                                      styleClass="input-xlarge"
-                                                     onkeypress="mascara(this, moeda);"
-                                                     rendered="#{produtoBean.isMultiplePrice()}">
+                                                     onkeypress="mascara(this, moeda);">
                                             <f:validateDoubleRange minimum="0.01" maximum="999.99"/>
                                             <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2" currencyCode="BRL" /> 
-                                        </p:inputText>
-                                    </h:panelGrid>
+                                        </h:inputText>
+                                        <h:message for="precoG"/>
+                                        
+                                        <h:outputLabel for="precoF" 
+                                                       value="#{bundle.label_form_pricePizza} #{produtoBean.precoF.tipo.descricao} R$:"
+                                                       rendered="#{produtoBean.produto.typePrice.multiplePrice}"/>
+
+                                        <h:inputText id="precoF" 
+                                                     value="#{produtoBean.precoF.valor}"
+                                                     required="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     rendered="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     requiredMessage="#{bundle.label_system_required}"
+                                                     validatorMessage="#{bundle.label_system_invalid}"
+                                                     converter="javax.faces.Double" 
+                                                     styleClass="input-xlarge"
+                                                     onkeypress="mascara(this, moeda);">
+                                            <f:validateDoubleRange minimum="0.01" maximum="999.99"/>
+                                            <f:convertNumber pattern="###,###.##;(###,###.##)" minFractionDigits="2" currencyCode="BRL" /> 
+                                        </h:inputText>
+                                        <h:message for="precoF"/>
+
+                                    </p:panel>
                                 </div>
                                 <div class="tab-pane fade" id="image">
-                                    <p:fileUpload fileUploadListener="#{imageBean.handleFileUpload}"
+                                    <p:fileUpload fileUploadListener="#{produtoBean.imageBean.handleFileUpload}"
                                                   required="true"
                                                   requiredMessage="A Imagem é obrigatória."
                                                   invalidFileMessage="Tipo de arquivo invalido."
@@ -166,8 +172,9 @@
                                                   styleClass="input-xlarge"
                                                   allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/> 
 
-                                    <p:graphicImage value="#{imageBean.imagem}" 
+                                    <p:graphicImage value="#{produtoBean.imageBean.imagem}" 
                                                     id="imagem"
+                                                    rendered="#{not empty produtoBean.imageBean.fotoDescricao}"
                                                     height="100px"
                                                     width="100px"
                                                     cache="false"/>

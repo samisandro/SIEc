@@ -1,5 +1,7 @@
 package br.com.siec.model.persistence.entity;
 
+import br.com.siec.model.persistence.interfaces.IPessoa;
+import br.com.siec.model.persistence.interfaces.ITelefone;
 import br.com.siec.model.persistence.util.TipoTelefone;
 import java.util.List;
 import javax.persistence.Column;

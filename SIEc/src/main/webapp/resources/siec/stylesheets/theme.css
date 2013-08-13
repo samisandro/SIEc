@@ -425,6 +425,7 @@ a.block-heading:hover,
   background-color: #aaaa55;
   *background-color: #aaaa55;
 }
+
 .well {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -512,8 +513,9 @@ input[type="password"] {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  padding: .5em 1em;
-  margin-top: 1em;
+  padding: .2em .8em;
+  margin-top: .8em;
+  margin-left: .3em;
   border: 1px solid #f2e187;
   background: #f7ecb5;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f7ecb5), color-stop(1, #fcf8e3));

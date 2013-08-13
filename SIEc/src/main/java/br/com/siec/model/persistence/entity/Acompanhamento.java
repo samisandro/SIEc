@@ -18,6 +18,11 @@
  */
 package br.com.siec.model.persistence.entity;
 
+import br.com.siec.model.persistence.interfaces.IAcompanhamento;
+import br.com.siec.model.persistence.util.TipoPreco;
+import br.com.siec.business.pricestrategy.MultiplePrice;
+import br.com.siec.business.pricestrategy.isMultiplePrice;
+import br.com.siec.business.pricestrategy.notMultiplePrice;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -36,26 +41,14 @@ import org.hibernate.envers.Audited;
 @Table(name = "TB_ACOMPANHAMENTO_ACP", schema = "siec")
 @Audited
 @AuditTable(value = "TB_ACOMPANHAMENTO_AUDIT")
-public class Acompanhamento extends Produto implements Serializable {
-
+public class Acompanhamento extends Produto implements Serializable, IAcompanhamento {
     
-    @Override
-    public void addComponente(Produto componente) {
+    public Acompanhamento() {
+        super.setTypePrice(new notMultiplePrice());
     }
 
-    /**
-     * @see
-     * br.com.siec.model.persistence.entity.Produto#removeComponente(br.com.siec.model.persistence.entity.Componente)
-     */
     @Override
-    public void removeComponente(Produto componente) {
+    public void addPreco(Preco preco) {
+        super.getTypePrice().addPrice(super.getPrecos(),preco);
     }
-
-    /**
-     * @see br.com.siec.model.persistence.entity.Produto#getComponente(int)
-     */
-    @Override
-    public Produto getComponente(int i) {
-        return null;
-    }    
 }

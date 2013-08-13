@@ -1,6 +1,9 @@
 package br.com.siec.model.persistence.entity;
 
+import br.com.siec.model.persistence.interfaces.IPedido;
+import br.com.siec.model.persistence.interfaces.ICliente;
 import br.com.siec.model.persistence.util.StatusPedido;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -12,8 +15,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,7 +27,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
 
 @Entity
 @Table(name="TB_PEDIDO_PDD", schema="siec")
@@ -49,10 +52,13 @@ public class Pedido implements IPedido {
     @Cascade(CascadeType.SAVE_UPDATE)
     private ICliente cliente;
     
-    @NotAudited
-    @OneToMany(targetEntity=ItemPedido.class, mappedBy="pedido", fetch = FetchType.EAGER)
-    @Cascade(CascadeType.ALL)
-    private List<ItemPedido> itens;
+    @ManyToMany(targetEntity = Produto.class)
+    @Cascade({CascadeType.SAVE_UPDATE})
+    @JoinTable(name = "TB_PEDIDO_PRODUTO_ASS", joinColumns =
+            @JoinColumn(name = "PDD_CODIGO"),
+            inverseJoinColumns =
+            @JoinColumn(name = "PRT_CODIGO"))
+    private List<Produto> itens = new ArrayList<Produto>();;
 
     @Override
     public long getid() {
@@ -104,11 +110,13 @@ public class Pedido implements IPedido {
         this.cliente = iCliente;
     }
 
-    public List<ItemPedido> getItens() {
+    @Override
+    public List<Produto> getItens() {
         return itens;
     }
 
-    public void addItens(ItemPedido item) {
+    @Override
+    public void addItens(Produto item) {
         this.itens.add(item);
     }        
 }

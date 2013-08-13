@@ -4,7 +4,7 @@
  */
 package br.com.siec.test;
 
-import br.com.siec.model.persistence.entity.IPessoa;
+import br.com.siec.model.persistence.interfaces.IPessoa;
 import br.com.siec.model.persistence.entity.Pessoa;
 import br.com.siec.model.persistence.entity.Pj;
 import br.com.siec.model.persistence.entity.Usuario;

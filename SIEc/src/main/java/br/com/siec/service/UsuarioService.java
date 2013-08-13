@@ -18,11 +18,13 @@
  */
 package br.com.siec.service;
 
-import br.com.siec.model.persistence.dao.IUsuarioDAO;
+import br.com.siec.model.dao.IUsuarioDAO;
 import br.com.siec.model.persistence.entity.Usuario;
 import br.com.siec.service.qualifiers.UsuarioServiceQualifier;
 import java.util.List;
 import javax.inject.Inject;
+import org.jboss.logging.Logger;
+
 
 /**
  * UsuarioService :
@@ -31,11 +33,11 @@ import javax.inject.Inject;
  * @author Josimar Alves
  */
 @UsuarioServiceQualifier
-public class UsuarioService implements Service<Usuario>{
+public class UsuarioService implements Service<Usuario> {
 
     @Inject
     IUsuarioDAO userDao;
-
+    protected Logger logger = Logger.getLogger(UsuarioService.class);
 
     public boolean authenticate(Usuario user) {
         if (userDao.authenticate(user)) {
@@ -45,9 +47,23 @@ public class UsuarioService implements Service<Usuario>{
         }
     }
 
+    public boolean validateLogin(String login) {
+        try {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{validateLogin(String login)} Validando Login: [" + login + "]");
+            }
+            return userDao.findBy(login, "login").isEmpty() ? true : false;
+        } catch (Exception e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{validateLogin(String login)-> Erro} Validando Login: [" + e + "]");
+            }
+            return false;
+        }
+    }
+
     @Override
     public Usuario create(String classType) {
-       return new Usuario();
+        return new Usuario();
     }
 
     @Override
@@ -83,15 +99,5 @@ public class UsuarioService implements Service<Usuario>{
     @Override
     public List<Usuario> findBy(String param, String atribute) {
         return userDao.findBy(param, atribute);
-    }
-
-    @Override
-    public Usuario findById(long id, String classType) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Usuario> findBy(String param, String atribute, String classType) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

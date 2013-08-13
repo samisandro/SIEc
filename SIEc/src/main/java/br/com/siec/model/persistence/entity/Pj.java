@@ -1,5 +1,6 @@
 package br.com.siec.model.persistence.entity;
 
+import br.com.siec.model.persistence.interfaces.IPJ;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;

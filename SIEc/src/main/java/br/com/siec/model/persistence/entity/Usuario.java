@@ -1,5 +1,8 @@
 package br.com.siec.model.persistence.entity;
 
+import br.com.siec.model.persistence.interfaces.IUsuario;
+import br.com.siec.model.persistence.interfaces.IPessoa;
+import br.com.siec.model.persistence.interfaces.ICliente;
 import br.com.siec.model.persistence.util.TipoUsuario;
 import java.io.Serializable;
 import java.util.Date;

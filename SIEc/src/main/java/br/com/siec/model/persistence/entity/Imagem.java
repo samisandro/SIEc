@@ -19,6 +19,7 @@
 package br.com.siec.model.persistence.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -93,5 +94,48 @@ public class Imagem implements Serializable {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 97 * hash + (this.descricao != null ? this.descricao.hashCode() : 0);
+        hash = 97 * hash + Arrays.hashCode(this.arquivo);
+        hash = 97 * hash + (this.extensao != null ? this.extensao.hashCode() : 0);
+        hash = 97 * hash + (this.produto != null ? this.produto.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Imagem other = (Imagem) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        if ((this.descricao == null) ? (other.descricao != null) : !this.descricao.equals(other.descricao)) {
+            return false;
+        }
+        if (!Arrays.equals(this.arquivo, other.arquivo)) {
+            return false;
+        }
+        if ((this.extensao == null) ? (other.extensao != null) : !this.extensao.equals(other.extensao)) {
+            return false;
+        }
+        if (this.produto != other.produto && (this.produto == null || !this.produto.equals(other.produto))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Imagem{" + "id=" + id + ", descricao=" + descricao + ", arquivo=" + arquivo + ", extensao=" + extensao + ", produto=" + produto + '}';
     }
 }

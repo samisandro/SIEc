@@ -1,5 +1,6 @@
 package br.com.siec.model.persistence.entity;
 
+import br.com.siec.model.persistence.interfaces.IPf;
 import br.com.siec.model.persistence.util.TipoSexo;
 import java.util.Date;
 import javax.persistence.Column;

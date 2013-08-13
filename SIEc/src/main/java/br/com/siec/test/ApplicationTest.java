@@ -18,13 +18,17 @@
  */
 package br.com.siec.test;
 
-import br.com.siec.model.persistence.entity.Produto;
+import br.com.siec.model.persistence.entity.Composicao;
+import br.com.siec.model.persistence.entity.Preco;
+import br.com.siec.model.persistence.interfaces.Composite;
+import br.com.siec.model.persistence.interfaces.IAcompanhamento;
+import br.com.siec.model.persistence.interfaces.IComponente;
 import br.com.siec.model.persistence.util.Categorias;
-import br.com.siec.model.persistence.util.TamanhoPizza;
+import br.com.siec.model.persistence.util.TipoPreco;
 import br.com.siec.service.Service;
-import br.com.siec.util.factory.AbstractFactory;
-import br.com.siec.util.factory.ApplicationFactory;
-import br.com.siec.util.factory.ClassType;
+import br.com.siec.api.factory.AbstractFactory;
+import br.com.siec.api.factory.ApplicationFactory;
+import br.com.siec.api.factory.ClassType;
 
 /**
  * ApplicationTest : Classe de Testes
@@ -35,97 +39,69 @@ import br.com.siec.util.factory.ClassType;
 public class ApplicationTest {
 
     public static void main(String args[]) {
-        
 
-   /* 
-        AbstractFactory appFactory = ApplicationFactory.getInstance();
-        AbstractFactory pessoaFactory = appFactory.createObject(ClassType.PessoaFactory);
-        AbstractFactory userFactory = appFactory.createObject(ClassType.UserFactory);
-        AbstractFactory serviceFactory = appFactory.createObject(ClassType.ServiceFactory);
-
-        IService pessoaService = serviceFactory.createObject(ClassType.PessoaService);
-        IService userService = serviceFactory.createObject(ClassType.UsuarioService);
-
-        IPf pessoa = pessoaFactory.createObject(ClassType.PF);
-
-        pessoa.setNome("Teste 02");
-        pessoa.setEmail("teste@02.com.br");
-
-        IUsuario user = userFactory.createObject(ClassType.Usuario);
-        user.setPessoa(pessoa);
-
-        user.setAtivo(false);
-        user.setLembreteSenha("Lembrete2");
-        user.setSenha("password");
-        user.setLogin("testesa");
-
-
-        if (pessoaService.save(pessoa)) {
-
-            System.out.println("Good Job, little Padawan!!!");
-
-            if (userService.save(user)) {
-                System.out.println("Great!!!  You'll must a JEDI on day!!!");
-            }
-        } else {
-            System.out.println("Try again or join to Dark Side of The Force");
-        }
-*/
         AbstractFactory appFactory = ApplicationFactory.getInstance();
         AbstractFactory produtoFactory = appFactory.createObject(ClassType.ProdutoFactory);
         AbstractFactory serviceFactory = appFactory.createObject(ClassType.ServiceFactory);
-        
-        Produto pizza = produtoFactory.createObject(ClassType.Componente);
-        Produto mussarella = produtoFactory.createObject(ClassType.Componente);
-        Produto presunto = produtoFactory.createObject(ClassType.Componente);
-        Produto massa = produtoFactory.createObject(ClassType.Componente);        
-        Produto refrigerante = produtoFactory.createObject(ClassType.Acompanhamento);
-                
-        mussarella.setCategoria(Categorias.Ingredientes);
-        mussarella.setNome("Mussarella");
-        mussarella.addPreco(TamanhoPizza.Pequena.toString(), 1.99);
-        mussarella.addPreco(TamanhoPizza.Média.toString(), 1.99);
-        mussarella.addPreco(TamanhoPizza.Grande.toString(), 1.99);
-        mussarella.addPreco(TamanhoPizza.Família.toString(), 1.99);
-        
-        presunto.setCategoria(Categorias.Ingredientes);
-        presunto.setNome("Presunto");
-        presunto.addPreco(TamanhoPizza.Pequena.toString(), 1.99);
-        presunto.addPreco(TamanhoPizza.Média.toString(), 1.99);
-        presunto.addPreco(TamanhoPizza.Grande.toString(), 1.99);
-        presunto.addPreco(TamanhoPizza.Família.toString(), 1.99);
-        
+
+        IComponente mussarela = produtoFactory.createObject(ClassType.Componente);
+        IComponente calabresa = produtoFactory.createObject(ClassType.Componente);
+        IComponente massa = produtoFactory.createObject(ClassType.Componente);
+        IAcompanhamento refrigerante = produtoFactory.createObject(ClassType.Componente);
+        Composite pizza = produtoFactory.createObject(ClassType.Composite);
+        Preco precoC = produtoFactory.createObject(ClassType.Preco);
+        Preco precoP = produtoFactory.createObject(ClassType.Preco);
+        Preco precoM = produtoFactory.createObject(ClassType.Preco);
+        Preco precoG = produtoFactory.createObject(ClassType.Preco);
+        Preco precoF = produtoFactory.createObject(ClassType.Preco);
+
+        precoC.setTipo(TipoPreco.COMUM);
+        precoC.setValor(4.99);
+        precoP.setTipo(TipoPreco.PEQUENA);
+        precoP.setValor(1.99);
+        precoM.setTipo(TipoPreco.MEDIA);
+        precoM.setValor(2.99);
+        precoG.setTipo(TipoPreco.GRANDE);
+        precoG.setValor(3.99);
+        precoF.setTipo(TipoPreco.FAMILIA);
+        precoF.setValor(4.99);
+
+        mussarela.setCategoria(Categorias.Ingredientes);
+        mussarela.setNome("Mussarela");
+        mussarela.addPreco(precoP);
+        mussarela.addPreco(precoM);
+        mussarela.addPreco(precoG);
+        mussarela.addPreco(precoF);
+
+        calabresa.setCategoria(Categorias.Ingredientes);
+        calabresa.setNome("Calabresa");
+        calabresa.addPreco(precoP);
+        calabresa.addPreco(precoM);
+        calabresa.addPreco(precoG);
+        calabresa.addPreco(precoF);
+
         massa.setCategoria(Categorias.Massa);
-        massa.setNome("Massa Recheada");
-        massa.addPreco(TamanhoPizza.Pequena.toString(), 1.99);
-        massa.addPreco(TamanhoPizza.Média.toString(), 1.99);
-        massa.addPreco(TamanhoPizza.Grande.toString(), 1.99);
-        massa.addPreco(TamanhoPizza.Família.toString(), 1.99);
-        
+        massa.setNome("Massa");
+        massa.addPreco(precoP);
+        massa.addPreco(precoM);
+        massa.addPreco(precoG);
+        massa.addPreco(precoF);
+
         refrigerante.setCategoria(Categorias.Bebidas);
         refrigerante.setNome("Coca-Cola");
-        refrigerante.addPreco("Bebida", 4.99);
-        
-        pizza.setNome("Pizza Presunto Mussarella");
-        pizza.addComponente(refrigerante);
-        pizza.addComponente(mussarella);
-        pizza.addComponente(presunto);
+        refrigerante.addPreco(precoC);
+
+        pizza.setNome("Pizza Tradicional");
+        pizza.addComponente(mussarela);
+        pizza.addComponente(calabresa);
         pizza.addComponente(massa);
-        
+
         Service produtoService = serviceFactory.createObject(ClassType.ProdutoService);
-        
-        if(produtoService.save(pizza)){
+
+        if (produtoService.save(pizza)) {
             System.out.println("OK");
         } else {
             System.out.println("Not OK");
         }
-        /*
-        Produto p = (Produto) produtoService.findById(1);
-        
-        if(p != null){
-            System.out.println("OK");
-        } else {
-            System.out.println("Not OK");
-        }*/    
     }
 }
