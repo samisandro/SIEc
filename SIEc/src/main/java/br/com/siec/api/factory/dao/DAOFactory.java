@@ -4,7 +4,7 @@
  */
 package br.com.siec.api.factory.dao;
 
-import br.com.siec.model.dao.IGenericDAO;
+import br.com.siec.model.dao.core.IDAO;
 import br.com.siec.api.factory.AbstractFactory;
 import br.com.siec.api.factory.ClassType;
 import br.com.siec.api.factory.Factory;
@@ -34,8 +34,8 @@ public class DAOFactory extends Factory implements AbstractFactory{
      * br.com.siec.util.factory.AbstractFactory#createObject(java.lang.String)
      */
     @Override
-    public IGenericDAO createObject(ClassType typeObject) {
-        return (IGenericDAO) super.createObject(typeObject);        
+    public IDAO createObject(ClassType typeObject) {
+        return (IDAO) super.createObject(typeObject);        
     }
 
     /**
@@ -45,7 +45,7 @@ public class DAOFactory extends Factory implements AbstractFactory{
      */
     @Override
     public <T> T createDependObject(ClassType typeObject, List<Object> dependencies) {
-        return (T) (IGenericDAO) super.createDependObject(typeObject, dependencies);
+        return (T) (IDAO) super.createDependObject(typeObject, dependencies);
     }
     
 }

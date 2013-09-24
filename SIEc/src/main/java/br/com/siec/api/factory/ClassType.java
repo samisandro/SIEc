@@ -31,6 +31,7 @@ public enum ClassType {
     ProdutoService,
     UsuarioService,
     ListProduto,
+    ListEnum,
     HashMap;
     
 }

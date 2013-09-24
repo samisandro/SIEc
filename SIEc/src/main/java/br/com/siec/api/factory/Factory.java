@@ -17,9 +17,8 @@ import br.com.siec.model.persistence.entity.Produto;
 import br.com.siec.model.persistence.entity.Telefone;
 import br.com.siec.model.persistence.entity.Usuario;
 import br.com.siec.api.factory.entity.ListEnumModel;
-import br.com.siec.service.PessoaService;
-import br.com.siec.service.ProdutoService;
-import br.com.siec.service.UsuarioService;
+import br.com.siec.facade.ProdutoFacade;
+import br.com.siec.facade.UsuarioFacade;
 import br.com.siec.api.factory.dao.DAOFactory;
 import br.com.siec.api.factory.entity.PessoaFactory;
 import br.com.siec.api.factory.entity.ProdutoFactory;
@@ -93,12 +92,12 @@ public abstract class Factory implements AbstractFactory {
         classLibrary.put(ClassType.UserFactory, UserFactory.getInstance());
         classLibrary.put(ClassType.DAOFactory, DAOFactory.getInstance());
         classLibrary.put(ClassType.ServiceFactory, ServiceFactory.getInstance());
-        classLibrary.put(ClassType.PessoaService, new PessoaService());
-        classLibrary.put(ClassType.ProdutoService, new ProdutoService());
-        classLibrary.put(ClassType.UsuarioService, new UsuarioService());
+        classLibrary.put(ClassType.ProdutoService, new ProdutoFacade());
+        classLibrary.put(ClassType.UsuarioService, new UsuarioFacade());
         classLibrary.put(ClassType.Categorias, new ListEnumModel());
         classLibrary.put(ClassType.HashMap, new HashMap<String, Double>());
         classLibrary.put(ClassType.ListProduto, new ArrayList<Produto>());
+        classLibrary.put(ClassType.ListEnum, new ListEnumModel());
 
     }
 }

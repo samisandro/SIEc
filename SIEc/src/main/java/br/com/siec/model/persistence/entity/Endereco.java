@@ -2,11 +2,13 @@ package br.com.siec.model.persistence.entity;
 
 import br.com.siec.model.persistence.interfaces.IEndereco;
 import br.com.siec.model.persistence.interfaces.IPessoa;
-import br.com.siec.model.persistence.util.Estados;
-import br.com.siec.model.persistence.util.TipoEndereco;
-import java.io.Serializable;
+
+import br.com.siec.model.persistence.resource.Estados;
+import br.com.siec.model.persistence.resource.TipoEndereco;
+
 import java.util.ArrayList;
 import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,27 +18,35 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import org.hibernate.envers.Audited;
 
+/**
+ * @version 1.00 May 21, 2013.
+ * @author Josimar Alves
+ */
 @Entity
 @Table(name = "TB_ENDERECO_END", schema = "siec")
-@Audited
-public class Endereco implements IEndereco, Serializable {
+public class Endereco implements IEndereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "END_CODIGO")
     private long id;
+    
     @Column(name = "END_LOGRADOURO")
     private String logradouro;
+    
     @Column(name = "END_NUMERO")
     private int numero;
+    
     @Column(name = "END_COMPLEMENTO")
     private String complemento;
+    
     @Column(name = "END_CEP")
     private String cep;
+    
     @Column(name = "END_ESTADO")
     private Estados estado;
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "END_TIPO")
     private TipoEndereco tipoEndereco;
@@ -44,7 +54,7 @@ public class Endereco implements IEndereco, Serializable {
      * Relacionamento 3:1 - Endereco : Pessoa
      */
     @ManyToMany(targetEntity = Pessoa.class, mappedBy = "enderecos")
-    private Collection<IPessoa> pessoas = new ArrayList<IPessoa>();;
+    private Collection<IPessoa> pessoas = new ArrayList<IPessoa>();
 
     @Override
     public void setId(long id) {
@@ -179,5 +189,5 @@ public class Endereco implements IEndereco, Serializable {
             return false;
         }
         return true;
-    }
+    }   
 }

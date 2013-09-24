@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/siec.xhtml">
+        <ui:define name="content">
+
+            <div class="header">
+                <h1 class="page-title">#{bundle.label_system_products}</h1>
+            </div>
+
+            <ul class="breadcrumb">
+                <li> <span class="divider">/</span></li>
+                <li><h:link outcome="allProduct">#{bundle.label_system_products}</h:link> <span class="divider">/</span></li>
+                <li class="active">#{bundle.label_system_product_search}</li>
+            </ul>
+            <div class="container-fluid">
+                <div class="row-fluid">
+
+                    <div class="btn-toolbar">
+                        <h:link outcome="registerProduct">
+                            <button  class="btn btn-primary"><i class="icon-plus"></i>
+                                #{bundle.label_system_product_new}
+                            </button>
+                        </h:link>                      
+                        <div class="btn-group">
+                        </div>
+                    </div>
+                    <h:form prependId="true" id="formMessages">
+                        <h:messages id="messages"/>
+                    </h:form>
+                    <div class="well"> 
+                        <h:form prependId="true" id="form1">
+                            <div class="btn-group">
+                                <h:commandLink styleClass="btn" >
+                                    <i class="icon-table"></i>                                    
+                                    <p:dataExporter type="xls" target="productsFiltrated" fileName="#{bundle.label_system_products}"></p:dataExporter>  
+                                </h:commandLink>
+                                
+                                <h:commandLink styleClass="btn" >
+                                    <i class="icon-print"></i>                                    
+                                    <p:dataExporter type="pdf" target="productsFiltrated" fileName="#{bundle.label_system_products}"></p:dataExporter>  
+                                </h:commandLink>
+                            </div>
+                            <p:panel id="searchResult">
+                                <p:dataTable id="productsFiltrated"
+                                             value="#{produtoBean.produtos}"
+                                             rows="15"
+                                             emptyMessage="#{bundle.label_system_product_nothing_filter}"
+                                             var="produto"
+                                             widgetVar="productTable"
+                                             filteredValue="#{produtoBean.filteredProducts}">
+                                    <p:column id="idColumn"                                              
+                                              sortBy="#{produto.id}"
+                                              filterBy="#{produto.id}"
+                                              footerText="#{bundle.filter_mode_exact}"
+                                              filterMatchMode="exact">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.label_form_code}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{produto.id}" />
+                                    </p:column>
+
+                                    <p:column id="nameColumn"                                                                                               
+                                              sortBy="#{produto.nome}"
+                                              filterBy="#{produto.nome}"
+                                              footerText="#{bundle.filter_mode_contain}"                                              
+                                              filterMatchMode="contains">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.label_form_name}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{produto.nome}" />  
+                                    </p:column>
+                                    
+                                    <p:column id="categoryColumn"
+                                              filterBy="#{produto.categoria}"
+                                              footerText="#{bundle.filter_mode_exact}"
+                                              filterOptions="#{produtoBean.searchCategorias}"
+                                              filterMatchMode="exact">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.label_form_category}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{produto.categoria}" />
+                                    </p:column>
+
+                                    <p:column exportable="false" >
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.label_system_actions}"/>
+                                        </f:facet>
+                                        <p:commandLink update=":formDialogVisualizar:visualizarDialog" 
+                                                       oncomplete="visualizar.show();">
+                                            <f:setPropertyActionListener value="#{produto}" target="#{produtoBean.produto}"/>
+                                            <i class="icon-eye-open"></i>                                
+                                        </p:commandLink>
+                                        <h:commandLink type="submit"
+                                                       action="#{produtoBean.goUpdate()}">
+                                            <f:setPropertyActionListener value="#{produto}" target="#{produtoBean.produto}"/>                                        
+                                            <i class="icon-pencil"></i>
+                                        </h:commandLink>
+                                        <p:commandLink oncomplete="confirmDelete.show();">
+                                            <f:setPropertyActionListener value="#{produto}" target="#{produtoBean.produto}"/>                                        
+                                            <i class="icon-remove"></i>
+                                        </p:commandLink>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+                         </h:form>
+                        <h:form id="formConfirmDialogExcluir">
+                            <p:confirmDialog id="confirmDelete" 
+                                             message="#{bundle.msg_confirm_remove}"    
+                                             header="#{bundle.msg_info_remove}" 
+                                             severity="alert" 
+                                             widgetVar="confirmDelete"
+                                             appendToBody="true">
+
+                                <p:commandButton id="confirm" 
+                                                 value="#{bundle.label_yes}"
+                                                 process="@this"
+                                                 action="#{produtoBean.delete()}"
+                                                 oncomplete="confirmDelete.hide();"
+                                                 update=":form1:searchResult, :formMessages:messages"
+                                                 >
+
+                                </p:commandButton>
+
+                                <p:commandButton id="decline" 
+                                                 value="#{bundle.label_no}" 
+                                                 onclick="confirmDelete.hide();" 
+                                                 type="button" />     
+
+                            </p:confirmDialog>     
+                        </h:form>
+                        <h:form id="formDialogVisualizar" >
+                            <p:dialog id="visualizarDialog"
+                                      widgetVar="visualizar" 
+                                      header="#{bundle.msg_info_show}" 
+                                      width="400" 
+                                      appendToBody="true"
+                                      modal="true">
+                                <h:panelGrid cellspacing="2" columns="2">    
+                                    <h:outputLabel for="codigoProduto" value="#{bundle.label_form_code}:" />
+                                    <h:outputText id="codigoProduto" value="#{produtoBean.produto.id}"/>
+
+                                    <h:outputLabel for="nomeProduto" value="#{bundle.label_form_name}:" />
+                                    <h:outputText id="nomeProduto" value="#{produtoBean.produto.nome}"/>
+
+                                    <h:outputLabel for="categoria" value="${bundle.label_form_category}:" />
+                                    <h:outputText id="categoria" value="#{produtoBean.produto.categoria}"/>
+                                    
+                                    <ui:repeat var="preco" value="#{produtoBean.produto.precos}" varStatus="status">
+                                        
+                                        <h:outputLabel for="#{status.index}" value="#{bundle.label_form_price} #{preco.tipo.descricao}" />
+                                        <h:outputText id="preco#{status.index}" value="#{bundle.label_currency} #{preco.valor}"/>
+                                        
+                                    </ui:repeat>
+                                    
+                                    <p:graphicImage value="#{produtoBean.imagePath}" 
+                                                    id="imagem"
+                                                    height="100px"
+                                                    width="100px"
+                                                    cache="false"/>
+                                </h:panelGrid>
+                                <center>
+                                    <p:commandButton id="ok" 
+                                                     value="#{bundle.label_close}" 
+                                                     onclick="visualizar.hide();" 
+                                                     type="button" />
+                                </center>
+                            </p:dialog>
+                        </h:form>
+                    </div>
+                    <footer>
+                        <hr />
+                        <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
+                        <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+
+
+                        <p>&copy; 2012 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+                    </footer>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

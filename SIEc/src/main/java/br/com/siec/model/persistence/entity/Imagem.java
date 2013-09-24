@@ -20,6 +20,7 @@ package br.com.siec.model.persistence.entity;
 
 import java.io.Serializable;
 import java.util.Arrays;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,24 +29,20 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.hibernate.envers.AuditTable;
-import org.hibernate.envers.Audited;
 
 /**
- * Componente
+ * Imagem
  *
- * @version 1.00 29 May 2013
+ * @version 1.00 May 21, 2013.
  * @author Josimar Alves
  */
 @Entity
 @Table(name = "TB_IMAGEM_IMG", schema = "siec")
-@Audited
-@AuditTable(value = "TB_IMAGEM_AUDIT")
 public class Imagem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
     @Column(name = "IMG_DESCRICAO")
     private String descricao;
     @Lob
@@ -56,11 +53,11 @@ public class Imagem implements Serializable {
     @OneToOne
     private Produto produto;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -97,13 +94,18 @@ public class Imagem implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Imagem{" + "id=" + id + ", descricao=" + descricao + ", arquivo=" + arquivo + ", extensao=" + extensao + ", produto=" + produto + '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 97 * hash + (this.descricao != null ? this.descricao.hashCode() : 0);
-        hash = 97 * hash + Arrays.hashCode(this.arquivo);
-        hash = 97 * hash + (this.extensao != null ? this.extensao.hashCode() : 0);
-        hash = 97 * hash + (this.produto != null ? this.produto.hashCode() : 0);
+        hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 53 * hash + (this.descricao != null ? this.descricao.hashCode() : 0);
+        hash = 53 * hash + Arrays.hashCode(this.arquivo);
+        hash = 53 * hash + (this.extensao != null ? this.extensao.hashCode() : 0);
+        hash = 53 * hash + (this.produto != null ? this.produto.hashCode() : 0);
         return hash;
     }
 
@@ -116,7 +118,7 @@ public class Imagem implements Serializable {
             return false;
         }
         final Imagem other = (Imagem) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+        if (this.id != other.id) {
             return false;
         }
         if ((this.descricao == null) ? (other.descricao != null) : !this.descricao.equals(other.descricao)) {
@@ -132,10 +134,5 @@ public class Imagem implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Imagem{" + "id=" + id + ", descricao=" + descricao + ", arquivo=" + arquivo + ", extensao=" + extensao + ", produto=" + produto + '}';
     }
 }

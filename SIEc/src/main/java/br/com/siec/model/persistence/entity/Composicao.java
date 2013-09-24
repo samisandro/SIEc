@@ -1,36 +1,54 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * %W% %E% Josimar Alves
+ *
+ * Copyright (c) 2013-2014 Josimar Alves, All Rights Reserved.
+ *
+ * This software is the confidential and proprietary information of
+ * Josimar Alves. ("Confidential Information"). You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with JOSIMAR ALVES.
+ *
+ * JOSIMAR ALVES MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF
+ * THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, OR NON-INFRINGEMENT. JOSIMAR ALVES SHALL NOT BE LIABLE FOR
+ * ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR
+ * DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
 package br.com.siec.model.persistence.entity;
 
 import br.com.siec.model.persistence.interfaces.Composite;
 import br.com.siec.model.persistence.interfaces.IComponente;
-import br.com.siec.model.persistence.util.TipoPreco;
-import br.com.siec.business.pricestrategy.isMultiplePrice;
+
+import br.com.siec.model.persistence.resource.TipoPreco;
+
+import br.com.siec.business.price_strategy.isMultiplePrice;
+import br.com.siec.model.persistence.resource.Categorias;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.envers.AuditTable;
-import org.hibernate.envers.Audited;
 
 /**
- *
- * @author josimar
+ * <b> Composição </b> 
+ * @version 1.00 May 21, 2013.
+ * @author Josimar Alves
  */
 @Entity
 @PrimaryKeyJoinColumn(name = "CPS_CODIGO")
 @Table(name = "TB_COMPOSICAO_CPS", schema = "siec")
-@Audited
-@AuditTable(value = "TB_COMPOSICAO_AUDIT")
-public class Composicao extends Produto implements Composite {
+public class Composicao
+        extends Produto implements Composite {
 
     @ManyToMany(targetEntity = Componente.class)
     @Cascade({CascadeType.SAVE_UPDATE})
@@ -56,30 +74,32 @@ public class Composicao extends Produto implements Composite {
         Preco precoM = new Preco();
         Preco precoG = new Preco();
         Preco precoF = new Preco();
-        
+
         precoP.setTipo(TipoPreco.PEQUENA);
         precoM.setTipo(TipoPreco.MEDIA);
         precoG.setTipo(TipoPreco.GRANDE);
         precoF.setTipo(TipoPreco.FAMILIA);
-        
-        for (IComponente componente : this.componentes) {
-            
-            for (Preco preco : componente.getPrecos()) {
-                if (preco.getTipo().equals(TipoPreco.PEQUENA)){
-                        precoP.setValor(precoP.getValor()+preco.getValor());
-                }
-                if (preco.getTipo().equals(TipoPreco.MEDIA)){
-                        precoM.setValor(precoM.getValor()+preco.getValor());
-                }
-                if (preco.getTipo().equals(TipoPreco.GRANDE)){
-                        precoG.setValor(precoG.getValor()+preco.getValor());
-                }
-                if (preco.getTipo().equals(TipoPreco.FAMILIA)){
-                        precoF.setValor(precoF.getValor()+preco.getValor());
+
+        if (!(getComponentes() == null)) {
+            for (IComponente componente : getComponentes()) {
+
+                for (Preco preco : componente.getPrecos()) {
+                    if (preco.getTipo().equals(TipoPreco.PEQUENA)) {
+                        precoP.setValor(precoP.getValor() + preco.getValor());
+                    }
+                    if (preco.getTipo().equals(TipoPreco.MEDIA)) {
+                        precoM.setValor(precoM.getValor() + preco.getValor());
+                    }
+                    if (preco.getTipo().equals(TipoPreco.GRANDE)) {
+                        precoG.setValor(precoG.getValor() + preco.getValor());
+                    }
+                    if (preco.getTipo().equals(TipoPreco.FAMILIA)) {
+                        precoF.setValor(precoF.getValor() + preco.getValor());
+                    }
                 }
             }
         }
-        
+
         precos.add(precoP);
         precos.add(precoM);
         precos.add(precoG);
@@ -88,7 +108,7 @@ public class Composicao extends Produto implements Composite {
     }
 
     @Override
-    public List<IComponente> getProdutos() {
+    public List<IComponente> getComponentes() {
         return this.componentes;
     }
 
@@ -109,8 +129,16 @@ public class Composicao extends Produto implements Composite {
 
     @Override
     public String toString() {
-        return "Composicao{" + "componentes=" + componentes + '}';
+        return "Composicao{ id=" + getId() + "componentes=" + componentes + '}';
     }
-    
-    
+
+    @Override
+    public void removeByCategory(Categorias categoria) {
+        for (int i = 0; i < this.componentes.size(); i++) {
+            if (this.componentes.get(i).getCategoria().equals(categoria)) {
+                this.componentes.remove(i);
+                --i;
+            }
+        }
+    }
 }

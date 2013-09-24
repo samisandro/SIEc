@@ -8,61 +8,78 @@ import br.com.siec.config.jsf.resource.MessageResourceBundle;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.enterprise.context.Dependent;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 /**
- *
- * @author josimar
+ * <p> Classe com metodos uteis para a manipulação
+ * do contexto do JSF.  </p>
+ * @version 1.00 August 05, 2013
+ * @author Josimar
  */
 @Named
 @Dependent
 public class ViewContext implements Serializable {
 
-    private static FacesContext facesContext;
     @Inject
     @MessageResourceBundle
     ResourceBundle msg;
 
     public ViewContext() {
-        facesContext = FacesContext.getCurrentInstance();
     }
 
-    public static <T> T findBean(String beanName) {
-        return (T) facesContext.getELContext().getELResolver().getValue(facesContext.getELContext(), null, beanName);
+    public FacesMessage createError(String messageCode) {
+        return new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                msg.getString(messageCode), null);
+    }
+
+    public <T> T findBean(String beanName) {
+        return (T) getCurrentInstance().getELContext()
+                .getELResolver().getValue(FacesContext.getCurrentInstance()
+                .getELContext(), null, beanName);
     }
 
     public void addMessage(String message, String title) {
-        facesContext.addMessage(null, new FacesMessage(title, msg.getString(message)));
+        getCurrentInstance().addMessage(null, new FacesMessage(
+                title, msg.getString(message)));
     }
 
     public void info(String messageCode) {
-        facesContext.addMessage(null, new FacesMessage(
+        System.out.println(msg.getString(messageCode));
+        getCurrentInstance().addMessage(null, new FacesMessage(
                 FacesMessage.SEVERITY_INFO, msg.getString(messageCode), null));
     }
 
     public void error(String messageCode) {
-        facesContext.addMessage(null, new FacesMessage(
+        System.out.println(msg.getString(messageCode));
+        getCurrentInstance().addMessage(null, new FacesMessage(
                 FacesMessage.SEVERITY_ERROR, msg.getString(messageCode), null));
     }
 
-    public static FacesContext getCurrentInstance() {
-        return facesContext;
+    public FacesContext getCurrentInstance() {
+        return FacesContext.getCurrentInstance();
     }
 
-    public static HttpSession getHttpSession() {
-        return (HttpSession) facesContext.getExternalContext().getSession(true);
+    public HttpSession getHttpSession() {
+        return (HttpSession) getCurrentInstance()
+                .getExternalContext().getSession(true);
     }
 
-    public static void setObjectInSession(String chave, Object obj) {
-        getHttpSession().setAttribute(chave, obj);
+    public void setObjectInSession(String key, Object obj) {
+        getHttpSession().setAttribute(key, obj);
 
     }
 
-    public static <T> T getObjectInSession(String chave) {
-        return (T) getHttpSession().getAttribute(chave);
+    public <T> T getObjectInSession(String key) {
+        return (T) getHttpSession().getAttribute(key);        
+    }
+    
+    public void removeObjectInSession(String key){
+        getHttpSession().removeAttribute(key);
     }
 }

@@ -16,12 +16,16 @@
             <var>bundle</var>
         </resource-bundle>
         <locale-config>
-            <default-locale>en</default-locale>
-            <supported-locale>pt</supported-locale>
+            <default-locale>pt_BR</default-locale>
+            <supported-locale>en_US</supported-locale>
         </locale-config>        
-        <!-- Integração Spring e JSF -->
-        <!--  <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver> -->
+        <message-bundle>
+            br.com.siec.i18n.Messages
+        </message-bundle>
     </application>
+    <lifecycle>
+        <phase-listener>br.com.siec.config.jsf.phaseListener.LoginErrorPhaseListener</phase-listener>
+    </lifecycle>
     <render-kit>
         <renderer>
             <component-family>javax.faces.Message</component-family>
@@ -39,5 +43,62 @@
             <renderer-class>br.com.siec.config.jsf.renderer.BootstrapButtonRenderer</renderer-class>
         </renderer> 
     </render-kit>
-    
+    <navigation-rule>
+        <!-- Home -->
+        <navigation-rule>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/secure/admin/home.jsf</to-view-id>
+        </navigation-rule>
+        <!-- Product -->
+        <navigation-case>  
+            <from-outcome>allProduct</from-outcome>  
+            <to-view-id>/secure/admin/product/allProduct.jsf</to-view-id>
+        </navigation-case>
+        <navigation-case>  
+            <from-outcome>registerProduct</from-outcome>  
+            <to-view-id>/secure/admin/product/registerProduct.jsf</to-view-id>   
+        </navigation-case>         
+        <navigation-case>  
+            <from-outcome>updateProduct</from-outcome>  
+            <to-view-id>/secure/admin/product/updateProduct.jsf</to-view-id>   
+        </navigation-case>        
+        <navigation-case>  
+            <from-outcome>searchProduct</from-outcome>  
+            <to-view-id>/secure/admin/product/searchProduct.jsf</to-view-id>   
+        </navigation-case>
+        <!-- Pizza -->
+        <navigation-case>  
+            <from-outcome>allPizza</from-outcome>  
+            <to-view-id>/secure/admin/pizza/allPizza.jsf</to-view-id>
+        </navigation-case>
+        <navigation-case>  
+            <from-outcome>makePizza</from-outcome>  
+            <to-view-id>/secure/admin/pizza/makePizza.jsf</to-view-id>   
+        </navigation-case>         
+        <navigation-case>  
+            <from-outcome>updatePizza</from-outcome>  
+            <to-view-id>/secure/admin/pizza/updatePizza.jsf</to-view-id>   
+        </navigation-case>        
+        <navigation-case>  
+            <from-outcome>searchPizza</from-outcome>  
+            <to-view-id>/secure/admin/pizza/searchPizza.jsf</to-view-id>   
+        </navigation-case>
+        <!-- User -->
+        <navigation-case>  
+            <from-outcome>allUsers</from-outcome>  
+            <to-view-id>/secure/admin/user/allUsers.jsf</to-view-id>
+        </navigation-case>
+        <navigation-case>  
+            <from-outcome>registerUser</from-outcome>  
+            <to-view-id>/secure/admin/user/registerUser.jsf</to-view-id>   
+        </navigation-case>         
+        <navigation-case>  
+            <from-outcome>updateUser</from-outcome>  
+            <to-view-id>/secure/admin/user/updateUser.jsf</to-view-id>   
+        </navigation-case>        
+        <navigation-case>  
+            <from-outcome>searchUser</from-outcome>  
+            <to-view-id>/secure/admin/user/searchUser.jsf</to-view-id>   
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

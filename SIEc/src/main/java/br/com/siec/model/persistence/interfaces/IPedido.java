@@ -1,8 +1,10 @@
 package br.com.siec.model.persistence.interfaces;
 
-import br.com.siec.model.persistence.entity.Produto;
-import br.com.siec.model.persistence.util.StatusPedido;
+import br.com.siec.model.persistence.entity.Item;
+import br.com.siec.model.persistence.resource.StatusPedido;
+
 import java.io.Serializable;
+
 import java.util.Date;
 import java.util.List;
 
@@ -24,11 +26,11 @@ public interface IPedido extends Serializable {
 
     public void setDataCompra(Date data);
 
-    public ICliente getICliente();
+    public ICliente getCliente();
 
-    public void setICliente(ICliente iCliente);
+    public void setCliente(ICliente iCliente);
 
-    public List<Produto> getItens();
+    public List<Item> getItens();
 
-    public void addItens(Produto item);
+    public void addItens(Item item);
 }

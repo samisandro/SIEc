@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration>
+	<email>
+		<nomeConta>siec</nomeConta>
+		<host>smtp.gmail.com</host>
+		<porta>465</porta>
+		<fromEmail>siec.ecommerce@gmail.com</fromEmail>
+		<fromName>SIEc - Sistema Integrado de E-commerce</fromName>
+		<authMail>siec.ecommerce@gmail.com</authMail>
+		<authPassw>8uXgUhpb#^vM</authPassw>		
+		<ssl>true</ssl>
+		<sslPort>465</sslPort>
+	</email>
+        <email>
+		<nomeConta>siecHotmail</nomeConta>
+		<host>smtp.live.com</host>
+		<porta>25</porta>
+		<fromEmail>josimar.dj@hotmail.com</fromEmail>
+		<fromName>SIEc - Sistema Integrado de E-commerce</fromName>
+		<authMail>josimar.dj@hotmail.com</authMail>
+		<authPassw>s8j4a0c6s</authPassw>		
+		<ssl>true</ssl>
+		<sslPort>25</sslPort>
+	</email>
+	<template>
+		<nome>RegisterAccount</nome>
+		<path>/templates/email/siec_email_register.html</path>
+		<tipo>text/html</tipo>
+		<assuntoEmail>Registro SIEc</assuntoEmail>
+	</template>
+	<template>
+		<nome>UpdateAccount</nome>
+		<path>/templates/email/siec_email_update.html</path>
+		<tipo>text/html</tipo>
+		<assuntoEmail>Conta Atualizada</assuntoEmail>
+	</template>
+	<template>
+		<nome>RecoveryAccount</nome>
+		<path>/templates/email/siec_email_recovery.html</path>
+		<tipo>text/html</tipo>
+		<assuntoEmail>Senha Temporaria</assuntoEmail>
+	</template>
+	<template>
+		<nome>OrderSale</nome>
+		<path>/templates/email/siec_email_orderSale.html</path>
+		<tipo>text/html</tipo>
+		<assuntoEmail>Pedido Efetuado</assuntoEmail>
+	</template>
+	<template>
+		<nome>ShippmentOrder</nome>
+		<path>/templates/email/siec_email_shippmentOrder.html</path>
+		<tipo>text/html</tipo>
+		<assuntoEmail>Pedido Enviado</assuntoEmail>
+	</template>
+</configuration>
+    
+    
+    
+    

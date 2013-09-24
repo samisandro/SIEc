@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 
 @RequestScoped
 public class ResourceBundleProducer {
@@ -18,7 +18,7 @@ public class ResourceBundleProducer {
     ResourceBundle getMessageResourceBundle() {
         if (null == messageResourceBundle) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
-            logger.debugv("Getting message resource bundle for locale {0}.",
+            logger.debug("Getting message resource bundle for locale "+
                     facesContext.getViewRoot().getLocale());
             messageResourceBundle = facesContext.getApplication()
                     .getResourceBundle(facesContext, "bundle");

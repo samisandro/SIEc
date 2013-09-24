@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/siec.xhtml">
+
+        <h:outputScript library="siec" name="lib/jquery-1.7.2.min.js"/>
+        <ui:define name="content">
+            <div class="header">
+                <h1 class="page-title">#{bundle.label_system_composition_new}</h1>
+            </div>
+
+            <ul class="breadcrumb">
+                <li> <span class="divider">/</span></li>
+                <li><h:link outcome="allPizza">#{bundle.label_system_compositions}</h:link> <span class="divider">/</span></li>
+                <li class="active">#{bundle.label_system_composition_new}</li>
+            </ul>
+            <div class="container-fluid">
+
+                <div class="row-fluid">
+                    <h:form prependId="true" id="formComposition">
+                        <div class="btn-toolbar">
+                            <a class="btn btn-primary">
+                                <p:commandButton value="#{bundle.label_system_salve}" 
+                                                 ajax="false"
+                                                 styleClass="btn btn-primary"
+                                                 action="#{composicaoController.save()}"
+                                                 update="@form"> 
+                                    <i class="icon-save"></i>
+                                </p:commandButton></a>
+
+                            <h:link styleClass="btn" outcome="/secure/admin/home.jsf">#{bundle.label_system_cancel}</h:link>                             
+                            <div class="btn-group">
+                            </div>
+                        </div>
+                        <div class="well">
+                            <div class="well-small">
+                                <p:panel header="Pizza" id="ingredientesPizza">
+                                    <p:dataTable id="componentePainel"
+                                                 value="#{composicaoController.pizza.componentes}"
+                                                 emptyMessage="#{bundle.msg_data_table_pizza}"
+                                                 tableStyleClass="table"
+                                                 rows="15"
+                                                 var="componente">
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.label_form_name}"/>
+                                            </f:facet>
+                                            #{componente.nome}
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.label_form_category}"/>
+                                            </f:facet>
+                                            #{componente.categoria}
+                                        </p:column>
+
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.msg_system_remove}"/>
+                                            </f:facet>
+                                            <p:commandLink process="@this"
+                                                           action="#{composicaoController.removeIngrediente(actionEvent)}"
+                                                           update=":formComposition:ingredientesPizza, 
+                                                                   :formComposition:precosPainel">
+                                                <f:setPropertyActionListener target="#{composicaoController.aux}"
+                                                                             value="#{componente}"/>
+                                                <i class="icon-minus"></i>                                
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>                                
+                            </div>
+
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#data" data-toggle="tab">#{bundle.label_system_main}</a></li>
+                                <li><a href="#mass" data-toggle="tab">#{bundle.label_form_mass}</a></li>
+                                <li><a href="#border" data-toggle="tab">#{bundle.label_form_border}</a></li>                                
+                                <li><a href="#filling" data-toggle="tab">#{bundle.label_form_filling}</a></li>
+                                <li><a href="#pryce" data-toggle="tab">#{bundle.label_form_price}</a></li>
+                            </ul>
+
+                            <div id="myTabContent" class="tab-content">
+
+                                <div class="tab-pane active in" id="data">
+                                    <h:outputLabel for="nomePizza" value="#{bundle.label_form_name}" >
+                                        <h:outputText title="#{bundle.label_form_name}" value=" *" styleClass="required" />
+                                    </h:outputLabel>
+                                    <p:inputText id="nomePizza" 
+                                                 value="#{composicaoController.pizza.nome}"
+                                                 maxlength="40"
+                                                 required="true"
+                                                 styleClass="input-xlarge"
+                                                 requiredMessage="#{bundle.msg_required_name}"/>
+                                    <h:message for="nomePizza" />
+                                </div>
+                                
+                                <div class="tab-pane fade" id="mass">
+                                    <h:outputLabel for="massTable" value="#{bundle.msg_data_select_mass}" >
+                                        <h:outputText title="#{bundle.label_form_name}" value=" *" styleClass="required" />
+                                    </h:outputLabel>
+                                    <p:dataTable id="massTable"
+                                                 var="massa"
+                                                 rowKey="#{massa.id}"
+                                                 value="#{composicaoController.massas}"                                                 
+                                                 selection="#{composicaoController.aux}"
+                                                 selectionMode="single"
+                                                 emptyMessage="#{bundle.msg_data_nothing_mass}"
+                                                 tableStyleClass="table"
+                                                 rows="5">
+
+                                        <p:ajax event="rowSelect" 
+                                                update=":formComposition:ingredientesPizza, :formComposition:precosPainel" 
+                                                listener="#{composicaoController.onRowSelected}" />
+                                        
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.label_form_name}"/>
+                                            </f:facet>
+                                            #{massa.nome}
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.label_form_category}"/>
+                                            </f:facet>
+                                            #{massa.categoria}
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+
+                                <div class="tab-pane fade" id="border">
+                                    <h:outputLabel for="borderTable" value="#{bundle.msg_data_select_border}" >
+                                        <h:outputText title="#{bundle.label_form_name}" value=" *" styleClass="required" />
+                                    </h:outputLabel>
+                                    <p:dataTable id="borderTable"
+                                                 var="borda"
+                                                 rowKey="#{borda.id}"
+                                                 value="#{composicaoController.bordas}"                                                 
+                                                 selection="#{composicaoController.aux}"
+                                                 selectionMode="single"
+                                                 emptyMessage="#{bundle.msg_data_nothing_border}"
+                                                 tableStyleClass="table"
+                                                 rows="5">
+
+                                        <p:ajax event="rowSelect" 
+                                                update=":formComposition:ingredientesPizza, :formComposition:precosPainel" 
+                                                listener="#{composicaoController.onRowSelected}" />
+                                        
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.label_form_name}"/>
+                                            </f:facet>
+                                            #{borda.nome}
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.label_form_category}"/>
+                                            </f:facet>
+                                            #{borda.categoria}
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="filling">                                
+                                    <p:panel header="#{bundle.msg_data_select_ingredient}" >
+                                        <p:dataTable id="ingredientesPainel"
+                                                     value="#{composicaoController.ingredientes}"
+                                                     emptyMessage="#{bundle.msg_data_nothing_ingredient}"
+                                                     tableStyleClass="table"
+                                                     rows="15"
+                                                     var="ingrediente">
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.label_form_name}"/>
+                                                </f:facet>
+                                                #{ingrediente.nome}
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.label_form_category}"/>
+                                                </f:facet>
+                                                #{ingrediente.categoria}
+                                            </p:column>
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.label_add}"/>
+                                                </f:facet>
+                                                <p:commandLink process="@this" 
+                                                               action="#{composicaoController.addIngrediente(actionEvent)}" 
+                                                               update=":formComposition:ingredientesPizza, :formComposition:precosPainel">
+                                                    <f:setPropertyActionListener target="#{composicaoController.aux}" value="#{ingrediente}"/>
+                                                    <i class="icon-plus"></i>                                
+                                                </p:commandLink>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </p:panel>
+                                </div>
+                                <div class="tab-pane fade" id="pryce">
+                                    <p:dataTable id="precosPainel"
+                                                 value="#{composicaoController.pizza.precos}"
+                                                 emptyMessage="#{bundle.msg_data_nothing_ingredient}"
+                                                 tableStyleClass="table"
+                                                 rows="5"
+                                                 var="preco">
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.label_size}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{preco.tipo.descricao}"/>                                        
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.label_form_price}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{preco.valor}"/>                                        
+                                        </p:column>
+                                    </p:dataTable>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <footer>
+                            <hr />
+                            <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
+                            <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+
+
+                            <p>&copy; 2012 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+                        </footer>
+                    </h:form>
+                </div>
+            </div>
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

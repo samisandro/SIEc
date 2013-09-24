@@ -6,9 +6,8 @@ import br.com.siec.api.factory.ClassType;
 import br.com.siec.api.factory.Factory;
 import br.com.siec.api.factory.qualifiers.ProdutoFactoryQualifier;
 import java.util.List;
-import javax.inject.Singleton;
 
-@Singleton
+
 @ProdutoFactoryQualifier
 public class ProdutoFactory extends Factory implements AbstractFactory {
 

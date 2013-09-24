@@ -387,3 +387,10 @@ p.change_link #home{
     height: 90px;
     background: transparent;
 }
+
+/* Custom styles */
+.error{
+    color:red;
+    font-weight:bold;
+    font-size:12pt
+}

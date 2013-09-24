@@ -1,13 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.siec.model.persistence.interfaces;
 
+import java.io.Serializable;
+
 /**
- *
- * @author josimar
+ * @version 1.00 May 14, 2013.
+ * @author Josimar Alves
  */
-public interface IAcompanhamento extends IProduto{
-    
+public interface IAcompanhamento
+        extends IProduto, Serializable {
 }

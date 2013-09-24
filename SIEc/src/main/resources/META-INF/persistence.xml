@@ -9,6 +9,7 @@
     <class>br.com.siec.model.persistence.entity.Composicao</class>
     <class>br.com.siec.model.persistence.entity.Endereco</class>
     <class>br.com.siec.model.persistence.entity.Imagem</class>
+    <class>br.com.siec.model.persistence.entity.Item</class>
     <class>br.com.siec.model.persistence.entity.Pedido</class>
     <class>br.com.siec.model.persistence.entity.Pessoa</class>
     <class>br.com.siec.model.persistence.entity.Pf</class>

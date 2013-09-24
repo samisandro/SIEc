@@ -5,49 +5,66 @@
          xsi:schemaLocation="http://www.springframework.org/schema/beans
                             http://www.springframework.org/schema/beans/spring-beans.xsd
                             http://www.springframework.org/schema/security
-                            http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+                            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-        <http auto-config="true" use-expressions="true">
-        <intercept-url pattern="/login.faces" access="permitAll" />
-        <intercept-url pattern="/restrict/**" access="isAuthenticated()" />
-        <intercept-url pattern="/public/**" access="permitAll"/>
+    <http auto-config="true"  use-expressions="true">        
+        <intercept-url pattern="/secure/admin/**" access="hasAnyRole('ADMINISTRADOR', 'GERENTE')" />
+        <intercept-url pattern="/secure/customer/**" access="hasRole('CLIENTE')" />
+        <intercept-url pattern="/secure/manager/**" access="hasRole('GERENTE')" />
+        <intercept-url pattern="/secure/auxiliary/**" access="hasRole('AUXILIAR')" />        
+        <intercept-url pattern="/**" access="permitAll" />
         
-        <form-login login-page="/login.faces" authentication-failure-url="/login.faces?erro=true"
-                    default-target-url="/restrict/home.faces"/>		
-        <access-denied-handler error-page="/acessonegado.faces" />
-    </http>                
-
-    <!-- NO PROJETO SEMERU PADRÃO FIZEMOS DESSA FORMA -->  
+        <form-login authentication-failure-url="/login.jsf?erro=true" 
+                    login-page="/login.jsf"
+                    authentication-success-handler-ref="customAuthenticationSuccessHandler"/>		
+        
+        <access-denied-handler error-page="/error/403.jsf" />
+        
+        <logout />
+        
+        <remember-me />
+        
+    </http>
+         
     <authentication-manager>
         <authentication-provider>
-            <password-encoder hash="sha"/>
+            <password-encoder hash="sha-256"/>            
             <jdbc-user-service data-source-ref="dataSource"
-                               users-by-username-query="SELECT Login, Senha, 'true' as enable FROM pessoa WHERE Login=?"
-                               authorities-by-username-query="SELECT Login as username, Permissao as authority  FROM pessoa WHERE Login=?"/>               
+                               users-by-username-query="SELECT USR_LOGIN as username, 
+                                                               USR_SENHA as password,
+                                                               USR_ATIVO as enabled
+                                                          FROM TB_USUARIO_USR 
+                                                         WHERE USR_LOGIN = ? "
+                               authorities-by-username-query="SELECT USR_LOGIN as username, 
+                                                                     USR_TIPO as authority 
+                                                                FROM TB_USUARIO_USR 
+                                                               WHERE USR_LOGIN = ? "/>            
         </authentication-provider>
     </authentication-manager>
+    
+    <b:bean id="customAuthenticationSuccessHandler"
+            class="br.com.siec.security.CustomAuthenticationSuccessHandler" />
     
     <b:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
-        <b:property name="url" value="jdbc:mysql://localhost:3306/semeru_jsf_maven_db" />
+        <b:property name="url" value="jdbc:mysql://localhost:3306/siec" />
         <b:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <b:property name="username" value="root" />
-        <b:property name="password" value="" />
-    </b:bean>
-    
-    <!-- MAS EXISTEM OUTRAS 2 FORMAS DE SE FAZER ISSO -->
-    <!-- VOCÊ PODE CUSTOMIZAR A AUTENTICATION PROVIDER -->
-    <!--    <b:bean id="customAuthenticationProvider" class="br.com.semeru.security.CustomAuthenticationProvider"></b:bean> 
-    <authentication-manager> 
-        <authentication-provider ref="customAuthenticationProvider"/> 
-    </authentication-manager>     -->
-    
-    <!-- OU VOCÊ PODE AINDA CUSTOMIZAR A USER DETAILS -->
-<!--    <b:bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
-    <authentication-manager>
-        <authentication-provider user-service-ref="semeruUserService" >
-            <password-encoder hash="sha"/>
-        </authentication-provider>
-    </authentication-manager>
+        <b:property name="username" value="siecAdmin" />
+        <b:property name="password" value="foxdelta@danko" />
+    </b:bean>    
 
-    <b:bean id="semeruUserService" class="br.com.semeru.security.UserServiceImpl"/>-->
+   <!-- <b:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <b:property name="userDetailsService" ref="userDetailsService"/>
+        <b:property name="passwordEncoder">
+            <b:bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+                <b:constructor-arg value="256"/>
+                <b:property name="iterations" value="1000" />
+            </b:bean>
+        </b:property>
+        
+        <b:property name="saltSource">
+            <b:bean class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+                <b:property name="userPropertyToUse" value="id" />
+            </b:bean>
+        </b:property>
+    </b:bean>-->
 </b:beans>    

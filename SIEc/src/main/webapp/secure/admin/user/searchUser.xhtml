@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/siec.xhtml">
+        <ui:define name="content">
+
+            <div class="header">
+                <h1 class="page-title">#{bundle.label_system_user_search}</h1>
+            </div>
+
+            <ul class="breadcrumb">
+                <li> <span class="divider">/</span></li>
+                <li><h:link outcome="allUsers">#{bundle.label_system_users}</h:link> <span class="divider">/</span></li>
+                <li class="active">#{bundle.label_system_user_search}</li>
+            </ul>
+            <div class="container-fluid">
+                <div class="row-fluid">
+
+                    <div class="btn-toolbar">
+                        <h:link outcome="registerUser">
+                            <button  class="btn btn-primary"><i class="icon-plus"></i>
+                                #{bundle.label_system_user_new}
+                            </button>
+                        </h:link>                      
+                        <div class="btn-group">
+                        </div>
+                    </div>
+                    <h:form prependId="true" id="formMessages">
+                        <h:messages id="messages"/>
+                    </h:form>
+                    <div class="well"> 
+                        <h:form prependId="true" id="form1">
+                            <p:panel id="searchResult">
+                                <p:dataTable id="productsFiltrated"
+                                             value="#{usuarioController.users}"
+                                             rows="15"
+                                             emptyMessage="#{bundle.label_system_user_nothing_filter}"
+                                             var="user"
+                                             widgetVar="userTable"
+                                             filteredValue="#{usuarioController.filteredUsers}">                                    
+
+                                    <p:column id="idColumn"                                              
+                                              sortBy="#{user.id}"
+                                              filterBy="#{user.id}"
+                                              footerText="#{bundle.filter_mode_exact}"
+                                              filterMatchMode="exact">
+
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.label_form_code}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{user.id}" />
+                                    </p:column>
+
+                                    <p:column id="nameColumn"                                                                                               
+                                              sortBy="#{user.pessoa.nome}"
+                                              filterBy="#{user.pessoa.nome}"
+                                              footerText="#{bundle.filter_mode_contain}"                                              
+                                              filterMatchMode="contains">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.label_form_name}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{user.pessoa.nome}" />  
+                                    </p:column>
+
+                                    <p:column id="emailColumn"                                                                                               
+                                              sortBy="#{user.pessoa.email}"
+                                              filterBy="#{user.pessoa.email}"
+                                              footerText="#{bundle.filter_mode_contain}"                                              
+                                              filterMatchMode="contains">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.label_form_email}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{user.pessoa.email}" />  
+                                    </p:column>
+
+                                    <p:column id="loginColumn"
+                                              sortBy="#{user.login}"
+                                              filterBy="#{user.login}"
+                                              footerText="#{bundle.filter_mode_contain}"
+                                              filterMatchMode="contains">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.label_form_login}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{user.login}" />
+                                    </p:column>
+
+                                    <p:column id="activeColumn"
+                                              sortBy="#{user.ativo}"
+                                              filterBy="#{user.ativo}"
+                                              footerText="#{bundle.filter_mode_exact}"
+                                              filterOptions="#{usuarioController.statusUser}"
+                                              filterMatchMode="exact">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.label_block_unblock}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{user.ativo}" />
+                                    </p:column>                                    
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.label_system_actions}"/>
+                                        </f:facet>
+                                        <p:commandLink update=":formDialogVisualizar:visualizarDialog" 
+                                                       process="@this"
+                                                       oncomplete="visualizar.show();">
+                                            <f:setPropertyActionListener value="#{user}" target="#{usuarioController.usuario}"/>
+                                            <i class="icon-eye-open"></i>                                
+                                        </p:commandLink>
+
+                                        <h:commandLink type="submit"
+                                                       action="#{usuarioController.goUpdate()}">
+                                            <f:setPropertyActionListener value="#{user}" target="#{usuarioController.usuario}"/>                                        
+                                            <i class="icon-pencil"></i>
+                                        </h:commandLink>
+
+                                        <p:commandLink rendered="#{user.ativo}" oncomplete="confirmDesactive.show();">
+                                            <f:setPropertyActionListener value="#{user}" target="#{usuarioController.usuario}"/>                                        
+                                            <i class="icon-ban-circle"></i>
+                                        </p:commandLink>
+
+                                        <p:commandLink rendered="#{!user.ativo}" oncomplete="confirmActive.show();">
+                                            <f:setPropertyActionListener value="#{user}" target="#{usuarioController.usuario}"/>                                        
+                                            <i class="icon-key"></i>
+                                        </p:commandLink>
+
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+                        </h:form>
+                        <h:form id="formConfirmDesactiveUser">
+                            <p:confirmDialog id="confirmDelete" 
+                                             message="#{bundle.msg_desactive_user}"    
+                                             header="#{bundle.msg_info_block}" 
+                                             severity="alert" 
+                                             widgetVar="confirmDesactive"
+                                             appendToBody="true">
+
+                                <p:commandButton id="confirm" 
+                                                 value="#{bundle.label_yes}"
+                                                 process="@this"
+                                                 action="#{usuarioController.ativeOrDesactive()}"
+                                                 oncomplete="confirmDesactive.hide();"
+                                                 update=":form1:searchResult, :formMessages:messages"
+                                                 >
+
+                                </p:commandButton>
+
+                                <p:commandButton id="decline" 
+                                                 value="#{bundle.label_no}" 
+                                                 onclick="confirmDesactive.hide();" 
+                                                 type="button" />     
+
+                            </p:confirmDialog>     
+                        </h:form>
+                        <h:form id="formConfirmActiveUser">
+                            <p:confirmDialog id="confirmActive" 
+                                             message="#{bundle.msg_active_user}"    
+                                             header="#{bundle.msg_info_unlock}" 
+                                             severity="alert" 
+                                             widgetVar="confirmActive"
+                                             appendToBody="true">
+
+                                <p:commandButton id="confirm" 
+                                                 value="#{bundle.label_yes}"
+                                                 process="@this"
+                                                 action="#{usuarioController.ativeOrDesactive()}"
+                                                 oncomplete="confirmActive.hide();"
+                                                 update=":form1:searchResult, :formMessages:messages"
+                                                 >
+
+                                </p:commandButton>
+
+                                <p:commandButton id="decline" 
+                                                 value="#{bundle.label_no}" 
+                                                 onclick="confirmActive.hide();" 
+                                                 type="button" />     
+
+                            </p:confirmDialog>     
+                        </h:form>
+                        <h:form id="formDialogVisualizar" >
+                            <p:dialog id="visualizarDialog"
+                                      widgetVar="visualizar" 
+                                      header="#{bundle.msg_info_show}" 
+                                      width="400" 
+                                      appendToBody="true"
+                                      modal="true">
+                                <h:panelGrid cellspacing="2" columns="2">
+
+                                    <h:outputLabel for="codigoUser" value="#{bundle.label_form_code}:" />
+                                    <h:outputText id="codigoUser" value="#{usuarioController.usuario.id}"/>
+
+                                    <h:outputLabel for="nomeUser" value="#{bundle.label_form_name}:" />
+                                    <h:outputText id="nomeUser" value="#{usuarioController.usuario.pessoa.nome}"/>
+
+                                    <h:outputLabel for="emailUser" value="#{bundle.label_form_email}:" />
+                                    <h:outputText id="emailUser" value="#{usuarioController.usuario.pessoa.email}"/>
+
+                                    <h:outputLabel for="typeUser" value="#{bundle.label_form_typeUser}:" />
+                                    <h:outputText id="typeUser" value="#{usuarioController.usuario.tipo.descricao}"/>                                    
+
+                                </h:panelGrid>
+                                <br />
+                                <center>
+                                    <p:commandButton id="ok" 
+                                                     value="#{bundle.label_close}" 
+                                                     onclick="visualizar.hide();" 
+                                                     type="button" />
+                                </center>
+                            </p:dialog>
+                        </h:form>
+                    </div>
+                    <footer>
+                        <hr />
+                        <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
+                        <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+
+
+                        <p>&copy; 2012 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+                    </footer>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

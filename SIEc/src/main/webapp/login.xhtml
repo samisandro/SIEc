@@ -7,7 +7,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
@@ -35,29 +36,49 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="mysuperscript.php" autocomplete="on"> 
-                                <h1>Log in</h1> 
+                            <form action="j_spring_security_check" method="post">
+                                <h1>#{bundle.label_system_login}</h1> 
                                 <p> 
-                                    <label for="username" class="uname" data-icon="u" > Your email or username </label>
-                                    <input id="username" name="username" required="required" type="text" placeholder="myusername or mymail@mail.com"/>
+                                    <center>
+                                        <label class="uname">
+                                            <b>
+                                                <h:outputText value="#{bundle.msg_login_invalid}" id="erro" styleClass="uname" rendered="#{param.erro}" />                                        
+                                            </b>
+                                        </label>
+                                    </center>
+
+                                    <br />
+
+                                    <label for="j_username" class="uname" data-icon="u" > #{bundle.label_form_login} </label>                                    
+                                    <input id="j_username" name="j_username" required="required" type="text" placeholder="myusername or mymail@mail.com"/>
                                 </p>
                                 <p> 
-                                    <label for="password" class="youpasswd" data-icon="p"> Your password </label>
-                                    <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" /> 
+                                    <label for="j_password" class="youpasswd" data-icon="p"> #{bundle.label_form_password} </label>
+                                    <input id="j_password" name="j_password" required="required" type="password" placeholder="eg. X8df!90EO" />                                    
                                 </p>
                                 <p class="keeplogin"> 
-                                    <!--<input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> -->
-                                    <label for="loginkeeping">Keep me logged in</label>
+                                    <input type="checkbox" 
+                                           id="loginkeeping" 
+                                           name="_spring_security_remember_me"
+                                           value="loginkeeping"/>
+                                    <label for="loginkeeping">#{bundle.label_login_remember} </label>
+                                    
+                                    <br />
+                                    <br />
+
+                                    <h:link styleClass="uname" rendered="#{param.erro}" id="forgotPassoword" outcome="/recoveryPassword.jsf">
+                                        #{bundle.label_login_forgot}
+                                    </h:link>
                                 </p>
-                                <p class="login button"> 
-                                    <input type="submit" value="Login" /> 
+                                <p class="login button">                                     
+                                    <input name="commit" type="submit" value="#{bundle.label_form_login}" />
                                 </p>
 
                                 <p class="change_link">
-                                    Not a member yet ?
-                                    <a href="#toregister" class="to_register">Join us</a>
-                                    
-                                    <a href="#toregister" class="to_register">Home</a>
+                                    #{bundle.label_login_member}
+                                    <a href="#toregister" class="to_register">#{bundle.label_login_join}</a>
+
+                                    <h:link class="to_register" outcome="/index.jsf" value="#{bundle.label_system_home}"/>
                                 </p>
                             </form>
                         </div>
@@ -85,10 +106,10 @@
                                     <input type="submit" value="Sign up"/> 
                                 </p>
                                 <p class="change_link">  
-                                    Already a member ?
-                                    <a href="#tologin" class="to_register"> Go and log in </a>
-                                    
-                                    <a href="#toregister" class="to_register">Home</a>
+                                    #{bundle.label_login_alredy_member}
+                                    <a href="#tologin" class="to_register"> #{bundle.label_login_alredy_login} </a>
+
+                                    <h:link class="to_register" outcome="/index.jsf" value="#{bundle.label_system_home}"/>
                                 </p>
                             </form>
                         </div>

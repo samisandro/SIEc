@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/siec.xhtml">
+        <h:outputScript library="siec" name="lib/jquery-1.7.2.min.js"/>
+        <ui:define name="content">
+            <div class="header">
+                <h1 class="page-title">#{bundle.label_system_product_new}</h1>
+            </div>
+
+            <ul class="breadcrumb">
+                <li> <span class="divider">/</span></li>
+                <li><h:link outcome="allProduct">#{bundle.label_system_products}</h:link> <span class="divider">/</span></li>
+                <li class="active">#{bundle.label_system_product}</li>
+            </ul>
+            <div class="container-fluid">
+
+                <div class="row-fluid">
+                    <h:form id="formProduct" enctype="multipart/form-data">
+                        <div class="btn-toolbar">
+                            <a class="btn btn-primary">
+                                <p:commandButton value="#{bundle.label_system_salve}" 
+                                                 ajax="false"
+                                                 styleClass="btn btn-primary"
+                                                 action="#{produtoBean.save()}"
+                                                 update="@form"> 
+
+                                </p:commandButton></a>
+
+                            <h:link styleClass="btn" outcome="/secure/admin/home.jsf">#{bundle.label_system_cancel}</h:link>                             
+                            <div class="btn-group">
+                            </div>
+                        </div>
+                        <div class="well">
+
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#data" data-toggle="tab">#{bundle.label_system_main}</a></li>                                
+                                <li><a href="#image" data-toggle="tab">#{bundle.label_form_image}</a></li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane active in" id="data">                                                                 
+
+                                    <h:outputLabel for="nomeProduto" value="#{bundle.label_form_name}" />
+                                    <p:inputText id="nomeProduto" 
+                                                 value="#{produtoBean.produto.nome}"
+                                                 maxlength="40"
+                                                 required="true"
+                                                 styleClass="input-xlarge"
+                                                 requiredMessage="#{bundle.label_system_required}"/>
+                                    <h:message for="nomeProduto"/>
+
+                                    <h:outputLabel for="categoria" value="#{bundle.label_form_category}" />
+                                    <p:selectOneMenu id="categoria"
+                                                     styleClass="input-xlarge"
+                                                     value="#{produtoBean.produto.categoria}">
+                                        <f:selectItems value="#{produtoBean.categorias}" />  
+                                        <f:ajax listener="#{produtoBean.changeProduto}" event="change" render="precos"/>
+                                    </p:selectOneMenu>
+
+                                    <p:panel id="precos">
+
+                                        <h:outputLabel for="precoC" 
+                                                       value="#{bundle.label_form_price} #{produtoBean.precoC.tipo.descricao} #{bundle.label_currency}"
+                                                       rendered="#{!produtoBean.produto.typePrice.multiplePrice}"/>
+
+                                        <h:inputText id="precoC" 
+                                                     value="#{produtoBean.precoC.valor}"
+                                                     required="#{!produtoBean.produto.typePrice.multiplePrice}"
+                                                     rendered="#{!produtoBean.produto.typePrice.multiplePrice}"
+                                                     requiredMessage="#{bundle.label_system_required}"
+                                                     validatorMessage="#{bundle.label_double_miminim}"
+                                                     styleClass="input-xlarge"
+                                                     maxlength="5"
+                                                     onkeypress="mascara(this, moeda);">
+                                            <f:convertNumber currencyCode="BRL"/>
+                                            <f:validateDoubleRange minimum="0.99" maximum="99.99"/>
+                                        </h:inputText>
+                                        <h:message for="precoC"/>
+
+                                        <h:outputLabel for="precoP" 
+                                                       value="#{bundle.label_form_pricePizza} #{produtoBean.precoP.tipo.descricao} #{bundle.label_currency}"
+                                                       rendered="#{produtoBean.produto.typePrice.multiplePrice}"/>
+
+                                        <h:inputText id="precoP" 
+                                                     value="#{produtoBean.precoP.valor}"
+                                                     required="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     rendered="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     requiredMessage="#{bundle.label_system_required}"
+                                                     validatorMessage="#{bundle.label_double_miminim}"
+                                                     converter="javax.faces.Double" 
+                                                     styleClass="input-xlarge"
+                                                     onkeypress="mascara(this, moeda);">
+                                            <f:convertNumber currencyCode="BRL"/>
+                                            <f:validateDoubleRange minimum="0.99" maximum="99.99"/> 
+                                        </h:inputText>
+                                        <h:message for="precoP"/>
+
+                                        <h:outputLabel for="precoM" 
+                                                       value="#{bundle.label_form_pricePizza} #{produtoBean.precoM.tipo.descricao} #{bundle.label_currency}"
+                                                       rendered="#{produtoBean.produto.typePrice.multiplePrice}"/>
+
+                                        <h:inputText id="precoM" 
+                                                     value="#{produtoBean.precoM.valor}"
+                                                     required="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     rendered="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     requiredMessage="#{bundle.label_system_required}"
+                                                     validatorMessage="#{bundle.label_double_miminim}"
+                                                     converter="javax.faces.Double" 
+                                                     styleClass="input-xlarge"
+                                                     onkeypress="mascara(this, moeda);">
+                                            <f:convertNumber currencyCode="BRL"/>
+                                            <f:validateDoubleRange minimum="0.99" maximum="99.99"/> 
+                                        </h:inputText>
+                                        <h:message for="precoM"/>
+
+                                        <h:outputLabel for="precoG" 
+                                                       value="#{bundle.label_form_pricePizza} #{produtoBean.precoG.tipo.descricao} #{bundle.label_currency}"
+                                                       rendered="#{produtoBean.produto.typePrice.multiplePrice}"/>
+
+                                        <h:inputText id="precoG" 
+                                                     value="#{produtoBean.precoG.valor}"
+                                                     required="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     rendered="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     requiredMessage="#{bundle.label_system_required}"
+                                                     validatorMessage="#{bundle.label_double_miminim}"
+                                                     converter="javax.faces.Double" 
+                                                     styleClass="input-xlarge"
+                                                     onkeypress="mascara(this, moeda);">
+                                            <f:convertNumber currencyCode="BRL"/>
+                                            <f:validateDoubleRange minimum="0.99" maximum="99.99"/> 
+                                        </h:inputText>
+                                        <h:message for="precoG"/>
+
+                                        <h:outputLabel for="precoF" 
+                                                       value="#{bundle.label_form_pricePizza} #{produtoBean.precoF.tipo.descricao} #{bundle.label_currency}"
+                                                       rendered="#{produtoBean.produto.typePrice.multiplePrice}"/>
+
+                                        <h:inputText id="precoF" 
+                                                     value="#{produtoBean.precoF.valor}"
+                                                     required="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     rendered="#{produtoBean.produto.typePrice.multiplePrice}"
+                                                     requiredMessage="#{bundle.label_system_required}"
+                                                     validatorMessage="#{bundle.label_double_miminim}"
+                                                     converter="javax.faces.Double" 
+                                                     styleClass="input-xlarge"
+                                                     onkeypress="mascara(this, moeda);">
+                                            <f:convertNumber currencyCode="BRL"/>
+                                            <f:validateDoubleRange minimum="0.99" maximum="99.99"/>
+                                        </h:inputText>
+                                        <h:message for="precoF"/>
+
+                                    </p:panel>
+                                </div>
+                                <div class="tab-pane fade" id="image">
+                                    <p:panel id="imagemPainel">
+                                        <p:fileUpload fileUploadListener="#{fileUpload.handleFileUpload}"
+                                                      required="true"
+                                                      requiredMessage="#{bundle.label_form_image_required}"
+                                                      invalidFileMessage="#{bundle.label_form_image_invalid_arquive}"
+                                                      invalidSizeMessage="#{bundle.label_form_image_invalid_size}"
+                                                      label="#{bundle.label_form_image_search}"
+                                                      showButtons="false"
+                                                      multiple="false"
+                                                      mode="advanced"                                                   
+                                                      update="imagem"  
+                                                      auto="true"  
+                                                      sizeLimit="100000"
+                                                      styleClass="input-xlarge"
+                                                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/> 
+
+                                        <p:graphicImage value="#{fileUpload.converted}" 
+                                                        id="imagem"
+                                                        rendered="#{not empty fileUpload.fotoDescricao.descricao}"
+                                                        height="100px"
+                                                        width="100px"
+                                                        cache="false"/>
+                                    </p:panel>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <footer>
+                            <hr />
+                            <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
+                            <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+
+
+                            <p>&copy; 2012 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+                        </footer>
+                    </h:form>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -4,10 +4,9 @@
  */
 package br.com.siec.controller;
 
-import br.com.siec.model.persistence.entity.Pessoa;
-import br.com.siec.model.persistence.entity.Pf;
-import br.com.siec.service.Service;
-import br.com.siec.service.qualifiers.PessoaServiceQualifier;
+import br.com.siec.model.persistence.entity.Cliente;
+import br.com.siec.service.ClienteService;
+import br.com.siec.service.qualifiers.ClienteServiceQualifier;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -24,9 +23,9 @@ import javax.inject.Inject;
 public class PessoaController implements Serializable {
 
     @Inject
-    @PessoaServiceQualifier
-    private Service<Pessoa> pessoaService;
-    private Pessoa pessoa;
+    @ClienteServiceQualifier
+    private ClienteService pessoaService;
+    private Cliente pessoa;
 
     public void save() {
         if (this.pessoaService.save(pessoa)) {
@@ -39,11 +38,11 @@ public class PessoaController implements Serializable {
         }
     }
 
-    public Pessoa getPessoa() {
+    public Cliente getPessoa() {
         return pessoa = pessoaService.create("PF");
     }
 
-    public void setPessoa(Pessoa pessoa) {
+    public void setPessoa(Cliente pessoa) {
         this.pessoa = pessoa;
     }
 }

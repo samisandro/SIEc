@@ -2,8 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"     
+      xmlns:sec="http://www.springframework.org/security/tags">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -39,6 +41,10 @@
                 color: #fff;
                 font-weight: bold;
             }
+            #languageForm {
+                padding: 0px 0px 0px 0px;
+                margin: 0px 0px 0px 0px;
+            }
         </style>      
         <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -57,97 +63,158 @@
     <!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
     <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
     <!--[if (gt IE 9)|!(IE)]><!--> 
-    <h:body class="">
-        <!--<![endif]-->
-        <ui:insert name="topo">
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <ul class="nav pull-right">
+    <h:body>
+        <f:view locale="#{localeController.currentLocale}">
+            <ui:define name="metadata"/>
+            <!--<![endif]-->               
+            <ui:insert name="topo">
 
-                        <li><a href="#" class="hidden-phone visible-tablet visible-desktop" role="button">#{bundle.label_system_settings}</a></li>
-                        <li id="fat-menu" class="dropdown">
-                            <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="icon-user"></i> Jack Smith
-                                <i class="icon-caret-down"></i>
-                            </a>
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <h:form id="languageForm" >
+                            <ul class="nav pull-right">
 
-                            <ul class="dropdown-menu">
-                                <li><a tabindex="-1" href="#">#{bundle.label_system_account}</a></li>
-                                <li class="divider"></li>
-                                <li><a tabindex="-1" class="visible-phone" href="#">#{bundle.label_system_settings}</a></li>
-                                <li class="divider visible-phone"></li>
-                                <li><h:link tabindex="-1" outcome="/index.jsf">#{bundle.label_system_logout}</h:link></li>
+                                <li>
+
+                                    <h:commandLink action="#{localeController.englishLocale()}" 
+                                                   styleClass="hidden-phone visible-tablet visible-desktop" 
+                                                   id="en-us"
+                                                   title="English"> 
+                                        <h:graphicImage library="siec" 
+                                                        name="images/en-us.png"
+                                                        width="20px"
+                                                        height="20px"></h:graphicImage>                                    
+                                    </h:commandLink>
+
+                                </li>
+                                <li>
+
+                                    <h:commandLink action="#{localeController.portugueseLocale()}" 
+                                                   styleClass="hidden-phone visible-tablet visible-desktop" 
+                                                   id="pt-br"
+                                                   title="Portuguese"> 
+                                        <h:graphicImage library="siec" 
+                                                        name="images/pt-br.png"
+                                                        width="20px"
+                                                        height="20px"></h:graphicImage>
+                                    </h:commandLink>
+
+                                </li>
+                                <li id="fat-menu" class="dropdown">
+                                    <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon-user"></i> #{usuarioSupport.user.pessoa.nome}
+                                        <i class="icon-caret-down"></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu">
+                                        <li><h:commandLink type="submit" 
+                                                           tabindex="-1" 
+                                                           action="#{usuarioSupport.myAccount()}">
+                                                <f:setPropertyActionListener value="#{usuarioSupport.user}" target="#{usuarioController.usuario}"/>
+                                                #{bundle.label_system_account}
+                                            </h:commandLink>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li> <a tabindex="-1" class="visible-phone" href="#">#{bundle.label_system_settings}</a></li>
+                                        <li class="divider visible-phone"></li>
+                                        <li><a href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">#{bundle.label_system_logout}</a></li>
+                                    </ul>
+                                </li>
+
                             </ul>
-                        </li>
+                        </h:form>
+                        <a class="brand" href="index.html">
+                            <span class="first">
+                                #{bundle.label_system_acronym}
+                            </span> 
+                            <span class="second">
+                                #{bundle.label_system_title}
+                            </span>
+                        </a>
+                    </div>
+                </div>                      
+            </ui:insert>
 
+            <ui:insert name="menu">
+                <div class="sidebar-nav">
+                    <form class="search form-inline">
+                        <input type="text" placeholder="Search..."/>
+                    </form>
+
+                    <a href="#dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-dashboard"></i>Dashboard</a>
+                    <ul id="dashboard-menu" class="nav nav-list collapse in">
+                        <li><h:link outcome="/secure/admin/home.jsf">#{bundle.label_system_home}</h:link></li>
+                        <sec:authorize access="hasAnyRole('ADMINISTRADOR', 'GERENTE')">
+                            <li><h:link outcome="allProduct">#{bundle.label_system_products}</h:link></li>
+                            <li><h:link outcome="searchProduct">#{bundle.label_system_product_search}</h:link></li>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('ADMINISTRADOR')">                    
+                            <li ><h:link outcome="allUsers">#{bundle.label_system_users}</h:link></li>
+                        </sec:authorize>
                     </ul>
-                    <a class="brand" href="index.html">
-                        <span class="first">
-                            #{bundle.label_system_acronym}
-                        </span> 
-                        <span class="second">
-                            #{bundle.label_system_title}
-                        </span>
-                    </a>
+
+                    <sec:authorize access="hasAnyRole('ADMINISTRADOR', 'GERENTE')">
+                        <a href="#produts-menu" class="nav-header" data-toggle="collapse"><i class="icon-barcode"></i>#{bundle.label_system_products}</a>
+                        <ul id="produts-menu" class="nav nav-list collapse">
+                            <li><h:link outcome="allProduct">#{bundle.label_system_products}</h:link></li>
+                            <li><h:link outcome="searchProduct">#{bundle.label_system_product_search}</h:link></li>
+                            <li><h:link outcome="registerProduct">#{bundle.label_system_product_new}</h:link></li>
+                        </ul>
+                    </sec:authorize>
+
+                    <sec:authorize access="hasAnyRole('ADMINISTRADOR', 'GERENTE')">
+                        <a href="#compositions-menu" class="nav-header" data-toggle="collapse"><i class="icon-fire"></i>#{bundle.label_system_compositions}</a>
+                        <ul id="compositions-menu" class="nav nav-list collapse">
+                            <li ><h:link outcome="allPizza">#{bundle.label_system_compositions}</h:link></li>                    
+                            <li ><h:link outcome="makePizza">#{bundle.label_system_composition_new}</h:link></li>                    
+                            <li ><h:link outcome="searchPizza">#{bundle.label_system_composition_search}</h:link></li>                    
+                        </ul>
+                    </sec:authorize>
+
+                    <sec:authorize access="hasAnyRole('ADMINISTRADOR', 'GERENTE')">
+                        <a href="#reports-menu" class="nav-header" data-toggle="collapse"><i class="icon-tasks"></i>#{bundle.label_system_reports}</a>
+                        <ul id="reports-menu" class="nav nav-list collapse">
+                            <li ><a href="sign-in.html">Relatorio 1</a></li>
+                        </ul>
+                    </sec:authorize>                
+
+                    <sec:authorize access="hasRole('ADMINISTRADOR')">
+                        <a href="#users-menu" class="nav-header" data-toggle="collapse"><i class="icon-group"></i>#{bundle.label_system_users}</a>
+                        <ul id="users-menu" class="nav nav-list collapse">
+                            <li ><h:link outcome="allUsers">#{bundle.label_system_users}</h:link></li>                    
+                            <li ><h:link outcome="registerUser">#{bundle.label_system_user_new}</h:link></li>                    
+                            <li ><h:link outcome="searchUser">#{bundle.label_system_user_search}</h:link></li>                    
+                        </ul>
+                    </sec:authorize>
+
+                    <sec:authorize access="hasRole('AUXILIAR')">
+                        <a href="#users-menu" class="nav-header" data-toggle="collapse"><i class="icon-group"></i>#{bundle.label_system_users}</a>
+                        <ul id="users-menu" class="nav nav-list collapse">
+                            <li ><h:link outcome="allUsers">#{bundle.label_system_users}</h:link></li>                    
+                            <li ><h:link outcome="registerUser">#{bundle.label_system_user_new}</h:link></li>                    
+                            <li ><h:link outcome="searchUser">#{bundle.label_system_user_search}</h:link></li>                    
+                        </ul>
+                    </sec:authorize>
                 </div>
-            </div>                      
-        </ui:insert>
-        
-        <ui:insert name="menu">
-            <div class="sidebar-nav">
-                <form class="search form-inline">
-                    <input type="text" placeholder="Search..."/>
-                </form>
+            </ui:insert>  
 
-                <a href="#dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-dashboard"></i>Dashboard</a>
-                <ul id="dashboard-menu" class="nav nav-list collapse in">
-                    <li><h:link outcome="/secure/admin/home.jsf">#{bundle.label_system_home}</h:link></li>
-                    <li><h:link outcome="/secure/admin/allProduct.jsf">#{bundle.label_system_products}</h:link></li>
-                    <li ><h:link outcome="/secure/admin/searchProduct.jsf">#{bundle.label_system_product_search}</h:link></li>
-                    <li ><h:link outcome="/secure/admin/allComposition.jsf">#{bundle.label_system_compositions}</h:link></li>
-                </ul>
-                <a href="#produts-menu" class="nav-header" data-toggle="collapse"><i class="icon-barcode"></i>#{bundle.label_system_products}</a>
-                <ul id="produts-menu" class="nav nav-list collapse">
-                    <li><h:link outcome="/secure/admin/allProduct.jsf">#{bundle.label_system_products}</h:link></li>
-                    <li ><h:link outcome="/secure/admin/searchProduct.jsf">#{bundle.label_system_product_search}</h:link></li>
-                    <li><h:link outcome="/secure/admin/registerProduct.jsf">#{bundle.label_system_product_new}</h:link></li>
-                </ul>
-                <a href="#compositions-menu" class="nav-header" data-toggle="collapse"><i class="icon-fire"></i>#{bundle.label_system_compositions}</a>
-                <ul id="compositions-menu" class="nav nav-list collapse">
-                    <li ><h:link outcome="/secure/admin/allComposition.jsf">#{bundle.label_system_compositions}</h:link></li>                    
-                    <li ><h:link outcome="/secure/admin/compositionProduct.jsf">#{bundle.label_system_composition_new}</h:link></li>                    
-                </ul>
-                <a href="#reports-menu" class="nav-header" data-toggle="collapse"><i class="icon-tasks"></i>#{bundle.label_system_reports}</a>
-                <ul id="reports-menu" class="nav nav-list collapse">
-                    <li ><a href="sign-in.html">Sign In</a></li>
-                    <li ><a href="sign-up.html">Sign Up</a></li>
-                    <li ><a href="reset-password.html">Reset Password</a></li>
-                </ul>
-                <a href="#users-menu" class="nav-header" data-toggle="collapse"><i class="icon-fire"></i>#{bundle.label_system_user}</a>
-                <ul id="users-menu" class="nav nav-list collapse">
-                    <li ><h:link outcome="/secure/admin/allUsers.jsf">#{bundle.label_system_compositions}</h:link></li>                    
-                    <li ><h:link outcome="/secure/admin/registerUser.jsf">#{bundle.label_system_user_new}</h:link></li>                    
-                    <li ><h:link outcome="/secure/admin/searchUser.jsf">#{bundle.label_system_user_search}</h:link></li>                    
-                </ul>
+            <div class="content">
+                <ui:insert name="content">
+
+
+                </ui:insert>                
             </div>
-        </ui:insert>  
-        
-        <div class="content">
-            <ui:insert name="content">
-                
 
-            </ui:insert>                
-        </div>
-        
-        <h:outputScript library="siec" name="lib/bootstrap/js/bootstrap.js" />
-        <script type="text/javascript">
-            $("[rel=tooltip]").tooltip();
-            $(function() {
-                $('.demo-cancel-click').click(function() {
-                    return false;
+            <h:outputScript library="siec" name="lib/bootstrap/js/bootstrap.js" />
+            <script type="text/javascript">
+                $("[rel=tooltip]").tooltip();
+                $(function() {
+                    $('.demo-cancel-click').click(function() {
+                        return false;
+                    });
                 });
-            });
-        </script>
+            </script>
+        </f:view>
     </h:body>
 
 </html>

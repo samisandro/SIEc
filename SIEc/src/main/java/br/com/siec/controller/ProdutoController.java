@@ -1,30 +1,41 @@
 package br.com.siec.controller;
 
 import br.com.siec.config.jsf.ViewContext;
-import br.com.siec.model.persistence.entity.Acompanhamento;
-import br.com.siec.model.persistence.entity.Componente;
-import br.com.siec.model.persistence.entity.Imagem;
+
 import br.com.siec.model.persistence.entity.Preco;
 import br.com.siec.model.persistence.entity.Produto;
-import br.com.siec.model.persistence.util.Categorias;
-import br.com.siec.api.factory.entity.ListEnum;
-import br.com.siec.model.persistence.util.TipoPreco;
-import br.com.siec.service.Service;
+
+import br.com.siec.model.persistence.resource.Categorias;
+import br.com.siec.model.persistence.resource.TipoPreco;
+
+import br.com.siec.api.factory.entity.ListEnumModel;
+
+import br.com.siec.controller.resource.FileUpload;
+
+import br.com.siec.service.ProdutoService;
 import br.com.siec.service.qualifiers.ProdutoServiceQualifier;
+
 import java.io.Serializable;
+
 import java.util.List;
+
 import javax.annotation.PostConstruct;
+
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
+
 import javax.inject.Inject;
 
 /**
- * ProdutoController
+ * <p><b>ProdutoController:</b> Bean responsavel por todas as operações
+ * relacionadas ao objeto Produto.</p>
  *
  * @version 1.00 04 August 2013
  * @author Josimar Alves
+ * @observation Refatorar!!!
  */
 @ManagedBean(name = "produtoBean")
 @ViewScoped
@@ -32,159 +43,162 @@ public class ProdutoController implements Serializable {
 
     @Inject
     @ProdutoServiceQualifier
-    private Service<Produto> produtoService;
-    @ManagedProperty(value = "#{imageBean}")
-    private ImageController imageBean;
+    private ProdutoService produtoFacade;
+    
     @Inject
     ViewContext viewContext;
     private Produto produto;
-    @Inject
-    private ListEnum categorias;
-    private Produto selectedProduto;
+    
     private List<Produto> produtos;
-    private String searchParam;
-    private List<Produto> resultSearch;
+    private List<Produto> filteredProducts;
+    
     private Preco precoC;
     private Preco precoP;
     private Preco precoM;
     private Preco precoG;
     private Preco precoF;
+    
+    private static final String HOME = "home";
+    private static final String ALL_PRODUCT = "allProduct";
+    private static final String UPDATE_PRODUCT = "updateProduct"/*?faces-redirect=true&includeViewParams=true*/;
 
     public ProdutoController() {
     }
 
     @PostConstruct
-    public void initController() {
-        this.produto = produtoService.create("Componente");
-        this.produto.setCategoria(Categorias.Ingredientes);
-        this.precoP = new Preco(TipoPreco.PEQUENA, 0.0);
-        this.precoM = new Preco(TipoPreco.MEDIA, 0.0);
-        this.precoG = new Preco(TipoPreco.GRANDE, 0.0);
-        this.precoF = new Preco(TipoPreco.FAMILIA, 0.0);
+    public void init() {
+
+        /**
+         * @Refatorar
+         * @Motivo: Não sobrecarregar o servidor com objetos não sessão.
+         */
+        produto = viewContext.getObjectInSession("produto");
+        viewContext.removeObjectInSession("produto");
+
+        if (produto == null) {
+            produto = produtoFacade.create("Componente");
+            produto.setCategoria(Categorias.Ingredientes);
+
+            this.precoC = new Preco(TipoPreco.COMUM, 0.0);
+            this.precoP = new Preco(TipoPreco.PEQUENA, 0.0);
+            this.precoM = new Preco(TipoPreco.MEDIA, 0.0);
+            this.precoG = new Preco(TipoPreco.GRANDE, 0.0);
+            this.precoF = new Preco(TipoPreco.FAMILIA, 0.0);
+        } else {
+            prepareForUpdate();
+        }
     }
 
-    public void save() {
-        if (this.produtoService.save(produto)) {
+    public String save() {
+
+        ajustProduto();
+
+        if (this.produtoFacade.save(produto)) {
             viewContext.info("msg_info_saved");
+            return ALL_PRODUCT;
         } else {
             viewContext.info("msg_error");
+            return HOME;
         }
     }
 
-    public void delete() {
+    public String delete() {
 
-        if (this.produtoService.delete(getSelectedProduto())) {
-            this.produtos.remove(getSelectedProduto());
+        if (this.produtoFacade.delete(produto)) {
+            this.produtos.remove(produto);
             viewContext.info("msg_info_deleted");
+            return ALL_PRODUCT+"faces-redirect=true";
         } else {
             viewContext.info("msg_error");
+            return HOME;
         }
     }
 
-    public void deleteSearch() {
-        if (this.produtoService.delete(getSelectedProduto())) {
-            this.resultSearch.remove(getSelectedProduto());
-            viewContext.info("msg_info_deleted");
-        } else {
-            viewContext.info("msg_error");
-        }
-    }
-
-    public void update() {
-        if (this.produtoService.update(getProductUpdate())) {
+    public String update() {
+        produto.getPrecos().clear();
+        
+        ajustProduto();
+        
+        if (this.produtoFacade.update(produto)) {
             viewContext.info("msg_info_updated");
+            return ALL_PRODUCT;
         } else {
             viewContext.info("msg_error");
+            return HOME;
         }
     }
 
     public List<Produto> getProdutos() {
         if (this.produtos == null) {
-            this.produtos = produtoService.listAll();
+            this.produtos = produtoFacade.listAll();
         }
 
         return this.produtos;
     }
 
-    public void search() {
-        if (this.getResultSearch() != null) {
-            this.getResultSearch().clear();
-        }
-        this.resultSearch = produtoService.findBy(this.getSearchParam(), "nome");
-    }
-
     public String goUpdate() {
-        ViewContext.setObjectInSession("updateProduct", this.getSelectedProduto());
-        return "updateProduct.jsf";
+        viewContext.setObjectInSession("produto", produto);
+        return UPDATE_PRODUCT;
     }
 
-    public Produto getProductUpdate() {
-        if (produto == null) {
-            produto = ViewContext.getObjectInSession("updateProduct");
+    public void prepareForUpdate() {
+
+       /* if (FacesContext.getCurrentInstance().isPostback()) {
+            return;
+        }*/
+        if (produto.getTypePrice().isMultiplePrice()) {
+            this.precoP = produto.getPrecos().get(0);
+            this.precoM = produto.getPrecos().get(1);
+            this.precoG = produto.getPrecos().get(2);
+            this.precoF = produto.getPrecos().get(3);
+        } else {
+            this.precoC = produto.getPrecos().get(0);
         }
-        return produto;
     }
 
     public void changeProduto(AjaxBehaviorEvent event) {
-        Produto produtoChanged;
-        if ((this.produto.getCategoria().equals(Categorias.Acompanhamento))
-                || (this.produto.getCategoria().equals(Categorias.Bebidas))) {
-            produtoChanged = produtoService.create("Acompanhamento");
-            produtoChanged.setNome(this.produto.getNome());
-            this.precoC = new Preco(TipoPreco.COMUM, 0.0);
-            this.produto = null;
-            this.produto = produtoChanged;
-        } else {
-            produtoChanged = produtoService.create("Componente");
-            produtoChanged.setNome(this.produto.getNome());
-            this.produto = null;
-            this.produto = produtoChanged;
-        }
+        this.produto = produtoFacade.convertTo(produto, this.produto.getCategoria().toString());
     }
 
     public String getImagePath() {
-        return "/images/" + this.getProductUpdate().getId() + "-" + this.getProductUpdate().getCategoria();
+        return "/images/?id=" + getProduto().getId();
     }
 
-    public List<Produto> getResultSearch() {
-
-        return this.resultSearch;
+    public void ajustProduto() {
+        FileUpload fileUpload = this.viewContext.findBean("fileUpload");
+        this.produto.setImagem(fileUpload.getFotoDescricao());
+        if (this.produto.getTypePrice().isMultiplePrice()) {
+            this.produto.addPreco(precoP);
+            this.produto.addPreco(precoM);
+            this.produto.addPreco(precoG);
+            this.produto.addPreco(precoF);
+        } else {
+            this.produto.addPreco(precoC);
+        }
     }
 
     public List getCategorias() {
-        return this.categorias.getCategoriasWithoutComposition();
+        return ListEnumModel.getCategoriasWithoutComposition();
     }
 
     public Produto getProduto() {
-        return this.produto;
+        return produto;
     }
 
-    public Imagem getFotoDescricao() {
-        return this.imageBean.getFotoDescricao();
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
-    public Produto getSelectedProduto() {
-        return selectedProduto;
-    }
+    public SelectItem[] getSearchCategorias() {
+        List<Categorias> data = ListEnumModel.getCategoriasWithoutComposition();
+        SelectItem[] options = new SelectItem[data.size() + 1];
 
-    public void setSelectedProduto(Produto selectedProduto) {
-        this.selectedProduto = selectedProduto;
-    }
+        options[0] = new SelectItem("", "Select");
+        for (int i = 0; i < data.size(); i++) {
+            options[i + 1] = new SelectItem(data.get(i).toString(), data.get(i).toString());
+        }
 
-    public ImageController getImageBean() {
-        return imageBean;
-    }
-
-    public void setImageBean(ImageController imageBean) {
-        this.imageBean = imageBean;
-    }
-
-    public String getSearchParam() {
-        return searchParam;
-    }
-
-    public void setSearchParam(String searchParam) {
-        this.searchParam = searchParam;
+        return options;
     }
 
     public Preco getPrecoC() {
@@ -225,5 +239,13 @@ public class ProdutoController implements Serializable {
 
     public void setPrecoF(Preco precoF) {
         this.precoF = precoF;
+    }
+
+    public List<Produto> getFilteredProducts() {
+        return filteredProducts;
+    }
+
+    public void setFilteredProducts(List<Produto> filteredProducts) {
+        this.filteredProducts = filteredProducts;
     }
 }

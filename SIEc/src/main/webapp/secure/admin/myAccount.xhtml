@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">    
+    <ui:composition template="/templates/siec.xhtml">
+        <ui:define name="content">
+            <div class="header">
+                <h1 class="page-title">#{bundle.label_system_account}</h1>
+            </div>
+
+            <ul class="breadcrumb">
+                <li> <span class="divider">/</span></li>
+                <li><h:link outcome="/secure/admin/home.jsf">#{bundle.label_system_home}</h:link> <span class="divider">/</span></li>
+                <li class="active">#{bundle.label_system_account}</li>
+            </ul>
+            <div class="container-fluid">
+
+                <div class="row-fluid">
+                    <h:form id="formUpdateProduct" enctype="multipart/form-data">
+                        <div class="btn-toolbar">
+                            <a class="btn btn-primary">
+                                <p:commandButton value="#{bundle.label_system_update}" 
+                                                 ajax="false"                                                 
+                                                 immediate="false"
+                                                 styleClass="btn btn-primary"
+                                                 action="#{usuarioController.update()}"
+                                                 update="@form">
+                                </p:commandButton></a>
+
+                            <h:link styleClass="btn" outcome="/secure/admin/home.jsf">#{bundle.label_system_cancel}</h:link>                             
+                            <div class="btn-group">
+                            </div>
+                        </div>
+                        <div class="well">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#data" data-toggle="tab">#{bundle.label_system_main}</a></li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane active in" id="data"> 
+
+                                    <h:outputLabel for="nomeUsuario" value="#{bundle.label_form_name}" >
+                                        <h:outputText title="#{bundle.label_form_name}" value=" *" styleClass="required" />
+                                    </h:outputLabel>
+                                    <p:inputText id="nomeUsuario" 
+                                                 value="#{usuarioController.usuario.pessoa.nome}"
+                                                 maxlength="40"
+                                                 required="true"
+                                                 styleClass="input-xlarge"
+                                                 requiredMessage="#{bundle.msg_required_name}"/>
+                                    <h:message for="nomeUsuario" />
+
+                                    <h:outputLabel for="emailUsuario" value="#{bundle.label_form_email}" >
+                                        <h:outputText title="#{bundle.label_form_email}" value=" *" styleClass="required" />
+                                    </h:outputLabel>                                    
+                                    <p:inputText id="emailUsuario" 
+                                                 value="#{usuarioController.usuario.pessoa.email}"
+                                                 maxlength="40"
+                                                 required="true"
+                                                 styleClass="input-xlarge"
+                                                 requiredMessage="#{bundle.msg_required_email}"
+                                                 readonly="true">                                        
+                                    </p:inputText>
+                                    <h:message for="emailUsuario" /> 
+
+                                    <h:outputLabel for="tipoUsuario" value="#{bundle.label_form_typeUser}" >
+                                        <h:outputText title="#{bundle.label_form_typeUser}" value=" *" styleClass="required" />
+                                    </h:outputLabel>
+                                    <p:inputText id="tipoUsuario"
+                                                 styleClass="input-xlarge"
+                                                 readonly="true"
+                                                 value="#{usuarioController.usuario.tipo}"/>
+
+                                    <h:outputLabel for="loginUsuario" value="#{bundle.label_form_login}">
+                                        <h:outputText title="#{bundle.label_form_login}" value=" *" styleClass="required" />
+                                    </h:outputLabel>                                    
+                                    <p:inputText id="loginUsuario" 
+                                                 value="#{usuarioController.usuario.login}"
+                                                 maxlength="40"
+                                                 required="true"
+                                                 styleClass="input-xlarge"
+                                                 requiredMessage="#{bundle.msg_required_login}"
+                                                 readonly="true">
+                                    </p:inputText>
+                                    <h:message for="loginUsuario" />
+
+                                    <h:outputLabel for="password" value="#{bundle.label_form_password}">
+                                        <h:outputText title="#{bundle.label_form_password}" value=" *" styleClass="required" />
+                                    </h:outputLabel>                                    
+                                    <p:password id="password" 
+                                                value="#{usuarioController.usuario.senha}"
+                                                maxlength="40"
+                                                required="true"
+                                                styleClass="input-xlarge"
+                                                requiredMessage="#{bundle.msg_required_password}">
+                                        <f:ajax event="blur" execute="password confirm" render="m_password" />
+                                    </p:password>
+                                    <h:message id="m_password" for="password" />
+
+                                    <h:outputLabel for="confirm" value="#{bundle.label_form_passwordConfirm}">
+                                        <h:outputText title="#{bundle.label_form_passwordConfirm}" value=" *" styleClass="required" />
+                                    </h:outputLabel>                                    
+                                    <p:password id="confirm" 
+                                                value="#{usuarioController.confirmPassword}"
+                                                maxlength="40"
+                                                required="true"
+                                                styleClass="input-xlarge"                                                 
+                                                requiredMessage="#{bundle.msg_required_confirmPassword}">
+                                        <f:validator binding="#{passwordMatchValidator}"/>
+                                        <f:ajax event="blur" execute="password confirm" render="m_password m_confirm" />
+                                    </p:password>
+                                    <h:message id="m_confirm" for="confirm" />
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <footer>
+                            <hr />
+                            <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
+                            <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+
+
+                            <p>&copy; 2012 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+                        </footer>
+                    </h:form>
+                </div>
+            </div>           
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+
