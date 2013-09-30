@@ -23,7 +23,7 @@ import br.com.siec.model.persistence.interfaces.IPessoa;
 import br.com.siec.model.persistence.interfaces.ITelefone;
 
 import java.io.Serializable;
-        
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,14 +60,12 @@ public abstract class Pessoa implements IPessoa, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PSS_CODIGO")
     private long id;
-    
     @Column(name = "PSS_NOME")
     private String nome;
-    
     @Column(name = "PSS_EMAIL")
     private String email;
     /*
-     * Relacionamento 1:3 - Pessoa : Endereco 
+     * Relacionamento 1:2 - Pessoa : Endereco 
      */
     @ManyToMany(targetEntity = Endereco.class)
     @Cascade({CascadeType.SAVE_UPDATE})
@@ -76,14 +74,19 @@ public abstract class Pessoa implements IPessoa, Serializable {
             inverseJoinColumns =
             @JoinColumn(name = "END_CODIGO"))
     private List<IEndereco> enderecos = new ArrayList<IEndereco>();
+    
     /*
-     * Relacionamento 1 : N - Pessoa : Telefone
+     * Relacionamento N : 3 - Pessoa : Telefone
      */
-    @OneToMany(mappedBy = "pessoa", targetEntity = Telefone.class, fetch = FetchType.LAZY)
-    @Cascade(CascadeType.ALL)
+    @ManyToMany(targetEntity = Telefone.class, fetch = FetchType.LAZY)
+    @Cascade(CascadeType.SAVE_UPDATE)
+    @JoinTable(name = "TB_PESSOA_TELEFONE_ASS", joinColumns =
+            @JoinColumn(name = "PSS_CODIGO"),
+            inverseJoinColumns =
+            @JoinColumn(name = "TLF_CODIGO"))
     private List<ITelefone> telefones = new ArrayList<ITelefone>();
     
-    @OneToOne(mappedBy="pessoa")
+    @OneToOne(mappedBy = "pessoa")
     @Cascade(CascadeType.ALL)
     private Usuario usuario;
 
@@ -127,7 +130,17 @@ public abstract class Pessoa implements IPessoa, Serializable {
 
     @Override
     public void addEndereco(IEndereco endereco) {
+        for (int i = 1; i < enderecos.size(); i++) {
+            if (enderecos.get(i).getTipoEndereco().equals(endereco.getTipoEndereco())) {
+                enderecos.remove(i);
+            }
+        }
         this.enderecos.add(endereco);
+    }
+    
+    @Override
+    public void addEnderecos(List<IEndereco> enderecos){
+        this.enderecos = enderecos;
     }
 
     @Override
@@ -137,7 +150,17 @@ public abstract class Pessoa implements IPessoa, Serializable {
 
     @Override
     public void addTelefone(ITelefone telefone) {
+        for (int i = 1; i < telefones.size(); i++) {
+            if (telefones.get(i).getTipo().equals(telefone.getTipo())) {
+                telefones.remove(i);
+            }
+        }
         this.telefones.add(telefone);
+    }
+    
+    @Override
+    public void addTelefones(List<ITelefone> telefones) {
+        this.telefones  = telefones;
     }
 
     @Override
@@ -148,7 +171,7 @@ public abstract class Pessoa implements IPessoa, Serializable {
     @Override
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }    
+    }
 
     @Override
     public String toString() {

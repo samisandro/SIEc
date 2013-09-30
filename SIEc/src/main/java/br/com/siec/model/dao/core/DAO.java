@@ -177,19 +177,19 @@ public abstract class DAO<T> implements IDAO<T> {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public T validate(T t) {
+    public <P> P validate(P p) {
         try {
             if (logger.isDebugEnabled()) {
-                logger.debug("{validate(T entidade)} Validando entidade: " + t.toString());
+                logger.debug("{validate(T entidade)} Validando entidade: " + p.toString());
             }
-            List<T> results = getSession().createCriteria(typeClass).add(Example.create(t)).list();
+            List<P> results = getSession().createCriteria(p.getClass()).add(Example.create(p)).list();
             return results.get(0);
         } catch (Exception e) {
             if (logger.isDebugEnabled()) {
                 logger.debug("{validate(T entidade) -> Erro} Entidade não encontrada - Inserindo Entidade: " + e);
             }
-            save(t);
-            return t;
+            this.entityManager.persist(p);
+            return p;
         }
     }
 

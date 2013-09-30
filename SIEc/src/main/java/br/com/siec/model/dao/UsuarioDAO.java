@@ -23,6 +23,7 @@ import br.com.siec.model.persistence.entity.Pessoa;
 import br.com.siec.model.persistence.entity.Usuario;
 import br.com.siec.model.repository.Usuarios;
 import java.util.List;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 /**
@@ -71,6 +72,11 @@ public class UsuarioDAO
 
             return query.getSingleResult() == null ? false : true;
 
+        } catch (NoResultException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{isEmailAlredyInUse(String email)} O E-mail [" + email + "] está disponivel.");
+            }
+            return false;        
         } catch (Exception e) {
             if (logger.isDebugEnabled()) {
                 logger.debug("{isEmailAlredyInUse(String email)-> Erro} Validando E-mail: [" + e + "]");
@@ -93,6 +99,11 @@ public class UsuarioDAO
 
             return query.getSingleResult() == null ? false : true;
 
+        } catch (NoResultException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{isLoginAlredyInUse(String login)} O Login: [" + login + "] está disponivel.");
+            }
+            return false;        
         } catch (Exception e) {
             if (logger.isDebugEnabled()) {
                 logger.debug("{isLoginAlredyInUse(String login)-> Erro} Validando Login: [" + e + "]");

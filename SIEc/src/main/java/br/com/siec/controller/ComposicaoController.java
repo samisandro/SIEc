@@ -69,7 +69,7 @@ public class ComposicaoController {
 
     public String update() {
         if (this.produtoService.update(pizza)) {
-            viewContext.info("msg_info_saved");
+            viewContext.info("msg_info_updated");
             return PIZZAS;
         } else {
             viewContext.error("msg_error");
@@ -80,7 +80,7 @@ public class ComposicaoController {
     public String delete() {
         if (this.produtoService.delete(pizza)) {
             this.pizzas.remove(pizza);
-            viewContext.info("msg_info_saved");
+            viewContext.info("msg_info_deleted");
             return PIZZAS;
         } else {
             viewContext.error("msg_error");

@@ -16,6 +16,6 @@ public interface IDAO<T> {
 
     public List<T> listAll();
     
-    public T validate(T t);
+    public <T> T validate(T t);
     
 }

@@ -10,6 +10,11 @@ import br.com.siec.api.factory.Factory;
 import br.com.siec.api.factory.entity.ListEnum;
 import br.com.siec.api.factory.entity.ProdutoFactory;
 import br.com.siec.api.factory.qualifiers.ListFactoryQualifier;
+import br.com.siec.model.persistence.entity.Telefone;
+import br.com.siec.model.persistence.interfaces.ITelefone;
+import java.util.ArrayList;
+import java.util.List;
+import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
 /**
@@ -36,6 +41,11 @@ public class ListFactory extends Factory implements AbstractFactory{
     @Override
     public ListEnum createObject(ClassType typeObject) {
         return (ListEnum) super.createObject(typeObject);
+    }
+    
+    @Produces
+    public List<ITelefone> createListTelefones(){
+        return new ArrayList<ITelefone>();
     }
     
 }

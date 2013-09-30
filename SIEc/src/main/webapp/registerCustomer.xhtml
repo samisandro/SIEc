@@ -1,0 +1,322 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:stella="http://stella.caelum.com.br/faces2"
+      xmlns:sccbf="http://stella.caelum.com.br/faces">
+
+    <ui:composition template="/templates/principal.xhtml">
+
+        <ui:define name="content">
+
+            <div class="wrapper">
+
+                <div class="border"></div>
+
+                <article>
+                    <h3>#{bundle.label_commerce_short_slogan}</h3>                         
+
+                    <h:form>
+                        <p:messages id="messages" />
+                        <p:panel id="panelTypePerson">
+                            <h:selectOneRadio id="options" value="#{clienteController.typeCustomerPf}">  
+                                <f:selectItem itemLabel="#{bundle.label_form_person}" itemValue="true" />                              
+                                <f:selectItem itemLabel="#{bundle.label_form_personLegal}" itemValue="false" />
+                                <f:ajax event="change" render="panelCustomer"/>
+                            </h:selectOneRadio>
+                        </p:panel>
+
+                        <p:panel id="panelCustomer" header="#{bundle.label_system_main}" >
+
+                            <h:outputLabel for="nomeCliente" 
+                                           value="#{bundle.label_form_name}"
+                                           rendered="#{clienteController.typeCustomerPf}">
+                                <h:outputText title="#{bundle.label_form_name}" value=" *" styleClass="required" />
+                            </h:outputLabel>
+                            <p:inputText id="nomeCliente" 
+                                         value="#{clienteController.cliente.usuario.pessoa.nome}"
+                                         maxlength="40"
+                                         rendered="#{clienteController.typeCustomerPf}"
+                                         required="#{clienteController.typeCustomerPf}"
+                                         requiredMessage="#{bundle.msg_required_name}">
+                            </p:inputText>
+
+                            <h:outputLabel for="razaoSocial" 
+                                           value="#{bundle.label_form_company_name}"                                           
+                                           rendered="#{!clienteController.typeCustomerPf}">
+                                <h:outputText title="#{bundle.label_form_company_name}" value=" *" styleClass="required" />
+                            </h:outputLabel>
+                            <p:inputText id="razaoSocial" 
+                                         value="#{clienteController.pj.razaoSocial}"
+                                         maxlength="40"
+                                         rendered="#{!clienteController.typeCustomerPf}"
+                                         required="#{!clienteController.typeCustomerPf}"
+                                         requiredMessage="#{bundle.msg_required_company_name}">
+                            </p:inputText>
+
+                            <h:outputLabel for="emailCliente" value="#{bundle.label_form_email}" >
+                                <h:outputText title="#{bundle.label_form_email}" value=" *" styleClass="required" />
+                            </h:outputLabel>                                    
+                            <p:inputText id="emailCliente" 
+                                         value="#{clienteController.cliente.usuario.pessoa.email}"
+                                         maxlength="40"
+                                         required="true"                                         
+                                         requiredMessage="#{bundle.msg_required_email}">
+                                <f:validator binding="#{emailValidator}"/>
+                                <p:ajax update="messages" event="blur" />
+                            </p:inputText>
+                            <br />
+                            <br />
+
+                            <h:outputLabel for="cpf" 
+                                           value="#{bundle.label_form_cpf}"
+                                           rendered="#{clienteController.typeCustomerPf}">
+                                <h:outputText title="#{bundle.label_form_cpf}" value=" *" styleClass="required" />
+                            </h:outputLabel>                                    
+                            <p:inputMask id="cpf"                                          
+                                         mask="999.999.999-99"
+                                         value="#{clienteController.pf.cpf}"
+                                         required="#{clienteController.typeCustomerPf}"                                         
+                                         requiredMessage="#{bundle.msg_required_cpf}"
+                                         rendered="#{clienteController.typeCustomerPf}">
+                                <f:validator binding="#{cpfValidator}"/> 
+                                <p:ajax update="messages" event="blur" />
+                            </p:inputMask>
+
+                            <h:outputLabel for="cnpj" 
+                                           value="#{bundle.label_form_cnpj}"
+                                           rendered="#{!clienteController.typeCustomerPf}">
+                                <h:outputText title="#{bundle.label_form_cnpj}" value=" *" styleClass="required" />
+                            </h:outputLabel>                                    
+                            <p:inputMask id="cnpj"                                          
+                                         mask="99.999.999/9999-99"
+                                         value="#{clienteController.pj.cnpj}"
+                                         rendered="#{!clienteController.typeCustomerPf}"
+                                         required="#{!clienteController.typeCustomerPf}"                                         
+                                         requiredMessage="#{bundle.msg_required_cnpj}">
+                                <f:validator binding="#{cnpjValidator}"/>
+                                <p:ajax update="messages" event="blur" />
+                            </p:inputMask>
+
+                            <h:outputLabel for="inscricaoEstadual" 
+                                           value="#{bundle.label_form_ie}"
+                                           rendered="#{!clienteController.typeCustomerPf}">
+                                <h:outputText title="#{bundle.label_form_ie}" value="" styleClass="required" />
+                            </h:outputLabel>                                    
+                            <p:inputText id="inscricaoEstadual" 
+                                         value="#{clienteController.pj.inscricaoEstadual}"
+                                         maxlength="14"
+                                         rendered="#{!clienteController.typeCustomerPf}"                                         
+                                         requiredMessage="#{bundle.msg_required_ie}">
+                            </p:inputText>
+                            <h:outputText rendered="#{clienteController.typeCustomerPf}">
+                                <br />
+                                <br />
+                            </h:outputText>
+                            <h:outputLabel for="dataNascimento"
+                                           value="#{bundle.label_form_birthday}"
+                                           rendered="#{clienteController.typeCustomerPf}">
+                                <h:outputText title="#{bundle.label_form_birthday}" value=" *" styleClass="required" />
+                            </h:outputLabel>                                    
+                            <p:calendar id="dataNascimento"     
+                                        styleClass="dataNascimento"
+                                        mode="popup"                                        
+                                        locale="pt" 
+                                        showButtonPanel="true" 
+                                        navigator="true"
+                                        value="#{clienteController.pf.dataNascimento}"
+                                        rendered="#{clienteController.typeCustomerPf}"
+                                        required="#{clienteController.typeCustomerPf}"                                         
+                                        requiredMessage="#{bundle.msg_required_birthday}">                                 
+                                <f:convertDateTime pattern="dd-MM-yyyy"/>
+                            </p:calendar>
+
+
+                            <h:outputLabel for="sexo" 
+                                           value="#{bundle.label_form_sexo}"
+                                           rendered="#{clienteController.typeCustomerPf}">
+                                <h:outputText title="#{bundle.label_form_sexo}" value=" *" styleClass="required" />
+                            </h:outputLabel>                                    
+                            <h:selectOneMenu id="sexo" 
+                                             value="#{clienteController.pf.sexo}"
+                                             rendered="#{clienteController.typeCustomerPf}"
+                                             required="#{clienteController.typeCustomerPf}"                                         
+                                             requiredMessage="#{bundle.msg_required_sexo}">                                                                 
+                                <f:selectItems value="#{clienteController.sexos}"/>
+                            </h:selectOneMenu>
+                            <br />
+                            <br />
+                            <h:outputLabel for="loginCliente" value="#{bundle.label_form_login}">
+                                <h:outputText title="#{bundle.label_form_login}" value=" *" styleClass="required" />
+                            </h:outputLabel>                                    
+                            <p:inputText id="loginCliente" 
+                                         value="#{clienteController.cliente.usuario.login}"
+                                         maxlength="40"
+                                         required="true"
+                                         requiredMessage="#{bundle.msg_required_login}">
+                                <f:validator binding="#{loginValidator}"/>
+                                <p:ajax update="messages" event="blur" />
+                            </p:inputText>
+                            <br />
+                            <br />
+                            <h:outputLabel for="password" value="#{bundle.label_form_password}">
+                                <h:outputText title="#{bundle.label_form_password}" value=" *" styleClass="required" />
+                            </h:outputLabel>                                    
+                            <p:password id="password" 
+                                        value="#{clienteController.cliente.usuario.senha}"
+                                        maxlength="40"
+                                        required="true"
+                                        requiredMessage="#{bundle.msg_required_password}">
+                                <p:ajax event="blur" process="password, confirm" update="messages" />
+                            </p:password>
+
+                            <h:outputLabel for="confirm" value="#{bundle.label_form_passwordConfirm}">
+                                <h:outputText title="#{bundle.label_form_passwordConfirm}" value=" *" styleClass="required" />
+                            </h:outputLabel>                                    
+                            <p:password id="confirm" 
+                                        value="#{clienteController.confirmPassword}"
+                                        maxlength="40"
+                                        required="true"                                               
+                                        requiredMessage="#{bundle.msg_required_confirmPassword}">
+                                <f:validator binding="#{passwordMatchValidator}"/>
+                                <p:ajax event="blur" process="confirm, password" update="messages" />
+                            </p:password>
+                            <br />
+                            <br />                            
+                        </p:panel>
+
+                        <p:panel id="panelPhones" header="#{bundle.label_form_phones}" >
+
+                            <h:outputLabel for="principal" value="#{bundle.label_form_number}" >
+                                <h:outputText title="#{bundle.label_form_number}" value=" *" styleClass="required" />
+                            </h:outputLabel>
+                            <p:inputMask id="principal"
+                                         mask="(99) 9999-9999"
+                                         value="#{clienteController.phonePrincipal}"
+                                         required="true"
+                                         requiredMessage="#{bundle.msg_required_phone}">
+                                <f:converter binding="#{telefoneConverter}"/>
+                            </p:inputMask>
+                            <br />
+                            <br />                            
+                            <h:outputLabel for="comercial" value="#{bundle.label_form_number}" >
+                                <h:outputText title="#{bundle.label_form_number}" value="" styleClass="required" />
+                            </h:outputLabel>
+                            <p:inputMask id="comercial"
+                                         mask="(99) 9999-9999"
+                                         value="#{clienteController.phoneComercial}"
+                                         requiredMessage="#{bundle.msg_required_phone}">
+                                <f:converter binding="#{telefoneConverter}"/>
+                            </p:inputMask>
+                            <br />
+                            <br />                            
+                            <h:outputLabel for="residencial" value="#{bundle.label_form_number}" >
+                                <h:outputText title="#{bundle.label_form_number}" value="" styleClass="required" />
+                            </h:outputLabel>
+                            <p:inputMask id="residencial"
+                                         mask="(99) 9999-9999"
+                                         value="#{clienteController.phoneResidencial}"
+                                         requiredMessage="#{bundle.msg_required_phone}">
+                                <f:converter binding="#{telefoneConverter}"/>
+                            </p:inputMask>
+                            <br />
+                            <br />                            
+                        </p:panel>
+
+                        <p:panel id="panelEndereco" header="#{bundle.label_form_address}" >
+
+                            <h:outputLabel for="cep" value="#{bundle.label_form_cep}" >
+                                <h:outputText title="#{bundle.label_form_cep}" value=" *" styleClass="required" />
+                            </h:outputLabel>
+                            <p:inputMask id="cep" 
+                                         mask="99999-999"
+                                         value="#{clienteController.endereco.cep}"                                        
+                                         required="true"
+                                         requiredMessage="#{bundle.msg_required_cep}">                                
+                                <p:ajax update="panelEndereco" process="cep"  event="blur" listener="#{clienteController.addressLoad(event)}" />
+                            </p:inputMask>
+                            <br />
+                            <br />
+                            <h:outputLabel for="logradouro" value="#{bundle.label_form_logradouro}" >
+                                <h:outputText title="#{bundle.label_form_logradouro}" value=" *" styleClass="required" />
+                            </h:outputLabel>
+                            <p:inputText id="logradouro" 
+                                         value="#{clienteController.endereco.logradouro}"
+                                         maxlength="40"
+                                         required="true"
+                                         requiredMessage="#{bundle.msg_required_logradouro}">
+                            </p:inputText>
+
+                            <h:outputLabel for="numero" value="#{bundle.label_form_number}" >
+                                <h:outputText title="#{bundle.label_form_number}" value=" *" styleClass="required" />
+                            </h:outputLabel>
+                            <p:inputText id="numero" 
+                                         value="#{clienteController.endereco.numero}"
+                                         maxlength="40"
+                                         required="true"
+                                         requiredMessage="#{bundle.msg_required_number}">
+                            </p:inputText>
+                            <br />
+                            <br /> 
+                            <h:outputLabel for="bairro" value="#{bundle.label_form_neighborhood}" >
+                                <h:outputText title="#{bundle.label_form_neighborhood}" value=" *" styleClass="required" />
+                            </h:outputLabel>
+                            <p:inputText id="bairro" 
+                                         value="#{clienteController.endereco.bairro}"
+                                         maxlength="40"
+                                         required="true"
+                                         requiredMessage="#{bundle.msg_required_neighborhood}">
+                            </p:inputText>
+
+                            <h:outputLabel for="complemento" value="#{bundle.label_form_complement}" >
+                                <h:outputText title="#{bundle.label_form_complement}"/>
+                            </h:outputLabel>
+                            <p:inputText id="complemento" 
+                                         value="#{clienteController.endereco.complemento}"
+                                         maxlength="40"
+                                         required="false">
+                            </p:inputText>
+                            <br />
+                            <br />                           
+
+                            <h:outputLabel for="cidade" value="#{bundle.label_form_city}" >
+                                <h:outputText title="#{bundle.label_form_city}" value=" *" styleClass="required" />
+                            </h:outputLabel>
+                            <p:inputText id="cidade" 
+                                         value="#{clienteController.endereco.cidade}"
+                                         maxlength="40"
+                                         required="true"
+                                         requiredMessage="#{bundle.msg_required_city}">
+                            </p:inputText>
+
+                            <h:outputLabel for="estado" value="#{bundle.label_form_state}" >
+                                <h:outputText title="#{bundle.label_form_state}" value=" *" styleClass="required" />
+                            </h:outputLabel>
+                            <h:selectOneMenu id="estado" 
+                                             value="#{clienteController.endereco.estado}"                                         
+                                             required="true"
+                                             requiredMessage="#{bundle.msg_required_state}">
+                                <f:selectItems value="#{clienteController.estados}"/>
+                            </h:selectOneMenu>
+                            <br />
+                            <br />                            
+                        </p:panel>
+
+                        <h:commandButton action="#{clienteController.save()}" styleClass="button" value="Submit" type="submit"/>
+                    </h:form>
+                    <br />
+                    <br />
+                    <br />
+                </article> 
+
+            </div>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

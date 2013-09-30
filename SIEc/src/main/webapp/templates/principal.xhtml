@@ -5,177 +5,159 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
-
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Smart Pizzaria</title>        
-        <h:outputStylesheet library="default" name="styles/styleCommerce.css" />
-        <h:outputStylesheet library="default" name="styles/base.css" />  
-        <h:outputStylesheet library="default" name="styles/lightbox.css" /> 
-        <h:outputScript library="default" name="scripts/jquery-1-4-2.min.js" />
-        <h:outputScript library="default" name="scripts/jquery-ui.min.js" />        
-        <h:outputScript library="default" name="scripts/slimbox2.js" /> 
-        <h:outputScript library="default" name="scripts/jquery.mousewheel.js" /> 
-        <!--<h:outputScript library="default" name="scripts/jquery-1.6.4.js" />-->
-        <!-- Load the CloudCarousel JavaScript file -->
-        <h:outputScript library="default" name="scripts/cloud-carousel.1.0.5.js" />  
-        <script type="text/javascript">
-            $(document).ready(function() {
-
-                // This initialises carousels on the container elements specified, in this case, carousel1.
-                $("#carousel1").CloudCarousel(
-                        {
-                            reflHeight: 40,
-                            reflGap: 2,
-                            titleBox: $('#da-vinci-title'),
-                            altBox: $('#da-vinci-alt'),
-                            buttonLeft: $('#slider-left-but'),
-                            buttonRight: $('#slider-right-but'),
-                            yRadius: 30,
-                            xPos: 480,
-                            yPos: 32,
-                            speed: 0.15,
-                            bringToFront: true,
-                        }
-                );
-            });
-
-        </script>
-    </h:head>
-
+    <ui:insert name="head">
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <title>Smart Pizzaria</title>        
+            <h:outputStylesheet library="default" name="styles/styleCommerce.css" />
+            <h:outputStylesheet library="default" name="styles/base.css" />  
+            <h:outputStylesheet library="default" name="styles/lightbox.css" />      
+            <h:outputScript library="default" name="scripts/slimbox2.js" /> 
+            <h:outputScript library="default" name="scripts/jquery.mousewheel.js" /> 
+            <h:outputScript library="default" name="scripts/jquery.maskedinput.js" /> 
+            <h:outputScript library="default" name="scripts/jquery.maskedinput.min.js" />
+            <script type="text/javascript">                
+                $(function() {
+                    $(".dataNascimento").mask("99/99/9999");
+                });
+            </script>
+        </h:head>
+    </ui:insert>
     <h:body>
-        <div id="container">
+        <f:view locale="#{localeController.currentLocale}">
+            <div id="container">
 
-            <ui:insert name="topo">                        
-                <header>
-                    <nav>
-                        <ul id="nav">
-                            <li><a href="index.html" class="current">Home</a></li>
-                            <!--<li><a href="about.html">About</a></li>-->
-                            <li><a href="menu.html">Menu</a></li>
-                            <li><a href="gallery.html">Gallery</a></li>
-                            <li><a href="reviews.html">Reviews</a></li>
-                            <li><h:link outcome="/login.jsf">Login</h:link></li>
-                        </ul>
-                    </nav>
-                    <hgroup class="intro">
-                        <h1 class="title">#{bundle.label_commerce_title}</h1>
-                        <h3 class="tagline">#{bundle.label_commerce_slogan}</h3>
-                    </hgroup>
-                    <div class="reservations">
-                        <br />
-                        <span class="reservations-title">Faça seu pedido</span>
-                        <hr class="hr-solid" />
-                        <span style="font-family: 'Lobster13Regular', cursive;">38 3676 6789</span>
-                        <hr class="hr-dashed" />
-                        <!--<div style="margin-top:15px"> <a class="button" href="#" title="Email Us">Or Email Us</a> </div>-->
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                </header>
-            </ui:insert>
-
-            <ui:insert name="content">
-                Content
-            </ui:insert>                
-
-            <ui:insert name="bottom">
-                <footer>
-                    <div class="border"></div>
-                    <div class="footer-widget">
-                        <h4>Seja o Cheff!!</h4>
-                        <p> Aqui na Smart Pizzaria 
-                            você é o Cheff. <br />
-                            Sinta-se a vontade, para montar 
-                            a pizza da maneira que melhor lhe agradar.
-                        </p>
-                    </div>
-                    <div class="footer-widget">
-                        <h4>From The Blog</h4>
-                        <ul class="blog">
-                            <li><a href="#">Lorem Ipsum Dolor</a><br/>
-                                Orciint erdum condimen terdum nulla mcorper elit nam curabitur... </li>
-                            <li><a href="#">Praesent Et Eros</a><br/>
-                                Orciint erdum condimen terdum nulla mcorper elit nam curabitur... </li>
-                            <li><a href="#">Suspendisse In Neque</a><br/>
-                                Orciint erdum condimen terdum nulla mcorper elit nam curabitur... </li>
-                            <li><a href="#">Suspendisse In Neque</a><br/>
-                                Orciint erdum condimen terdum nulla mcorper elit nam curabitur... </li>
-                        </ul>
-                    </div>
-                    <div class="footer-widget">
-                        <h4>Nós somos sociais</h4>
-                        <div id="social"> 
-                            <a href="http://twitter.com/josimar_ti" 
-                               class="s3d twitter" 
-                               target="_blank"> 
-                                Twitter 
-                                <span class="icons twitter">
-
-                                </span> 
-                            </a> 
-                            <a href="http://www.facebook.com/Josimar.TI" 
-                               class="s3d facebook" 
-                               target="_blank"> 
-                                Facebook 
-                                <span class="icons facebook">
-
-                                </span> 
-                            </a> 
-                            <a href="http://forrst.com/people/priteshgupta" 
-                               class="s3d forrst" target="_blank"> 
-                                Forrst 
-                                <span class="icons forrst">
-
-                                </span> 
-                            </a> 
-                            <a href="http://www.flickr.com/photos/priteshgupta" 
-                               class="s3d flickr" 
-                               target="_blank"> 
-                                Flickr 
-                                <span class="icons flickr">
-
-                                </span> 
-                            </a> 
-                            <a href="#" 
-                               class="s3d designmoo" 
-                               target="_blank"> 
-                                Designmoo 
-                                <span class="icons designmoo">
-
-                                </span> 
-                            </a> 
+                <ui:insert name="topo">                        
+                    <header>
+                        <nav>
+                            <ul id="nav">
+                                <li><a href="index.html" class="current">Home</a></li>
+                                <!--<li><a href="about.html">About</a></li>-->
+                                <li><a href="menu.html">Menu</a></li>
+                                <li><a href="gallery.html">Gallery</a></li>
+                                <li><a href="reviews.html">Reviews</a></li>
+                                <li><h:link outcome="/login.jsf">Login</h:link></li>
+                            </ul>
+                        </nav>
+                        <hgroup class="intro">
+                            <h1 class="title">#{bundle.label_commerce_title}</h1>
+                            <h3 class="tagline">#{bundle.label_commerce_slogan}</h3>
+                        </hgroup>
+                        <div class="reservations">
+                            <br />
+                            <span class="reservations-title">Faça seu pedido</span>
+                            <hr class="hr-solid" />
+                            <span style="font-family: 'Lobster13Regular', cursive;">38 3676 6789</span>
+                            <hr class="hr-dashed" />
+                            <!--<div style="margin-top:15px"> <a class="button" href="#" title="Email Us">Or Email Us</a> </div>-->
                         </div>
-                    </div>
-                    <div class="border2"></div>
-                    <br />
-                    <span class="copyright">
-                        <span class="left">
-                            <br />
-                            &copy; Copyright 2012 - All Rights Reserved - 
-                            <a href="#">
-                                Smart Pizzaria
-                            </a>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                    </header>
+                </ui:insert>
+
+                <ui:insert name="content">
+                    Content
+                </ui:insert>                
+
+                <ui:insert name="bottom">
+                    <footer>
+                        <div class="border"></div>
+                        <div class="footer-widget">
+                            <h4>Seja o Cheff!!</h4>
+                            <p> Aqui na Smart Pizzaria 
+                                você é o Cheff. <br />
+                                Sinta-se a vontade, para montar 
+                                a pizza da maneira que melhor lhe agradar.
+                            </p>
+                        </div>
+                        <div class="footer-widget">
+                            <h4>From The Blog</h4>
+                            <ul class="blog">
+                                <li><a href="#">Lorem Ipsum Dolor</a><br/>
+                                    Orciint erdum condimen terdum nulla mcorper elit nam curabitur... </li>
+                                <li><a href="#">Praesent Et Eros</a><br/>
+                                    Orciint erdum condimen terdum nulla mcorper elit nam curabitur... </li>
+                                <li><a href="#">Suspendisse In Neque</a><br/>
+                                    Orciint erdum condimen terdum nulla mcorper elit nam curabitur... </li>
+                                <li><a href="#">Suspendisse In Neque</a><br/>
+                                    Orciint erdum condimen terdum nulla mcorper elit nam curabitur... </li>
+                            </ul>
+                        </div>
+                        <div class="footer-widget">
+                            <h4>Nós somos sociais</h4>
+                            <div id="social"> 
+                                <a href="http://twitter.com/josimar_ti" 
+                                   class="s3d twitter" 
+                                   target="_blank"> 
+                                    Twitter 
+                                    <span class="icons twitter">
+
+                                    </span> 
+                                </a> 
+                                <a href="http://www.facebook.com/Josimar.TI" 
+                                   class="s3d facebook" 
+                                   target="_blank"> 
+                                    Facebook 
+                                    <span class="icons facebook">
+
+                                    </span> 
+                                </a> 
+                                <a href="http://forrst.com/people/priteshgupta" 
+                                   class="s3d forrst" target="_blank"> 
+                                    Forrst 
+                                    <span class="icons forrst">
+
+                                    </span> 
+                                </a> 
+                                <a href="http://www.flickr.com/photos/priteshgupta" 
+                                   class="s3d flickr" 
+                                   target="_blank"> 
+                                    Flickr 
+                                    <span class="icons flickr">
+
+                                    </span> 
+                                </a> 
+                                <a href="#" 
+                                   class="s3d designmoo" 
+                                   target="_blank"> 
+                                    Designmoo 
+                                    <span class="icons designmoo">
+
+                                    </span> 
+                                </a> 
+                            </div>
+                        </div>
+                        <div class="border2"></div>
+                        <br />
+                        <span class="copyright">
+                            <span class="left">
+                                <br />
+                                &copy; Copyright 2012 - All Rights Reserved - 
+                                <a href="#">
+                                    Smart Pizzaria
+                                </a>
+                            </span>
+                            <span class="right">
+                                <br />
+                                Design by 
+                                <a href="http://www.priteshgupta.com">
+                                    PriteshGupta.com
+                                </a>
+                                <br />
+                                <br />
+                                <br />
+                            </span>
                         </span>
-                        <span class="right">
-                            <br />
-                            Design by 
-                            <a href="http://www.priteshgupta.com">
-                                PriteshGupta.com
-                            </a>
-                            <br />
-                            <br />
-                            <br />
-                        </span>
-                    </span>
-                </footer>
-            </ui:insert>
-        </div>
+                    </footer>
+                </ui:insert>
+            </div>
+        </f:view>
     </h:body>
 
 </html>

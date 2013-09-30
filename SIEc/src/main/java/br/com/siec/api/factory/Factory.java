@@ -24,6 +24,7 @@ import br.com.siec.api.factory.entity.PessoaFactory;
 import br.com.siec.api.factory.entity.ProdutoFactory;
 import br.com.siec.api.factory.entity.UserFactory;
 import br.com.siec.api.factory.service.ServiceFactory;
+import br.com.siec.model.persistence.interfaces.IUsuario;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -77,7 +78,8 @@ public abstract class Factory implements AbstractFactory {
     private void putClassLibraryMap() {
 
         classLibrary.put(ClassType.Acompanhamento, new Acompanhamento());
-        classLibrary.put(ClassType.Cliente, new Cliente());
+        classLibrary.put(ClassType.ClientePF, new Cliente(new Usuario(new Pf())));
+        classLibrary.put(ClassType.ClientePJ, new Cliente(new Usuario(new Pj())));
         classLibrary.put(ClassType.Componente, new Componente());
         classLibrary.put(ClassType.Composite, new Composicao());
         classLibrary.put(ClassType.Endereco, new Endereco());

@@ -10,8 +10,9 @@ package br.com.siec.api.factory;
  */
 public enum ClassType {
 
-    Acompanhamento,
-    Cliente,
+    Acompanhamento,    
+    ClientePF,
+    ClientePJ,
     Componente,
     Composite,
     Categorias,

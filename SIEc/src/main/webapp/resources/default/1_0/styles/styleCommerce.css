@@ -348,10 +348,10 @@ p {
     padding: 10px;
 }
 article {
-    width: 630px;
+    width: 930px;
     float: left;
     padding: 10px;
-    border-right: 1px dashed #9c5959;
+    /*    border-right: 1px dashed #9c5959;*/
 }
 .fullwidth {
     border-right: 0px dashed #9c5959;
@@ -598,16 +598,20 @@ label {
     font-weight: normal;
     padding-bottom: 10px;
     padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 input[type="text"], textarea {
     outline: none;
     background: #f5f0e0;
     border: 1px dotted #9C5959;
     font-size: 14px;
-    padding: 3px;
+    padding: 5px;
+    padding-right: 2px;
 }
 input[type="text"] {
-    width: 300px;
+    width: 200px;
+    padding-right: 2px;
 }
 textarea {
     width: 400px;
@@ -802,4 +806,59 @@ footer {
     height: 30px; 
     border: none; 
     background: url("#{resource['default:images/templatemo_slider_right.png']}"); 
+}
+
+/* Primefaces Adaptations */
+.ui-widget-content{
+    border: 0px dashed #9c5959;
+    background: #f5f0e0 url("#{resource['default:images/noise.png']}");
+}
+
+.ui-inputfield{
+    background: #f5f0e0;
+}
+
+#panelCustomer{
+    padding: 2px;
+}
+
+/* Custom styles */
+.required{
+    color:red;
+    font-weight:bold;
+    font-size:12pt
+}
+
+.ui-inputfield.ui-state-error, .ui-widget-header .ui-inputfield.ui-state-error, .ui-widget-content .ui-inputfield.ui-state-error {
+    color: #333333;
+    border: 1px solid red;
+}
+
+.ui-messages-info-icon, .ui-messages-warn-icon, .ui-messages-error-icon, .ui-messages-fatal-icon, .ui-message-info-icon, .ui-message-warn-icon, .ui-message-error-icon, .ui-message-fatal-icon {
+    /*background: url("/SIEc/javax.faces.resource/messages/messages.png.jsf?ln=primefaces") no-repeat;*/
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.ui-panel-title{
+    background: #9c5959 ;
+    font-family: 'Lobster13Regular', cursive;
+    color: rgb(245, 245, 245);
+    font-size: 15px;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    font-weight: normal;
+}
+
+.ui-widget-header{
+    background: #9c5959 /*url("#{resource['default:images/noise.png']}")*/; 
+}
+
+.ddd {
+    width: 40px;
 }

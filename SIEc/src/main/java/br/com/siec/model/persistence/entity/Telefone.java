@@ -22,6 +22,8 @@ import br.com.siec.model.persistence.interfaces.IPessoa;
 import br.com.siec.model.persistence.interfaces.ITelefone;
 
 import br.com.siec.model.persistence.resource.TipoTelefone;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +34,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -42,6 +46,7 @@ import org.hibernate.annotations.FetchMode;
 
 /**
  * Telefone
+ *
  * @version 1.00 May 21, 2013.
  * @author Josimar Alves
  */
@@ -64,12 +69,13 @@ public class Telefone implements ITelefone {
     @Column(name = "TLF_TIPO")
     private TipoTelefone tipo;
     
-    @ManyToOne(targetEntity = Pessoa.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "PSS_CODIGO", nullable = false, 
-                insertable = true, updatable = true)
-    @Fetch(FetchMode.JOIN)
+    @ManyToMany(targetEntity = Pessoa.class, fetch = FetchType.LAZY)
     @Cascade(CascadeType.SAVE_UPDATE)
-    private IPessoa pessoa;
+    @JoinTable(name = "TB_PESSOA_TELEFONE_ASS", joinColumns =
+            @JoinColumn(name = "TLF_CODIGO"),
+            inverseJoinColumns =
+            @JoinColumn(name = "PSS_CODIGO"))
+    private List<IPessoa> pessoas = new ArrayList<IPessoa>();
 
     @Override
     public long getId() {
@@ -112,23 +118,45 @@ public class Telefone implements ITelefone {
     }
 
     @Override
-    public IPessoa getPessoa() {
-        return this.pessoa;
+    public List<IPessoa> getPessoas() {
+        return this.pessoas;
     }
 
     @Override
-    public void setPessoa(IPessoa pessoa) {
-        this.pessoa = pessoa;
+    public void addPessoa(IPessoa pessoa) {
+        this.pessoas.add(pessoa);
+    }
+
+    @Override
+    public String toString() {
+        return addMascara();
+    }
+
+    private String addMascara() {
+        String telefoneComMascara;
+
+        telefoneComMascara = "(";
+        telefoneComMascara += ddd;
+        telefoneComMascara += ")";
+        if (numero != null) {
+            telefoneComMascara += numero.substring(0, 4);
+        }
+        telefoneComMascara += "-";
+        if (numero != null) {
+            telefoneComMascara += numero.substring(4, numero.length());
+        }     
+
+        return telefoneComMascara;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 17 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 17 * hash + (this.ddd != null ? this.ddd.hashCode() : 0);
-        hash = 17 * hash + (this.numero != null ? this.numero.hashCode() : 0);
-        hash = 17 * hash + (this.tipo != null ? this.tipo.hashCode() : 0);
-        hash = 17 * hash + (this.pessoa != null ? this.pessoa.hashCode() : 0);
+        hash = 61 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 61 * hash + (this.ddd != null ? this.ddd.hashCode() : 0);
+        hash = 61 * hash + (this.numero != null ? this.numero.hashCode() : 0);
+        hash = 61 * hash + (this.tipo != null ? this.tipo.hashCode() : 0);
+        hash = 61 * hash + (this.pessoas != null ? this.pessoas.hashCode() : 0);
         return hash;
     }
 
@@ -153,9 +181,11 @@ public class Telefone implements ITelefone {
         if (this.tipo != other.tipo) {
             return false;
         }
-        if (this.pessoa != other.pessoa && (this.pessoa == null || !this.pessoa.equals(other.pessoa))) {
+        if (this.pessoas != other.pessoas && (this.pessoas == null || !this.pessoas.equals(other.pessoas))) {
             return false;
         }
         return true;
     }
+
+    
 }

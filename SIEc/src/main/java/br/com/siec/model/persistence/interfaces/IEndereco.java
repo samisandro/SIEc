@@ -45,6 +45,14 @@ public interface IEndereco extends Serializable {
     public String getComplemento();
 
     public void setComplemento(String complemento);
+    
+    public String getBairro();
+
+    public void setBairro(String bairro);
+    
+    public String getCidade();
+
+    public void setCidade(String cidade);
 
     public String getCep();
 

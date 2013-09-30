@@ -27,4 +27,8 @@ public interface Clientes {
     
     public Long getQuantityOfClients();
     
+    public boolean isCpfAlreadyInUse(String cpf);
+    
+    public boolean isCnpjAlreadyInUse(String cpf);
+    
 }

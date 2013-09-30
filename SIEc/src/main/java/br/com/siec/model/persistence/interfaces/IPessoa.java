@@ -19,10 +19,14 @@ public interface IPessoa extends Serializable{
     public void setEmail(String email);
 
     public void addEndereco(IEndereco endereco);
+    
+    public void addEnderecos(List<IEndereco> enderecos);
 
     public List<IEndereco> getEnderecos();
 
     public void addTelefone(ITelefone telefone);
+    
+    public void addTelefones(List<ITelefone> telefones);
 
     public List<ITelefone> getTelefones();
 

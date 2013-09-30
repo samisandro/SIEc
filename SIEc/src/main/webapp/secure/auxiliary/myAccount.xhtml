@@ -4,47 +4,42 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-
+      xmlns:ui="http://java.sun.com/jsf/facelets">    
     <ui:composition template="/templates/siec.xhtml">
-        <h:outputScript library="siec" name="lib/jquery-1.7.2.min.js"/>
-        <h:outputStylesheet library="siec" name="lib/bootstrap/css/bootstrap.css"/>
         <ui:define name="content">
             <div class="header">
-                <h1 class="page-title">#{bundle.label_system_user_new}</h1>
+                <h1 class="page-title">#{bundle.label_system_account}</h1>
             </div>
 
             <ul class="breadcrumb">
                 <li> <span class="divider">/</span></li>
-                <li><h:link outcome="allUsers">#{bundle.label_system_users}</h:link> <span class="divider">/</span></li>
-                <li class="active">#{bundle.label_system_user}</li>
+                <li><h:link outcome="/secure/admin/home.jsf">#{bundle.label_system_home}</h:link> <span class="divider">/</span></li>
+                <li class="active">#{bundle.label_system_account}</li>
             </ul>
             <div class="container-fluid">
 
                 <div class="row-fluid">
-                    <h:form id="formUser" enctype="multipart/form-data">
+                    <h:form id="formUpdateProduct" enctype="multipart/form-data">
                         <div class="btn-toolbar">
                             <a class="btn btn-primary">
-                                <p:commandButton value="#{bundle.label_system_salve}" 
-                                                 ajax="false"
+                                <p:commandButton value="#{bundle.label_system_update}" 
+                                                 ajax="false"                                                 
+                                                 immediate="false"
                                                  styleClass="btn btn-primary"
-                                                 action="#{usuarioController.save()}"
-                                                 update="@form"> 
-                                    <i class="icon-save"></i>
+                                                 action="#{usuarioController.update()}"
+                                                 update="@form">
                                 </p:commandButton></a>
-
 
                             <h:link styleClass="btn" outcome="/secure/admin/home.jsf">#{bundle.label_system_cancel}</h:link>                             
                             <div class="btn-group">
                             </div>
                         </div>
                         <div class="well">
-
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#data" data-toggle="tab">#{bundle.label_system_main}</a></li>                                
+                                <li class="active"><a href="#data" data-toggle="tab">#{bundle.label_system_main}</a></li>
                             </ul>
                             <div id="myTabContent" class="tab-content">
-                                <div class="tab-pane active in" id="data">
+                                <div class="tab-pane active in" id="data"> 
 
                                     <h:outputLabel for="nomeUsuario" value="#{bundle.label_form_name}" >
                                         <h:outputText title="#{bundle.label_form_name}" value=" *" styleClass="required" />
@@ -65,20 +60,18 @@
                                                  maxlength="40"
                                                  required="true"
                                                  styleClass="input-xlarge"
-                                                 requiredMessage="#{bundle.msg_required_email}">
-                                        <f:validator binding="#{emailValidator}"/>
-                                        <p:ajax update="msgEmailUsuario" event="blur" />
+                                                 requiredMessage="#{bundle.msg_required_email}"
+                                                 readonly="true">                                        
                                     </p:inputText>
-                                    <h:message id="msgEmailUsuario" for="emailUsuario" /> 
+                                    <h:message for="emailUsuario" /> 
 
                                     <h:outputLabel for="tipoUsuario" value="#{bundle.label_form_typeUser}" >
                                         <h:outputText title="#{bundle.label_form_typeUser}" value=" *" styleClass="required" />
                                     </h:outputLabel>
-                                    <p:selectOneMenu id="tipoUsuario"
-                                                     styleClass="input-xlarge"
-                                                     value="#{usuarioController.usuario.tipo}">
-                                        <f:selectItems value="#{usuarioController.tiposUsuario}"/>  
-                                    </p:selectOneMenu>
+                                    <p:inputText id="tipoUsuario"
+                                                 styleClass="input-xlarge"
+                                                 readonly="true"
+                                                 value="#{usuarioController.usuario.tipo}"/>
 
                                     <h:outputLabel for="loginUsuario" value="#{bundle.label_form_login}">
                                         <h:outputText title="#{bundle.label_form_login}" value=" *" styleClass="required" />
@@ -88,11 +81,10 @@
                                                  maxlength="40"
                                                  required="true"
                                                  styleClass="input-xlarge"
-                                                 requiredMessage="#{bundle.msg_required_login}">
-                                        <f:validator binding="#{loginValidator}"/>
-                                        <p:ajax update="msgLoginlUsuario" event="blur" />
+                                                 requiredMessage="#{bundle.msg_required_login}"
+                                                 readonly="true">
                                     </p:inputText>
-                                    <h:message id="msgLoginlUsuario" for="loginUsuario" />
+                                    <h:message for="loginUsuario" />
 
                                     <h:outputLabel for="password" value="#{bundle.label_form_password}">
                                         <h:outputText title="#{bundle.label_form_password}" value=" *" styleClass="required" />
@@ -103,7 +95,7 @@
                                                 required="true"
                                                 styleClass="input-xlarge"
                                                 requiredMessage="#{bundle.msg_required_password}">
-                                    <f:ajax event="blur" execute="password confirm" render="m_password" />
+                                        <f:ajax event="blur" execute="password confirm" render="m_password" />
                                     </p:password>
                                     <h:message id="m_password" for="password" />
 
@@ -136,7 +128,10 @@
                         </footer>
                     </h:form>
                 </div>
-            </div>
+            </div>           
         </ui:define>
+
     </ui:composition>
+
 </html>
+

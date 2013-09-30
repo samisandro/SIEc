@@ -6,9 +6,49 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:composition template="/templates/principal.xhtml">
+        <ui:define name="head">
+            <h:head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <title>Smart Pizzaria</title>        
+                <h:outputStylesheet library="default" name="styles/styleCommerce.css" />
+                <h:outputStylesheet library="default" name="styles/base.css" />  
+                <h:outputStylesheet library="default" name="styles/lightbox.css" /> 
+                <h:outputScript library="default" name="scripts/jquery-1-4-2.min.js" />
+                <h:outputScript library="default" name="scripts/jquery-ui.min.js" />        
+                <h:outputScript library="default" name="scripts/slimbox2.js" /> 
+                <h:outputScript library="default" name="scripts/jquery.mousewheel.js" /> 
+                <h:outputScript library="default" name="scripts/jquery.maskedinput.js" /> 
+                <h:outputScript library="default" name="scripts/jquery.maskedinput.min.js" /> 
+                <!--<h:outputScript library="default" name="scripts/jquery-1.6.4.js" />-->        
+                <!-- Load the CloudCarousel JavaScript file -->
+                <h:outputScript library="default" name="scripts/cloud-carousel.1.0.5.js" />  
+                <script type="text/javascript">
+                    $(document).ready(function() {
 
+                        // This initialises carousels on the container elements specified, in this case, carousel1.
+                        $("#carousel1").CloudCarousel(
+                                {
+                                    reflHeight: 40,
+                                    reflGap: 2,
+                                    titleBox: $('#da-vinci-title'),
+                                    altBox: $('#da-vinci-alt'),
+                                    buttonLeft: $('#slider-left-but'),
+                                    buttonRight: $('#slider-right-but'),
+                                    yRadius: 30,
+                                    xPos: 480,
+                                    yPos: 32,
+                                    speed: 0.15,
+                                    bringToFront: true,
+                                }
+                        );
+                    });
+
+                </script>
+            </h:head>
+        </ui:define>
         <ui:define name="content">
-            
+            <!--<h:outputScript library="default" name="scripts/jquery-1-4-2.min.js" />-->
+            <!--<h:outputScript library="default" name="scripts/jquery-ui.min.js" />-->        
             <div class="wrapper">
                 <div id="templatemo_slider" class="pikachoose">
                     <!-- This is the container for the carousel. -->

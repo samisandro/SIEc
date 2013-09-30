@@ -21,6 +21,7 @@ package br.com.siec.model.persistence.interfaces;
 import br.com.siec.model.persistence.resource.TipoTelefone;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * ITelefone
@@ -46,7 +47,7 @@ public interface ITelefone extends Serializable {
 
     public void setTipo(TipoTelefone tipo);
 
-    public IPessoa getPessoa();
+    public List<IPessoa> getPessoas();
 
-    public void setPessoa(IPessoa pessoa);
+    public void addPessoa(IPessoa pessoa);
 }

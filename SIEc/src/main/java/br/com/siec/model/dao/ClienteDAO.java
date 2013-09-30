@@ -7,7 +7,15 @@ package br.com.siec.model.dao;
 import br.com.siec.model.dao.core.DAO;
 
 import br.com.siec.model.persistence.entity.Cliente;
+import br.com.siec.model.persistence.entity.Pf;
+import br.com.siec.model.persistence.entity.Pj;
+import br.com.siec.model.persistence.interfaces.IEndereco;
+import br.com.siec.model.persistence.interfaces.ITelefone;
 import br.com.siec.model.repository.Clientes;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +24,38 @@ import br.com.siec.model.repository.Clientes;
 public class ClienteDAO
         extends DAO<Cliente> implements Clientes {
 
+    
+    @Override
+    public boolean save(Cliente cliente){
+        try {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{save(Cliente cliente)} Salvando Cliente");
+            }
+            List<ITelefone> telefones = new ArrayList<ITelefone>();
+            for(ITelefone phone : cliente.getUsuario().getPessoa().getTelefones()){
+                telefones.add(super.validate(phone));
+            }
+            cliente.getUsuario().getPessoa().addTelefones(telefones);
+            
+            List<IEndereco> enderecos = new ArrayList<IEndereco>();
+            for(IEndereco end : cliente.getUsuario().getPessoa().getEnderecos()){                
+                enderecos.add(super.validate(end));                
+            }            
+            
+            cliente.getUsuario().getPessoa().addEnderecos(enderecos);
+            super.getEntityManager().persist(cliente.getUsuario());
+            super.getEntityManager().flush();            
+            super.getEntityManager().persist(cliente);
+
+            return true;
+
+        } catch (Exception e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{save(Cliente cliente) --> erro } Ocorreu um problema ao tentar salvar o Cliente. -> Exception: " + e);
+            }
+            return false;
+        }
+    }
     @Override
     public Long getQuantityOfClients() {
         try {
@@ -34,5 +74,76 @@ public class ClienteDAO
             }
             return null;
         }
+    }
+
+    @Override
+    public boolean isCpfAlreadyInUse(String cpf) {
+        try {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{isCpfAlreadyInUse(String cpf)} Validando unicidade do CPF: [ " + cpf + " ]");
+            }
+
+            Query query = super.getEntityManager().createQuery(getQueryCPF(), Pf.class);
+            query.setParameter("cpf", cpf);           
+
+            return query.getSingleResult() != null;
+
+        } catch (NoResultException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{isCPFAlreadyInUse(String cpf)} CPF não está em uso.");
+            }
+            return false;
+        } catch (Exception e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{isCPFAlreadyInUse(String cpf)-->} Ocorreu um problema."+e);
+            }
+            return false;
+        }
+    }
+
+    private String getQueryCPF() {
+        StringBuilder query = new StringBuilder();
+        query.append(" Select pf From Pf pf ")
+                .append(" Where pf.cpf = ")
+                .append(" :cpf ");
+
+        return query.toString();
+
+    }
+
+    @Override
+    public boolean isCnpjAlreadyInUse(String cnpj) {
+        try {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{isCpfAlreadyInUse(String cnpj)} Validando unicidade do CNPJ: [ " + cnpj + " ]");
+            }
+
+            Query query = super.getEntityManager().createQuery(getQueryCNPJ(), Pj.class);
+            query.setParameter("cnpj", cnpj);           
+
+            return query.getSingleResult() != null;
+
+        } catch (NoResultException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{isCnpjAlreadyInUse(String cnpj)} CNPJ não está em uso.");
+            }
+            return false;
+        }
+        catch (Exception e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{isCnpjAlreadyInUse(String cnpj)-->} Ocorreu um problema."+e);
+            }
+            return false;
+        }
+    }
+    
+    private String getQueryCNPJ(){
+        StringBuilder query = new StringBuilder();
+        query.append(" Select pj From Pj pj ")
+                .append(" Where pj.cnpj = ")
+                .append(" :cnpj ");
+        
+        return query.toString();
+        
     }
 }

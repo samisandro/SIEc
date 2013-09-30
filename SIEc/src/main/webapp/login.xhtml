@@ -76,7 +76,8 @@
 
                                 <p class="change_link">
                                     #{bundle.label_login_member}
-                                    <a href="#toregister" class="to_register">#{bundle.label_login_join}</a>
+                                    <!--<a href="#toregister" class="to_register">#{bundle.label_login_join}</a>-->
+                                    <h:link class="to_register" outcome="/registerCustomer.jsf" value="#{bundle.label_login_join}"/>
 
                                     <h:link class="to_register" outcome="/index.jsf" value="#{bundle.label_system_home}"/>
                                 </p>
@@ -84,7 +85,8 @@
                         </div>
 
                         <div id="register" class="animate form">
-                            <form  action="mysuperscript.php" autocomplete="on"> 
+                            <!--<form  action="mysuperscript.php" autocomplete="on"> -->
+                            <h:form> 
                                 <h1> Sign up </h1> 
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u">Your username</label>
@@ -103,7 +105,8 @@
                                     <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
                                 <p class="signin button"> 
-                                    <input type="submit" value="Sign up"/> 
+                                    <!-- <input type="submit" value="Sign up"/> -->
+                                    <p:commandButton action="#{clienteController.goRegisterStage01()}"/>
                                 </p>
                                 <p class="change_link">  
                                     #{bundle.label_login_alredy_member}
@@ -111,7 +114,8 @@
 
                                     <h:link class="to_register" outcome="/index.jsf" value="#{bundle.label_system_home}"/>
                                 </p>
-                            </form>
+                            </h:form>
+                            <!--</form> -->
                         </div>
 
                     </div>

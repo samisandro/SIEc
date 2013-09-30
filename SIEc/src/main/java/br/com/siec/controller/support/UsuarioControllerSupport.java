@@ -73,6 +73,6 @@ public class UsuarioControllerSupport implements Serializable {
 
     public String myAccount() {
         viewContext.setObjectInSession("usuario", getUser());
-        return "myAccount.jsf";
+        return "/secure/admin/myAccount.jsf";
     }
 }

@@ -7,6 +7,7 @@ package br.com.siec.service;
 
 import br.com.siec.model.persistence.entity.Cliente;
 import br.com.siec.model.repository.Clientes;
+import java.util.Date;
 
 /**
  * <b>ClienteService</b>
@@ -15,6 +16,12 @@ import br.com.siec.model.repository.Clientes;
  */
 public interface ClienteService extends Clientes{
     
-    public Cliente create(String classType);    
+    public Cliente create(String classType);
+    
+    public boolean isValidCpf(String cpf);
+        
+    public boolean isValidCnpj(String cnpj);   
+    
+    public boolean isValidBirthday(Date birthday);
     
 }

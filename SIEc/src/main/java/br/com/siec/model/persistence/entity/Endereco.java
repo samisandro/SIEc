@@ -41,6 +41,12 @@ public class Endereco implements IEndereco {
     @Column(name = "END_COMPLEMENTO")
     private String complemento;
     
+    @Column(name = "END_BAIRRO")
+    private String bairro;
+    
+    @Column(name = "END_CIDADE")
+    private String cidade;
+    
     @Column(name = "END_CEP")
     private String cep;
     
@@ -94,6 +100,26 @@ public class Endereco implements IEndereco {
     @Override
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+    
+    @Override
+    public String getBairro() {
+        return this.bairro;
+    }
+
+    @Override
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+    
+    @Override
+    public String getCidade() {
+        return this.cidade;
+    }
+
+    @Override
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
     @Override
