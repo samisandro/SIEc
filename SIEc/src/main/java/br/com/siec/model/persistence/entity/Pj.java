@@ -79,4 +79,13 @@ public class Pj extends Pessoa implements IPJ {
     public String toString() {
         return "Pj{id=" + getId() + "cnpj=" + cnpj + ", razaoSocial=" + razaoSocial + ", inscricaoEstadual=" + inscricaoEstadual + '}';
     }
+    
+    @Override
+    public String getPrimeiroNome(){
+        int indexOf = this.razaoSocial.indexOf(" ");
+        if(indexOf < 0 ) {
+            return this.razaoSocial;
+        }
+        return this.razaoSocial.substring(0, indexOf);
+    }
 }

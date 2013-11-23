@@ -34,7 +34,7 @@ public class LoginController implements Serializable {
 
     @Inject
     @UsuarioServiceQualifier
-    private UsuarioService userFacade;
+    private UsuarioService userService;
     
     private IUsuario user;
     
@@ -58,14 +58,14 @@ public class LoginController implements Serializable {
     }
 
     public String recoveryPassword() {
-        userFacade.recoveryPassword(user.getPessoa().getEmail());
+        userService.recoveryPassword(user.getPessoa().getEmail());
         viewContext.info("msg_recovery_email");
         return "/rememberPassword.jsf";
     }
 
     public IUsuario getUser() {
         if (user == null) {
-            user = userFacade.create();
+            user = userService.create("Usuario");
         }
         return user;
     }

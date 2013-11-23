@@ -97,6 +97,16 @@
                                                  styleClass="input-xlarge"
                                                  requiredMessage="#{bundle.msg_required_name}"/>
                                     <h:message for="nomePizza" />
+                                    
+                                    <h:outputLabel for="descricaoPizza" value="#{bundle.label_form_description}" >
+                                        <h:outputText title="#{bundle.label_form_description}" value=" *" styleClass="required" />
+                                    </h:outputLabel>
+                                    <p:inputTextarea id="descricaoPizza" 
+                                                 value="#{composicaoController.pizza.descricao}"
+                                                 required="true"
+                                                 styleClass="input-xlarge"
+                                                 requiredMessage="#{bundle.msg_required_description}"/>
+                                    <h:message for="descricaoPizza" />
                                 </div>
                                 
                                 <div class="tab-pane fade" id="mass">
@@ -171,7 +181,8 @@
                                                      value="#{composicaoController.ingredientes}"
                                                      emptyMessage="#{bundle.msg_data_nothing_ingredient}"
                                                      tableStyleClass="table"
-                                                     rows="15"
+                                                     paginator="true"
+                                                     rows="5"
                                                      var="ingrediente">
                                             <p:column>
                                                 <f:facet name="header">

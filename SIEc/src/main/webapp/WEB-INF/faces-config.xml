@@ -99,6 +99,15 @@
         <navigation-case>  
             <from-outcome>searchUser</from-outcome>  
             <to-view-id>/secure/admin/user/searchUser.jsf</to-view-id>   
+        </navigation-case>        
+        <navigation-case>  
+            <from-outcome>myOrder</from-outcome>  
+            <to-view-id>/secure/customer/myOrder.jsf</to-view-id>
+        </navigation-case>
+        <!-- Reports -->
+        <navigation-case>  
+            <from-outcome>billingReport</from-outcome>  
+            <to-view-id>/secure/admin/reports/billingReport.jsf</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

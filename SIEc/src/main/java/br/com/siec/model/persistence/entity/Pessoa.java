@@ -38,12 +38,13 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * Pessoa
@@ -60,15 +61,18 @@ public abstract class Pessoa implements IPessoa, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PSS_CODIGO")
     private long id;
+    
     @Column(name = "PSS_NOME")
     private String nome;
+    
     @Column(name = "PSS_EMAIL")
     private String email;
     /*
      * Relacionamento 1:2 - Pessoa : Endereco 
      */
-    @ManyToMany(targetEntity = Endereco.class)
-    @Cascade({CascadeType.SAVE_UPDATE})
+    @ManyToMany(targetEntity = Endereco.class, fetch = FetchType.EAGER) 
+    @Cascade(CascadeType.REFRESH)
+    @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "TB_PESSOA_ENDERECO_ASS", joinColumns =
             @JoinColumn(name = "PSS_CODIGO"),
             inverseJoinColumns =
@@ -176,5 +180,14 @@ public abstract class Pessoa implements IPessoa, Serializable {
     @Override
     public String toString() {
         return "Pessoa{" + "id=" + id + ", nome=" + nome + ", email=" + email + '}';
+    }
+
+    @Override
+    public String getPrimeiroNome() {
+        int indexOf = this.nome.indexOf(" ");
+        if(indexOf < 0 ) {
+            return this.nome;
+        }
+        return this.nome.substring(0, indexOf);
     }
 }

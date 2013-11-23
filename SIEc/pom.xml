@@ -23,7 +23,7 @@
             <type>jar</type>
             <version>1.0.1.Final</version>
         </dependency>
-        <!-- ### FACELETS-TAGLIB-JSF2.0-SPRING-3 ### -->
+        <!-- Facelets Taglib JSF 2.0/Spring 3.0 -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>facelets-taglib-jsf20-spring-3</artifactId>
@@ -45,6 +45,51 @@
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>5.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-javaflow-20060411</groupId>
+            <artifactId>commons-javaflow-20060411</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>1.8.3</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-web</artifactId>
+            <version>2.0.4</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -84,11 +129,6 @@
             <version>3.9</version>
         </dependency>
         <dependency>
-            <groupId>com.lowagie</groupId>
-            <artifactId>itext</artifactId>
-            <version>1.4.8</version>
-        </dependency>
-        <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>1.2.2</version>
@@ -123,6 +163,17 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-envers</artifactId>
+            <version>4.2.0.Final</version>
+        </dependency>
+        <!-- EhCache Dependencies -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>2.6.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
             <version>4.2.0.Final</version>
         </dependency>
         <dependency>
@@ -236,17 +287,6 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>3.1.4.RELEASE</version>
         </dependency>
-        <!-- Stella Dependecies -->
-        <dependency>
-            <groupId>br.com.caelum.stella</groupId>
-            <artifactId>caelum-stella-core</artifactId>
-            <version>2.0.4</version>
-        </dependency>
-        <dependency>
-            <groupId>br.com.caelum.stella</groupId>
-            <artifactId>caelum-stella-faces</artifactId>
-            <version>2.0.4</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -316,6 +356,16 @@
         <repository>
             <id>org.springframework.security.taglibs.facelets</id>
             <url>http://spring-security-facelets-taglib.googlecode.com/svn/repo/</url>
+        </repository>
+        <repository>
+            <id>terracotta-releases</id>
+            <url>http://www.terracotta.org/download/reflector/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 </project>

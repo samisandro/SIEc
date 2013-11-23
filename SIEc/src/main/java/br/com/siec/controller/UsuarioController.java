@@ -8,6 +8,8 @@ import br.com.siec.model.persistence.resource.TipoUsuario;
 import br.com.siec.service.UsuarioService;
 import br.com.siec.service.qualifiers.UsuarioServiceQualifier;
 
+import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ import javax.validation.constraints.Size;
  */
 @ManagedBean
 @ViewScoped
-public class UsuarioController {
+public class UsuarioController implements Serializable {
 
     @Inject
     @UsuarioServiceQualifier
@@ -63,7 +65,7 @@ public class UsuarioController {
         viewContext.removeObjectInSession("usuario");
         
         if (usuario == null) {
-            usuario = usuarioService.create();
+            usuario = usuarioService.create("Usuario");
         }
     }
 

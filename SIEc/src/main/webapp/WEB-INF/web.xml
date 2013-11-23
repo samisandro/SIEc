@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-    <display-name>SIEc</display-name>    
-    <!-- Configuracao do Spring -->    
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/Spring/spring-security.xml</param-value>
-    </context-param> 
-    <!-- Configuração do Spring Security 3 -->
-    <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee           http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>SIEc</display-name>
+<!--    <filter-mapping>
+        <filter-name>SimplePageCachingFilter</filter-name>
+        <url-pattern>/beACheff.jsf</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>-->
+    <!-- Configuracao do Spring -->
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>primeFacesfileuploadFilter</filter-name>
+        <url-pattern>*.jsf</url-pattern>
+    </filter-mapping>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/Spring/spring-security.xml</param-value>
+    </context-param>
+    <!-- Configuração do Spring Security 3 -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <!-- Configuração do cache de paginas -->
+    <filter>
+        <filter-name>SimplePageCachingFilter</filter-name>
+        <filter-class>net.sf.ehcache.constructs.web.filter.SimplePageCachingFilter</filter-class>
+    </filter>
     <context-param>
         <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
         <param-value>/WEB-INF/Spring/spring-security.taglib.xml</param-value>
     </context-param>
- 
     <!-- Configuração do JSF -->
     <!-- JSF Config - Define estagio da Aplicação: Production or Develepoment-->
     <context-param>
@@ -35,9 +47,9 @@
         <param-value>Production</param-value>
     </context-param>
     <!-- JSF Config - -->
-    <context-param>   
-        <param-name>com.sun.faces.writeStateAtFormEnd</param-name>   
-        <param-value>false</param-value>   
+    <context-param>
+        <param-name>com.sun.faces.writeStateAtFormEnd</param-name>
+        <param-value>false</param-value>
     </context-param>
     <!-- JSF Config - Define onde deverá ser salvo a arvore de componentes: Client ou Server. -->
     <context-param>
@@ -58,7 +70,7 @@
     <context-param>
         <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
         <param-value>true</param-value>
-    </context-param>    
+    </context-param>
     <!-- JSF Config - Servlet Config. -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
@@ -68,7 +80,7 @@
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
-    </servlet-mapping>    
+    </servlet-mapping>
     <!-- Theme of Primefaces - Twitter Bootstrap -->
     <context-param>
         <param-name>primefaces.THEME</param-name>
@@ -78,16 +90,11 @@
         <param-name>log4jConfigLocation</param-name>
         <param-value>/WEB-INF/log4j.properties</param-value>
     </context-param>
-    <!-- Configuracao do Primefaces Upload --> 
+    <!-- Configuracao do Primefaces Upload -->
     <filter>
         <filter-name>primeFacesfileuploadFilter</filter-name>
         <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
     </filter>
-    <filter-mapping>
-        <filter-name>primeFacesfileuploadFilter</filter-name>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.jsf</url-pattern>
-    </filter-mapping>          
     <session-config>
         <session-timeout>
             30
@@ -113,21 +120,21 @@
         <error-code>503</error-code>
         <location>/error/403.jsf</location>
     </error-page>
-    <!-- Mimetypes --> 
-    <mime-mapping>  
-        <extension>jpg</extension>  
-        <mime-type>image/jpeg</mime-type>  
+    <!-- Mimetypes -->
+    <mime-mapping>
+        <extension>jpg</extension>
+        <mime-type>image/jpeg</mime-type>
     </mime-mapping>
-    <mime-mapping>  
-        <extension>woff</extension>  
-        <mime-type>webfont/woff</mime-type>  
+    <mime-mapping>
+        <extension>woff</extension>
+        <mime-type>webfont/woff</mime-type>
     </mime-mapping>
-    <mime-mapping>  
-        <extension>eot</extension>  
-        <mime-type>webfont/eot</mime-type>  
+    <mime-mapping>
+        <extension>eot</extension>
+        <mime-type>webfont/eot</mime-type>
     </mime-mapping>
-    <mime-mapping>  
-        <extension>ttf</extension>  
-        <mime-type>webfont/ttf</mime-type>  
+    <mime-mapping>
+        <extension>ttf</extension>
+        <mime-type>webfont/ttf</mime-type>
     </mime-mapping>
 </web-app>

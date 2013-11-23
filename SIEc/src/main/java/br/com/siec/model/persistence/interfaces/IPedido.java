@@ -4,9 +4,9 @@ import br.com.siec.model.persistence.entity.Item;
 import br.com.siec.model.persistence.resource.StatusPedido;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import java.util.Date;
-import java.util.List;
 
 public interface IPedido extends Serializable {
 
@@ -30,7 +30,11 @@ public interface IPedido extends Serializable {
 
     public void setCliente(ICliente iCliente);
 
-    public List<Item> getItens();
+    public Collection<Item> getItens();
 
     public void addItens(Item item);
+    
+    public ICupomDesconto getCupomDesconto();
+    
+    public void setCupomDesconto(ICupomDesconto cupom);
 }

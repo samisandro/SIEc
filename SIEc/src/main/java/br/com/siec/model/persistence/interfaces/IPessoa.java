@@ -11,6 +11,8 @@ public interface IPessoa extends Serializable{
     public void setId(long id);
 
     public String getNome();
+    
+    public String getPrimeiroNome();
 
     public void setNome(String nome);
 

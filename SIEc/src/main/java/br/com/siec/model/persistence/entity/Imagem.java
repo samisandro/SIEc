@@ -29,6 +29,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Imagem
@@ -37,6 +39,7 @@ import javax.persistence.Table;
  * @author Josimar Alves
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "TB_IMAGEM_IMG", schema = "siec")
 public class Imagem implements Serializable {
 

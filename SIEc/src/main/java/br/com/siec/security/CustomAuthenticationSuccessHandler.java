@@ -79,7 +79,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
 
         if (isUser) {
-            return "/secure/customer/home.jsf";
+            return "/beACheff.jsf";
         } else if (isAdmin || isManager) {
             return "/secure/admin/home.jsf";
         } else if (isAuxiliary) {

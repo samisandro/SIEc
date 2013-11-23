@@ -22,6 +22,7 @@ import br.com.siec.model.persistence.resource.Categorias;
 import br.com.siec.model.persistence.interfaces.IProduto;
 
 import br.com.siec.business.price_strategy.MultiplePrice;
+import br.com.siec.model.persistence.interfaces.IPerfil;
 
 
 import java.util.ArrayList;
@@ -42,10 +43,14 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -58,6 +63,7 @@ import org.hibernate.annotations.FetchMode;
  * @author Josimar Alves
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "TB_PRODUTO_PRT", schema = "siec")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Produto implements IProduto {
@@ -69,6 +75,9 @@ public abstract class Produto implements IProduto {
     
     @Column(name = "PRT_NOME", length = 30, insertable = true, updatable = true)
     private String nome;
+    
+    @Column(name = "PRT_DESCRICAO")
+    private String descricao;
     
     @Column(name = "PRT_PRECOS")
     @ElementCollection(fetch = FetchType.EAGER)
@@ -91,6 +100,22 @@ public abstract class Produto implements IProduto {
     
     @Transient
     private MultiplePrice typePrice;
+    
+    @ManyToMany(targetEntity = Perfil.class)
+    @Cascade({CascadeType.SAVE_UPDATE})
+    @JoinTable(name = "TB_PRODUTO_SUGESTAO_ASS", joinColumns =
+            @JoinColumn(name = "PRT_CODIGO"),
+            inverseJoinColumns =
+            @JoinColumn(name = "PRF_CODIGO"))    
+    private List<IPerfil> sugestoes = new ArrayList<IPerfil>();
+    
+    @ManyToMany(targetEntity = Perfil.class)
+    @Cascade({CascadeType.SAVE_UPDATE})
+    @JoinTable(name = "TB_PRODUTO_PREFERENCIA_ASS", joinColumns =
+            @JoinColumn(name = "PRT_CODIGO"),
+            inverseJoinColumns =
+            @JoinColumn(name = "PRF_CODIGO"))
+    private List<IPerfil> preferencias = new ArrayList<IPerfil>();
 
     public Produto() {
         this.precos = new ArrayList<Preco>();
@@ -115,6 +140,14 @@ public abstract class Produto implements IProduto {
     @Override
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     @Override
@@ -165,6 +198,22 @@ public abstract class Produto implements IProduto {
     @Override
     public void setTypePrice(MultiplePrice typePrice) {
         this.typePrice = typePrice;
+    }
+
+    public List<IPerfil> getSugestoes() {
+        return sugestoes;
+    }
+
+    public void addPerfilSugestao(IPerfil perfil) {
+        this.sugestoes.add(perfil);
+    }
+
+    public List<IPerfil> getPreferencias() {
+        return preferencias;
+    }
+
+    public void addPerfilPreferencia(IPerfil perfil) {
+        this.preferencias.add(perfil);
     }
 
     @Override

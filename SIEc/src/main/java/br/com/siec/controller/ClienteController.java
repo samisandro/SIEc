@@ -1,34 +1,34 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.siec.controller;
 
-import br.com.caelum.stella.type.Estado;
-import br.com.siec.api.factory.entity.ListEnumModel;
-import br.com.siec.api.factory.util.cepwebservice.CepWebService;
+import br.com.siec.factory.entity.ListEnumModel;
+
+import br.com.siec.business.recommendation.IRecomendacao;
+
 import br.com.siec.config.jsf.ViewContext;
 
-import br.com.siec.controller.resource.WebServiceCep;
+import br.com.siec.controller.resource.BuscaEnderecoWS;
 
 import br.com.siec.model.persistence.entity.Cliente;
-import br.com.siec.model.persistence.entity.Telefone;
+import br.com.siec.model.persistence.entity.Produto;
 
 import br.com.siec.model.persistence.interfaces.IEndereco;
 import br.com.siec.model.persistence.interfaces.IPJ;
+import br.com.siec.model.persistence.interfaces.IPerfil;
 import br.com.siec.model.persistence.interfaces.IPf;
 import br.com.siec.model.persistence.interfaces.ITelefone;
 import br.com.siec.model.persistence.interfaces.IUsuario;
+
 import br.com.siec.model.persistence.resource.Estados;
 import br.com.siec.model.persistence.resource.TipoEndereco;
 import br.com.siec.model.persistence.resource.TipoSexo;
 import br.com.siec.model.persistence.resource.TipoTelefone;
-import br.com.siec.model.persistence.resource.TipoUsuario;
 
 import br.com.siec.service.ClienteService;
 import br.com.siec.service.qualifiers.ClienteServiceQualifier;
-import java.util.ArrayList;
 
+import java.io.Serializable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -50,7 +50,7 @@ import javax.validation.constraints.Size;
  */
 @ManagedBean(name = "clienteController")
 @ViewScoped
-public class ClienteController {
+public class ClienteController implements Serializable{
 
     @Inject
     @ClienteServiceQualifier
@@ -59,10 +59,13 @@ public class ClienteController {
     @Inject
     private ViewContext viewContext;
     
-    @Inject
-    private CepWebService cepWebService;
-    
     private Cliente cliente;
+    
+    @Inject
+    private IRecomendacao recomendar;
+    
+    @Inject
+    private IPerfil perfil;
     
     @Inject
     private IPJ pj;
@@ -77,13 +80,13 @@ public class ClienteController {
     private IEndereco endereco;
     
     @Inject
-    private Telefone phonePrincipal;
+    private ITelefone phonePrincipal;
     
     @Inject
-    private Telefone phoneComercial;
+    private ITelefone phoneComercial;
     
     @Inject
-    private Telefone phoneResidencial;
+    private ITelefone phoneResidencial;
     
     private List<ITelefone> phones = new ArrayList<ITelefone>();
     
@@ -95,12 +98,12 @@ public class ClienteController {
     
     private static final String HOME = "home.jsf";
     private static final String INDEX = "index.jsf";
-    private static final String UPDATE = "updateCustomer.jsf";
 
     @PostConstruct
     public void init() {
         /**
-         * @Refatorar @Motivo: Colocar objetos demasiadamente na sessão pode
+         * @Refatorar 
+         * @Motivo: Colocar objetos demasiadamente na sessão pode
          * sobrecarregar o servidor.
          */
         cliente = viewContext.getObjectInSession("cliente");
@@ -109,16 +112,15 @@ public class ClienteController {
         if (cliente == null) {
             cliente = clienteService.create("ClientePF");
             typeCustomerPf = true;
+        } else {
+            prepareForUpdate();
         }
     }
 
     public String save() {
-        cliente.getUsuario().getPessoa().addEndereco(endereco);        
-        cliente.getUsuario().getPessoa().addTelefone(phonePrincipal);
-        cliente.getUsuario().getPessoa().addTelefone(phoneComercial);
-        cliente.getUsuario().getPessoa().addTelefone(phoneResidencial);
-        cliente.getUsuario().getPessoa().addEndereco(endereco);
-        
+        prepareForSave();
+        cliente.setPerfil(perfil);
+
         if (this.clienteService.save(cliente)) {
             viewContext.info("msg_info_saved");
             return INDEX;
@@ -129,7 +131,12 @@ public class ClienteController {
     }
 
     public String update() {
-        if (this.clienteService.update(cliente)) {
+        
+        this.cliente.getUsuario().getPessoa().getEnderecos().clear();
+        this.cliente.getUsuario().getPessoa().getTelefones().clear();
+        prepareForSave();
+        System.out.println("Endereco: "+this.cliente.getUsuario().getPessoa().getEnderecos().get(0).getId());
+        if (this.clienteService.update(this.cliente)) {
             viewContext.info("msg_info_saved");
             return HOME;
         } else {
@@ -138,18 +145,8 @@ public class ClienteController {
         }
     }
 
-    public String delete() {
-        if (this.clienteService.delete(cliente)) {
-            viewContext.info("msg_info_saved");
-            return "faces?redirect=true";
-        } else {
-            viewContext.error("msg_error");
-            return "";
-        }
-    }
-
     public void addressLoad(AjaxBehaviorEvent event) {
-        WebServiceCep webServiceCep = WebServiceCep.searchCep(getEndereco().getCep());
+        BuscaEnderecoWS webServiceCep = BuscaEnderecoWS.searchCep(getEndereco().getCep());
 
         if (webServiceCep.getBairro() != null) {
             getEndereco().setBairro(webServiceCep.getBairro());
@@ -163,15 +160,63 @@ public class ClienteController {
         if (webServiceCep.getUf() != null) {
             getEndereco().setEstado(Estados.valueOf(webServiceCep.getUf()));
         }
-        
-        System.out.println("WebService: "+webServiceCep.wasSuccessful());
-        System.out.println("WebService: "+webServiceCep.getResultText());
     }
 
     public void confirmPassword(AjaxBehaviorEvent event) {
         if (!cliente.getUsuario().getSenha().equals(confirmPassword)) {
             viewContext.createError("msg_passwords_match");
         }
+    }
+    
+    public String myAccount(){
+        viewContext.setObjectInSession("cliente", cliente);
+        return "/secure/customer/myAccount.jsf";
+    }
+    
+    public String goUpdateAccount(){
+        viewContext.setObjectInSession("cliente", cliente);
+        return "/secure/customer/updateAccount.jsf";
+    }
+    
+    public void prepareForUpdate(){
+              
+        this.cliente = clienteService.findBy("login", cliente.getUsuario().getLogin()).get(0);
+        
+        if(this.cliente.getUsuario().getPessoa() instanceof IPf ){
+            this.pf = (IPf) this.cliente.getUsuario().getPessoa();
+            this.typeCustomerPf = true;
+        } else {
+            this.pj = (IPJ) this.cliente.getUsuario().getPessoa();
+            this.typeCustomerPf = false;
+        }
+        
+      this.endereco = this.cliente.getUsuario().getPessoa().getEnderecos().get(0);
+      
+      for(ITelefone fone : this.cliente.getUsuario().getPessoa().getTelefones()){
+          
+          if(fone.getTipo().equals(TipoTelefone.COMERCIAL)){
+              this.phoneComercial = fone;
+          }
+          if(fone.getTipo().equals(TipoTelefone.PRINCIPAL)){
+              this.phonePrincipal = fone;
+          }
+          if(fone.getTipo().equals(TipoTelefone.RESIDENCIAL)){
+              this.phoneResidencial = fone;
+          }          
+          
+      }      
+    }
+    
+    public void prepareForSave(){
+        this.cliente.getUsuario().getPessoa().addEndereco(endereco);
+        this.cliente.getUsuario().getPessoa().addTelefone(phonePrincipal);
+        if(this.phoneComercial != null){
+            cliente.getUsuario().getPessoa().addTelefone(phoneComercial);
+        }
+        if(this.phoneResidencial != null){
+            this.cliente.getUsuario().getPessoa().addTelefone(phoneResidencial);
+        }
+        this.cliente.getUsuario().getPessoa().addEndereco(endereco);
     }
 
     public Cliente getCliente() {
@@ -191,34 +236,35 @@ public class ClienteController {
         this.endereco.setTipoEndereco(TipoEndereco.Principal);
     }
 
-    public Telefone getPhonePrincipal() {
+    public ITelefone getPhonePrincipal() {
         return phonePrincipal;
     }
 
-    public void setPhonePrincipal(Telefone phonePrincipal) {
+    public void setPhonePrincipal(ITelefone phonePrincipal) {
         this.phonePrincipal = phonePrincipal;
         this.phonePrincipal.setTipo(TipoTelefone.PRINCIPAL);
-//        cliente.getUsuario().getPessoa().addTelefone(this.phoneComercial);
     }
 
-    public Telefone getPhoneComercial() {
+    public ITelefone getPhoneComercial() {
         return phoneComercial;
     }
 
-    public void setPhoneComercial(Telefone phoneComercial) {
+    public void setPhoneComercial(ITelefone phoneComercial) {
         this.phoneComercial = phoneComercial;
-        this.phoneComercial.setTipo(TipoTelefone.COMERCIAL);
-//        cliente.getUsuario().getPessoa().addTelefone(this.phoneComercial);
+        if (this.phoneComercial != null) {
+            this.phoneComercial.setTipo(TipoTelefone.COMERCIAL);
+        }
     }
 
-    public Telefone getPhoneResidencial() {
+    public ITelefone getPhoneResidencial() {
         return phoneResidencial;
     }
 
-    public void setPhoneResidencial(Telefone phoneResidencial) {
+    public void setPhoneResidencial(ITelefone phoneResidencial) {
         this.phoneResidencial = phoneResidencial;
-        this.phoneResidencial.setTipo(TipoTelefone.RESIDENCIAL);
-//        cliente.getUsuario().getPessoa().addTelefone(this.phoneComercial);
+        if(this.phoneResidencial != null){
+            this.phoneResidencial.setTipo(TipoTelefone.RESIDENCIAL);
+        }
     }
 
     public List<ITelefone> getPhones() {
@@ -295,5 +341,23 @@ public class ClienteController {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public IPerfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(IPerfil perfil) {
+        this.perfil = perfil;
+    }
+
+    public List<SelectItem> getProdutosPreferencia() {
+        List<SelectItem> selectProduts = new ArrayList<SelectItem>();
+
+        for (Produto produto : recomendar.recomendarPreferencias()) {
+            selectProduts.add(new SelectItem(produto, produto.getNome()));
+        }
+
+        return selectProduts;
     }
 }

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/siec.xhtml">
+        <h:outputScript library="siec" name="lib/jquery-1.7.2.min.js"/>
+        <h:outputStylesheet library="siec" name="lib/bootstrap/css/bootstrap.css"/>
+        <ui:define name="content">
+            <div class="header">
+                <h1 class="page-title">#{bundle.label_system_billing_report}</h1>
+            </div>
+
+            <ul class="breadcrumb">
+                <li> <span class="divider">/</span></li>
+                <li><h:link outcome="/secure/admin/home.jsf">#{bundle.label_system_home}</h:link> <span class="divider">/</span></li>
+                <li class="active">#{bundle.label_system_billing_report}</li>
+            </ul>
+            <div class="container-fluid">
+
+                <div class="row-fluid">
+                    <h:form id="formReport" target=" blank">
+                        <div class="btn-toolbar">
+                            <a class="btn btn-primary">
+                                <p:commandButton value="#{bundle.label_form_generate}" 
+                                                 ajax="false"
+                                                 styleClass="btn btn-primary"
+                                                 action="#{reportController.generateFaturamentoReport(actionEvent)}"
+                                                 update="@form"> 
+                                    <i class="icon-save"></i>
+                                </p:commandButton></a>
+
+
+                            <h:link styleClass="btn" outcome="/secure/admin/home.jsf">#{bundle.label_system_cancel}</h:link>                             
+                            <div class="btn-group">
+                            </div>
+                        </div>
+                        <div class="well">
+
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane active in" id="data">
+
+                                    <h:outputLabel for="dataInicial" value="#{bundle.label_form_date_inicial}" >
+                                        <h:outputText title="#{bundle.label_form_date_inicial}" value=" *" styleClass="required" />
+                                    </h:outputLabel>
+                                    <p:calendar id="dataInicial"
+                                                mode="popup"                                        
+                                                locale="#{localeController.currentLocale}" 
+                                                showButtonPanel="true" 
+                                                navigator="true"
+                                                pattern="dd-MM-yyyy"
+                                                value="#{reportController.dataInicial}"
+                                                required="true"                                         
+                                                requiredMessage="#{bundle.msg_required_date_inicial}">
+                                    </p:calendar>
+                                    <h:message id="msgDataInicial" for="dataInicial" />
+
+                                    <h:outputLabel for="dataFinal" value="#{bundle.label_form_date_final}" >
+                                        <h:outputText title="#{bundle.label_form_date_final}" value=" *" styleClass="required" />
+                                    </h:outputLabel>                                    
+                                    <p:calendar id="dataFinal"
+                                                mode="popup"                                        
+                                                locale="#{localeController.currentLocale}" 
+                                                showButtonPanel="true" 
+                                                navigator="true"
+                                                pattern="dd-MM-yyyy"
+                                                value="#{reportController.dataFinal}"
+                                                required="true"                                         
+                                                requiredMessage="#{bundle.msg_required_date_final}">
+                                        <f:validator binding="#{dateReportValidator}"/>
+                                    </p:calendar>
+                                    <h:message id="msgDataFinal" for="dataFinal" />
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <footer>
+                            <hr />
+                            <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
+                            <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+
+
+                            <p>&copy; 2012 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+                        </footer>
+                    </h:form>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

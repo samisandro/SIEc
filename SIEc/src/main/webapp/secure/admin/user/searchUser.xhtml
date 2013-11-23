@@ -38,13 +38,15 @@
                             <p:panel id="searchResult">
                                 <p:dataTable id="productsFiltrated"
                                              value="#{usuarioController.users}"
-                                             rows="15"
+                                             rows="5"
+                                             paginator="true"
+                                             paginatorPosition="bottom"
                                              emptyMessage="#{bundle.label_system_user_nothing_filter}"
                                              var="user"
                                              widgetVar="userTable"
                                              filteredValue="#{usuarioController.filteredUsers}">                                    
 
-                                    <p:column id="idColumn"                                              
+<!--                                    <p:column id="idColumn"                                              
                                               sortBy="#{user.id}"
                                               filterBy="#{user.id}"
                                               footerText="#{bundle.filter_mode_exact}"
@@ -54,7 +56,7 @@
                                             <h:outputText value="#{bundle.label_form_code}"/>
                                         </f:facet>
                                         <h:outputText value="#{user.id}" />
-                                    </p:column>
+                                    </p:column>-->
 
                                     <p:column id="nameColumn"                                                                                               
                                               sortBy="#{user.pessoa.nome}"

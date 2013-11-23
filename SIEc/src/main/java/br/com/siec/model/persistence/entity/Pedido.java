@@ -20,9 +20,14 @@ package br.com.siec.model.persistence.entity;
 
 import br.com.siec.model.persistence.interfaces.IPedido;
 import br.com.siec.model.persistence.interfaces.ICliente;
+import br.com.siec.model.persistence.interfaces.ICupomDesconto;
+import br.com.siec.model.persistence.interfaces.IMetodoDePagamento;
+import br.com.siec.model.persistence.resource.Categorias;
 import br.com.siec.model.persistence.resource.StatusPedido;
+import br.com.siec.model.persistence.resource.TipoPreco;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -40,13 +45,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Any;
+import org.hibernate.annotations.AnyMetaDef;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.MetaValue;
 
 /**
+ * Pedido
+ *
  * @version 1.00 May 21, 2013.
  * @author Josimar Alves
  */
@@ -71,8 +81,7 @@ public class Pedido implements IPedido {
     private Date dataCompra;
     
     @ManyToOne(targetEntity = Cliente.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "CLT_CODIGO", nullable = false,
-            insertable = true, updatable = true)
+    @JoinColumn(name = "CLT_CODIGO")
     @Fetch(FetchMode.JOIN)
     @Cascade(CascadeType.SAVE_UPDATE)
     private ICliente cliente;
@@ -80,9 +89,23 @@ public class Pedido implements IPedido {
     @OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY)
     @Cascade(CascadeType.SAVE_UPDATE)
     private List<Item> itens;
+    
+    @ManyToOne(targetEntity = CupomDesconto.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "CMD_CODIGO")
+    @Fetch(FetchMode.JOIN)
+    @Cascade(CascadeType.SAVE_UPDATE)
+    private ICupomDesconto cupomDeDesconto;
+        
+    @Any(metaColumn = @Column(name = "PDD_TIPO_PAGAMENTO"))
+    @AnyMetaDef(idType = "long", metaType = "string", metaValues = {
+        @MetaValue(value = "PAYPAL", targetEntity = PayPal.class),
+        @MetaValue(value = "ATO_DA_ENTREGA", targetEntity = PagamentoNaEntrega.class) })
+    @JoinColumn(name = "PDD_PAGAMENTO_ID")
+    private IMetodoDePagamento metodoDePagamento;
 
     public Pedido() {
         this.itens = new ArrayList<Item>();
+        this.cliente = new Cliente();
     }
 
     @Override
@@ -143,5 +166,47 @@ public class Pedido implements IPedido {
     @Override
     public void addItens(Item item) {
         this.itens.add(item);
-    }        
+    }
+
+    public Double calculaValorPedido(TipoPreco tipo) {
+        double valor = 0.0;
+
+        for (Item item : getItens()) {
+            if (item.getProduto().getCategoria().equals(Categorias.Acompanhamento)
+                    || item.getProduto().getCategoria().equals(Categorias.Bebidas)) {
+                valor += (item.getProduto().getPrecos().get(0).getValor() * item.getQuantidade());
+            } else {
+                for (Preco preco : item.getProduto().getPrecos()) {
+                    if (preco.getTipo().equals(tipo)) {
+                        valor += (preco.getValor() * item.getQuantidade());
+                    }
+                }
+
+            }
+        }
+        
+        if(this.cupomDeDesconto != null & this.cupomDeDesconto.isAtivo()){
+            valor = valor-((valor/100)*cupomDeDesconto.getDesconto());
+        }
+        
+        return valor;
+    }
+    
+    @Override
+    public ICupomDesconto getCupomDesconto(){
+        return cupomDeDesconto;
+    }
+    
+    @Override
+    public void setCupomDesconto(ICupomDesconto cupom){
+        this.cupomDeDesconto = cupom;
+    }
+    
+    public IMetodoDePagamento getMetodoDePagamento(){
+        return metodoDePagamento;
+    }
+    
+    public void setMetodoDePagamento(IMetodoDePagamento metodoDePagamento){
+        this.metodoDePagamento = metodoDePagamento;
+    }
 }

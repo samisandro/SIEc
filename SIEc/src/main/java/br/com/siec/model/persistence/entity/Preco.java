@@ -25,6 +25,8 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Preco
@@ -33,6 +35,7 @@ import javax.persistence.Enumerated;
  * @author Josimar Alves
  */
 @Embeddable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Preco implements IPreco {
 
     @Enumerated(EnumType.STRING)

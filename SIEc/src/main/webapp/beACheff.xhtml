@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:composition template="/templates/principal.xhtml">
+
+        <ui:define name="head">
+            <h:head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <title>Smart Pizzaria</title>        
+                <h:outputStylesheet library="default" name="styles/styleCommerce.css" />
+                <h:outputStylesheet library="default" name="styles/base.css" />
+                <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+            </h:head>
+        </ui:define>
+        <ui:define name="topo">                        
+            <header>
+                <nav>
+                    <ul id="nav">
+                        <li><h:link outcome="/index.jsf">#{bundle.label_system_home}</h:link></li>
+                        <li><h:link outcome="/beACheff.jsf">#{bundle.label_be_cheff}</h:link></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><h:link rendered="#{empty usuarioSupport.user}" outcome="/login.jsf">Login</h:link></li>
+                        <li>
+                            <h:form>
+                                <h:commandLink style="font-size: 14px;" rendered="#{usuarioSupport.logado}" action="#{clienteController.myAccount()}">
+                                    Olá, Cheff #{usuarioSupport.user.pessoa.primeiroNome}!
+                                    <f:setPropertyActionListener value="#{usuarioSupport.user}" target="#{clienteController.cliente.usuario}"/>
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li><h:link rendered="#{not empty usuarioSupport.user}" outcome="/secure/customer/myOrders.jsf">My Orders</h:link></li>
+                        <c:if test="#{not empty usuarioSupport.user}">
+                            <li><a href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">#{bundle.label_system_logout}</a></li>
+                        </c:if>
+                    </ul>
+                </nav>
+                <hgroup class="intro">
+                    <h1 class="title">#{bundle.label_be_cheff}</h1>
+                    <h3 class="tagline">Monte #{bundle.label_yours}</h3>
+                </hgroup>
+                <div class="reservations">
+                    <br />
+                    <span class="reservations-title">Valor do seu pedido</span>
+                    <hr class="hr-solid" />
+                    <span style="font-family: 'Lobster13Regular', cursive;">
+
+                        <h:form id="valorForm">
+                            #{bundle.label_currency} 
+                            <h:outputText id="valorPizza" value="#{carrinhoController.valorPedido}">
+                                <f:convertNumber pattern="#0.00" />
+                            </h:outputText>
+                        </h:form>
+
+                    </span>
+                    <hr class="hr-dashed" />
+                    <!--<div style="margin-top:15px"> <a class="button" href="#" title="Email Us">Or Email Us</a> </div>-->
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+            </header>
+        </ui:define>
+        <ui:define name="content">           
+            <div class="wrapper">
+                <h:form>
+                    <p:growl  autoUpdate="true" />
+                </h:form>
+                <div class="border"></div>
+                <article class="fullwidth gallery">
+                    <h:form id="formCarrinho" prependId="true">                        
+                        <p:tabView id="tabPizza" >  
+                            <p:tab title="Sua Pizza" >
+                                <p:panel id="panelPizza">
+                                    <p:dataGrid id="pizzaGrid"
+                                                var="ingrediente" 
+                                                value="#{carrinhoController.pizza.componentes}" 
+                                                columns="6"  
+                                                rows="15"
+                                                emptyMessage="#{bundle.msg_data_select_ingredient}">  
+
+                                        <aside id="pricing-table-custom" class="clear">
+                                            <div class="plan">
+                                                <h3>
+                                                    #{ingrediente.nome}
+                                                    <p:graphicImage value="/images/?id=#{ingrediente.id}"/>
+                                                </h3>
+                                                <p:commandLink process="@this"
+                                                               action="#{carrinhoController.removeIngrediente(actionEvent)}"
+                                                               styleClass="button-custom"
+                                                               update=":formCarrinho:tabPizza:panelPizza, :valorForm:valorPizza">
+                                                    <h:outputText value="Remover" />   
+                                                    <f:setPropertyActionListener target="#{carrinhoController.aux}"
+                                                                                 value="#{ingrediente}"/>                  
+                                                </p:commandLink> 
+                                                <ul>
+                                                    <ui:repeat var="preco" value="#{ingrediente.precos}">
+                                                        <li>
+                                                            <strong style='text-transform:uppercase'>
+                                                                <h:outputText rendered="#{preco.tipo.descricao eq carrinhoController.precoPizza.descricao}" value="#{preco.tipo.descricao} #{bundle.label_currency} #{preco.valor}" />                   
+                                                            </strong>        
+                                                        </li>
+                                                    </ui:repeat>
+                                                </ul>
+                                            </div>
+                                        </aside>
+                                    </p:dataGrid>   
+                                    <br />
+
+                                    <p:commandLink process="@this"
+                                                   rendered="#{not empty usuarioSupport.user}"
+                                                   action="#{carrinhoController.fechaVenda()}"
+                                                   styleClass="button-custom">
+                                        <h:outputText value="Finalizar" />                                        
+                                    </p:commandLink>
+
+                                    <p:commandLink process="@this"
+                                                   rendered="#{empty usuarioSupport.user}"
+                                                   action="#{carrinhoController.goLogin()}"
+                                                   styleClass="button-custom">
+                                        <h:outputText value="Finalizar" />                  
+                                    </p:commandLink>
+
+                                </p:panel>
+                            </p:tab>
+
+                            <p:tab title="Seus Acompanhamentos" >
+                                <p:panel  id="panelAcompanhamentos">
+                                    <p:dataGrid id="acompanhamentoGrid"
+                                                var="item" 
+                                                value="#{carrinhoController.items}" 
+                                                columns="6"  
+                                                rows="15"
+                                                emptyMessage="#{bundle.msg_data_select_ingredient}">  
+
+                                        <aside id="pricing-table-custom" class="clear">
+                                            <div class="plan">
+                                                <h3>
+                                                    #{item.produto.nome}
+                                                    <p:graphicImage value="/images/?id=#{item.produto.id}"/>
+                                                </h3>
+                                                <p:commandLink process="@this"
+                                                               action="#{carrinhoController.removeItem(actionEvent)}"
+                                                               styleClass="button-custom"
+                                                               update=":formCarrinho:tabPizza:panelAcompanhamentos, :valorForm:valorPizza">
+                                                    <h:outputText value="Remover" />   
+                                                    <f:setPropertyActionListener target="#{carrinhoController.produto}"
+                                                                                 value="#{item.produto}"/>                  
+                                                </p:commandLink> 
+                                                <ul>
+                                                    <ui:repeat var="preco" value="#{item.produto.precos}">                                    
+                                                        <li>
+                                                            <strong style='text-transform:uppercase'>
+                                                                <h:outputText value="#{preco.tipo.descricao} #{bundle.label_currency} #{preco.valor}" />                   
+                                                            </strong>        
+                                                        </li>
+                                                    </ui:repeat>                                 
+                                                </ul>
+                                            </div>
+                                        </aside>
+                                    </p:dataGrid>                                                        
+
+                                </p:panel>
+                            </p:tab>
+                        </p:tabView>
+                    </h:form>
+                    <p:panel id="sizePanel" header="#{bundle.label_size}">
+                        <h:form id="sizeForm">
+                            <h:selectOneRadio id="size"                                               
+                                              value="#{carrinhoController.precoPizza}">
+                                <f:selectItems value="#{carrinhoController.sizes}" />
+
+                                <f:converter binding="#{tipoPrecoConverter}"/>
+
+                                <f:ajax event="click" render=":valorForm:valorPizza :formCarrinho:tabPizza:panelPizza" />
+
+                            </h:selectOneRadio>                      
+                        </h:form>
+                    </p:panel>                                               
+
+                    <p:accordionPanel>  
+                        <p:tab title="#{bundle.label_recommended}">  
+
+                        </p:tab>  
+
+                        <p:tab title="#{bundle.label_form_mass}">  
+                            <h:form prependId="true" id="massaForm">
+                                <p:dataGrid id="massaGrid"
+                                            var="massa" 
+                                            value="#{carrinhoController.massas}"                                             
+                                            columns="6"  
+                                            rows="15"
+                                            emptyMessage="#{bundle.msg_data_select_ingredient}">
+                                    <aside id="pricing-table-custom" class="clear">
+                                        <div class="plan">
+                                            <h3>
+                                                #{massa.nome}
+                                                <p:graphicImage value="/images/?id=#{massa.id}"/>
+                                            </h3>
+                                            <p:commandLink process="@this"
+                                                           action="#{carrinhoController.addUniqueIngrediente(actionEvent)}"
+                                                           update=":formCarrinho:tabPizza:panelPizza, :valorForm:valorPizza"
+                                                           styleClass="button-custom">  
+                                                <h:outputText value="Selecionar" />   
+                                                <f:setPropertyActionListener target="#{carrinhoController.aux}" value="#{massa}"/>
+                                            </p:commandLink>  
+                                            <ul>
+                                                <ui:repeat var="preco" value="#{massa.precos}">
+                                                    <li><strong style="text-transform:uppercase">#{preco.tipo.descricao}</strong> #{bundle.label_currency} #{preco.valor}</li>
+                                                </ui:repeat>
+                                            </ul>
+                                        </div>
+                                    </aside>
+                                </p:dataGrid>
+                            </h:form>
+                        </p:tab>  
+
+                        <p:tab title="#{bundle.label_form_border}">
+                            <h:form prependId="true" id="bordaForm">
+                                <p:dataGrid id="bordaGrid"
+                                            var="borda" 
+                                            value="#{carrinhoController.pizzasController.bordas}" 
+                                            columns="6"  
+                                            rows="15"
+                                            emptyMessage="#{bundle.msg_data_select_ingredient}">
+                                    <aside id="pricing-table-custom" class="clear">
+                                        <div class="plan">
+                                            <h3>
+                                                #{borda.nome}
+                                                <p:graphicImage value="/images/?id=#{borda.id}"/>
+                                            </h3>
+                                            <p:commandLink process="@this"
+                                                           action="#{carrinhoController.addUniqueIngrediente(actionEvent)}"
+                                                           update=":formCarrinho:tabPizza:panelPizza, :valorForm:valorPizza"
+                                                           styleClass="button-custom">  
+                                                <h:outputText value="Selecionar" />   
+                                                <f:setPropertyActionListener target="#{carrinhoController.aux}" value="#{borda}"/>
+                                            </p:commandLink>  
+                                            <ul>
+                                                <ui:repeat var="preco" value="#{borda.precos}">
+                                                    <li><strong style="text-transform:uppercase">#{preco.tipo.descricao}</strong> #{bundle.label_currency} #{preco.valor}</li>
+                                                </ui:repeat>
+                                            </ul>
+                                        </div>
+                                    </aside>
+                                </p:dataGrid>
+                            </h:form>
+                        </p:tab>  
+
+                        <p:tab title="#{bundle.label_form_filling}">
+                            <h:form prependId="true" id="recheioForm">
+                                <p:dataGrid id="pizzaGrid"
+                                            var="componente" 
+                                            value="#{carrinhoController.pizzasController.ingredientes}" 
+                                            columns="6"  
+                                            rows="15"
+                                            emptyMessage="#{bundle.msg_data_select_ingredient}">
+                                    <aside id="pricing-table-custom" class="clear">
+                                        <div class="plan">
+                                            <h3>#{componente.nome}
+                                                <p:graphicImage value="/images/?id=#{componente.id}"/>
+                                            </h3>
+                                            <p:commandLink process="@this"
+                                                           update=":formCarrinho:tabPizza:panelPizza, :valorForm:valorPizza"
+                                                           action="#{carrinhoController.addIngrediente(actionEvent)}"
+                                                           styleClass="button-custom"                                                           
+                                                           title="View Detail">  
+                                                <h:outputText value="#{bundle.label_add}" />   
+                                                <f:setPropertyActionListener value="#{componente}" target="#{carrinhoController.aux}" />
+                                            </p:commandLink>  
+                                            <ul>
+                                                <ui:repeat var="preco" value="#{componente.precos}">
+                                                    <li><strong style="text-transform:uppercase">#{preco.tipo.descricao}</strong> #{bundle.label_currency} #{preco.valor}</li>
+                                                </ui:repeat>
+                                            </ul>
+                                        </div>
+                                    </aside>
+                                </p:dataGrid>
+                            </h:form>
+                        </p:tab>  
+
+                        <p:tab title="#{bundle.label_form_accompaniments}">
+                            <h:form prependId="true" id="acompanhamentoForm">
+                                <p:dataGrid id="pizzaGrid"
+                                            var="produto" 
+                                            value="#{carrinhoController.acompanhamentos}" 
+                                            columns="6"  
+                                            rows="15"
+                                            emptyMessage="#{bundle.msg_data_select_ingredient}">
+                                    <aside id="pricing-table-custom" class="clear">
+                                        <div class="plan">
+                                            <h3>#{produto.nome}
+                                                <p:graphicImage value="/images/?id=#{produto.id}"/>
+                                            </h3>
+                                            <p:commandLink process="@this"
+                                                           update=":formCarrinho:tabPizza:panelAcompanhamentos, :valorForm:valorPizza"
+                                                           action="#{carrinhoController.addItem(actionEvent)}"
+                                                           styleClass="button-custom"                                                           
+                                                           title="View Detail">  
+                                                <h:outputText value="#{bundle.label_add}" />   
+                                                <f:setPropertyActionListener value="#{produto}" target="#{carrinhoController.produto}" />
+                                            </p:commandLink>  
+                                            <ul>
+                                                <ui:repeat var="preco" value="#{produto.precos}">
+                                                    <li><strong style="text-transform:uppercase">#{preco.tipo.descricao}</strong> #{bundle.label_currency} #{preco.valor}</li>
+                                                </ui:repeat>
+                                            </ul>
+                                        </div>
+                                    </aside>
+                                </p:dataGrid>
+                            </h:form>
+                        </p:tab>  
+                    </p:accordionPanel>                                            
+                </article>
+                <div class="border2"></div>
+                <br />
+            </div>
+
+        </ui:define>
+
+        <ui:define name="bottom" ></ui:define>
+
+    </ui:composition>
+
+</html>
+

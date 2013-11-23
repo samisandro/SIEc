@@ -36,13 +36,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 /**
  * Telefone
@@ -151,12 +148,10 @@ public class Telefone implements ITelefone {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 61 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 61 * hash + (this.ddd != null ? this.ddd.hashCode() : 0);
-        hash = 61 * hash + (this.numero != null ? this.numero.hashCode() : 0);
-        hash = 61 * hash + (this.tipo != null ? this.tipo.hashCode() : 0);
-        hash = 61 * hash + (this.pessoas != null ? this.pessoas.hashCode() : 0);
+        int hash = 5;
+        hash = 97 * hash + (this.ddd != null ? this.ddd.hashCode() : 0);
+        hash = 97 * hash + (this.numero != null ? this.numero.hashCode() : 0);
+        hash = 97 * hash + (this.tipo != null ? this.tipo.hashCode() : 0);
         return hash;
     }
 
@@ -169,9 +164,6 @@ public class Telefone implements ITelefone {
             return false;
         }
         final Telefone other = (Telefone) obj;
-        if (this.id != other.id) {
-            return false;
-        }
         if ((this.ddd == null) ? (other.ddd != null) : !this.ddd.equals(other.ddd)) {
             return false;
         }
@@ -181,11 +173,6 @@ public class Telefone implements ITelefone {
         if (this.tipo != other.tipo) {
             return false;
         }
-        if (this.pessoas != other.pessoas && (this.pessoas == null || !this.pessoas.equals(other.pessoas))) {
-            return false;
-        }
         return true;
-    }
-
-    
+    }    
 }

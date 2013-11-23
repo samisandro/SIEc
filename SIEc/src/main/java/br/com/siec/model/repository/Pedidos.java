@@ -6,6 +6,7 @@ package br.com.siec.model.repository;
 
 import br.com.siec.model.persistence.entity.Pedido;
 import br.com.siec.model.persistence.resource.StatusPedido;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,7 +17,9 @@ public interface Pedidos {
     
    public boolean save(Pedido pedido);
    
-   public boolean updateStatus(Long id, StatusPedido status);
+   public boolean updateStatus(Pedido pedido);
+   
+   public List<Pedido> listAll();
     
    public List<Pedido> getLastOrders(int quantityOfOrders);
     
@@ -25,5 +28,9 @@ public interface Pedidos {
    public Long getQuantityOfOrders();
    
    public Double getValueOfOrdersByStatus(StatusPedido status);
+   
+   public Long getQuantityOfOrders(Date dayIni, Date dayFim, StatusPedido status);
+   
+   public Double getValueOfOrdersByStatus(StatusPedido status, Date dayIni, Date dayFim);
     
 }

@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -59,7 +60,7 @@ public class Endereco implements IEndereco {
     /*
      * Relacionamento 3:1 - Endereco : Pessoa
      */
-    @ManyToMany(targetEntity = Pessoa.class, mappedBy = "enderecos")
+    @ManyToMany(targetEntity = Pessoa.class, mappedBy = "enderecos", fetch = FetchType.LAZY)
     private Collection<IPessoa> pessoas = new ArrayList<IPessoa>();
 
     @Override
@@ -164,20 +165,20 @@ public class Endereco implements IEndereco {
 
     @Override
     public String toString() {
-        return "Endereco{" + "id=" + id + ", logradouro=" + logradouro + ", numero=" + numero + ", complemento=" + complemento + ", cep=" + cep + ", estado=" + estado + ", tipoEndereco=" + tipoEndereco + ", pessoas=" + pessoas + '}';
+        return "Endereco{" + "id=" + id + ", logradouro=" + logradouro + ", numero=" + numero + ", complemento=" + complemento + ", cep=" + cep + ", estado=" + estado + ", tipoEndereco=" + tipoEndereco + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 79 * hash + (this.logradouro != null ? this.logradouro.hashCode() : 0);
-        hash = 79 * hash + this.numero;
-        hash = 79 * hash + (this.complemento != null ? this.complemento.hashCode() : 0);
-        hash = 79 * hash + (this.cep != null ? this.cep.hashCode() : 0);
-        hash = 79 * hash + (this.estado != null ? this.estado.hashCode() : 0);
-        hash = 79 * hash + (this.tipoEndereco != null ? this.tipoEndereco.hashCode() : 0);
-        hash = 79 * hash + (this.pessoas != null ? this.pessoas.hashCode() : 0);
+        int hash = 3;
+        hash = 37 * hash + (this.logradouro != null ? this.logradouro.hashCode() : 0);
+        hash = 37 * hash + this.numero;
+        hash = 37 * hash + (this.complemento != null ? this.complemento.hashCode() : 0);
+        hash = 37 * hash + (this.bairro != null ? this.bairro.hashCode() : 0);
+        hash = 37 * hash + (this.cidade != null ? this.cidade.hashCode() : 0);
+        hash = 37 * hash + (this.cep != null ? this.cep.hashCode() : 0);
+        hash = 37 * hash + (this.estado != null ? this.estado.hashCode() : 0);
+        hash = 37 * hash + (this.tipoEndereco != null ? this.tipoEndereco.hashCode() : 0);
         return hash;
     }
 
@@ -190,9 +191,6 @@ public class Endereco implements IEndereco {
             return false;
         }
         final Endereco other = (Endereco) obj;
-        if (this.id != other.id) {
-            return false;
-        }
         if ((this.logradouro == null) ? (other.logradouro != null) : !this.logradouro.equals(other.logradouro)) {
             return false;
         }
@@ -200,6 +198,12 @@ public class Endereco implements IEndereco {
             return false;
         }
         if ((this.complemento == null) ? (other.complemento != null) : !this.complemento.equals(other.complemento)) {
+            return false;
+        }
+        if ((this.bairro == null) ? (other.bairro != null) : !this.bairro.equals(other.bairro)) {
+            return false;
+        }
+        if ((this.cidade == null) ? (other.cidade != null) : !this.cidade.equals(other.cidade)) {
             return false;
         }
         if ((this.cep == null) ? (other.cep != null) : !this.cep.equals(other.cep)) {
@@ -211,9 +215,7 @@ public class Endereco implements IEndereco {
         if (this.tipoEndereco != other.tipoEndereco) {
             return false;
         }
-        if (this.pessoas != other.pessoas && (this.pessoas == null || !this.pessoas.equals(other.pessoas))) {
-            return false;
-        }
         return true;
-    }   
+    }
+    
 }

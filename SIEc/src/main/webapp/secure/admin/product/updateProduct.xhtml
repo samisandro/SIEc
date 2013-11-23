@@ -62,6 +62,14 @@
                                                  styleClass="input-xlarge"
                                                  requiredMessage="#{bundle.label_system_required}"/>
                                     <h:message for="nomeProduto"/>
+                                    
+                                     <h:outputLabel for="descricaoProduto" value="#{bundle.label_form_description}" />
+                                    <p:inputTextarea id="descricaoProduto" 
+                                                 value="#{produtoBean.produto.descricao}"
+                                                 required="true"
+                                                 styleClass="input-xlarge"
+                                                 requiredMessage="#{bundle.label_system_required}"/>
+                                    <h:message for="descricaoProduto"/>
 
                                     <h:outputLabel for="categoria" value="#{bundle.label_form_category}" />
                                     <p:inputText id="categoria" 

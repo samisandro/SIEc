@@ -4,6 +4,7 @@
  */
 package br.com.siec.service.interceptors;
 
+import java.io.Serializable;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
@@ -15,7 +16,7 @@ import javax.persistence.EntityManager;
  * @author josimar
  */
 @Interceptor @Transacional
-public class TransacionalInterceptor {
+public class TransacionalInterceptor implements Serializable {
     
     @Inject
     private EntityManager entityManager;

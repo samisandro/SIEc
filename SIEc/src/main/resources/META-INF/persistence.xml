@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence               http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="SIECPU" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <non-jta-data-source/>
-    <class>br.com.siec.model.persistence.entity.Acompanhamento</class>
-    <class>br.com.siec.model.persistence.entity.Cliente</class>
-    <class>br.com.siec.model.persistence.entity.Componente</class>
-    <class>br.com.siec.model.persistence.entity.Composicao</class>
-    <class>br.com.siec.model.persistence.entity.Endereco</class>
-    <class>br.com.siec.model.persistence.entity.Imagem</class>
-    <class>br.com.siec.model.persistence.entity.Item</class>
-    <class>br.com.siec.model.persistence.entity.Pedido</class>
-    <class>br.com.siec.model.persistence.entity.Pessoa</class>
-    <class>br.com.siec.model.persistence.entity.Pf</class>
-    <class>br.com.siec.model.persistence.entity.Pj</class>
-    <class>br.com.siec.model.persistence.entity.Preco</class>
-    <class>br.com.siec.model.persistence.entity.Produto</class>
-    <class>br.com.siec.model.persistence.entity.Telefone</class>
-    <class>br.com.siec.model.persistence.entity.Usuario</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
-    <properties>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/siec"/>
-      <property name="javax.persistence.jdbc.user" value="siecAdmin"/>
-      <property name="javax.persistence.jdbc.password" value="foxdelta@danko"/>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
-      <property name="hibernate.show_sql" value="true"/>
-      <property name="hibernate.format_sql" value="true"/>
-      <!--<property name="hibernate.ejb.metamodel.generation" value="disabled"/>-->
-      <property name="hibernate.ejb.metamodel.population" value="disabled"/>
-      <property name="hibernate.c3p0.min_size" value="5"/>
-      <property name="hibernate.c3p0.max_size" value="20"/>
-      <property name="hibernate.c3p0.timeout" value="300"/>
-      <property name="hibernate.c3p0.max_statements" value="50"/>
-      <property name="hibernate.c3p0.idle_test_period" value="3000"/>
-      <!-- Configuração do Hibernate Envers -->
-      <property name="post-insert" value="org.hibernate.ejb.event.EJB3PostInsertEventListener, org.hibernate.envers.event.EnversListener"/>
-      <property name="post-update" value="org.hibernate.ejb.event.EJB3PostUpdateEventListener, org.hibernate.envers.event.EnversListener"/>
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="SIECPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <non-jta-data-source/>
+        <class>br.com.siec.model.persistence.entity.Acompanhamento</class>
+        <class>br.com.siec.model.persistence.entity.Cliente</class>
+        <class>br.com.siec.model.persistence.entity.Componente</class>
+        <class>br.com.siec.model.persistence.entity.Composicao</class>
+        <class>br.com.siec.model.persistence.entity.Endereco</class>
+        <class>br.com.siec.model.persistence.entity.Imagem</class>
+        <class>br.com.siec.model.persistence.entity.Item</class>
+        <class>br.com.siec.model.persistence.entity.Pedido</class>
+        <class>br.com.siec.model.persistence.entity.Pessoa</class>
+        <class>br.com.siec.model.persistence.entity.Pf</class>
+        <class>br.com.siec.model.persistence.entity.Pj</class>
+        <class>br.com.siec.model.persistence.entity.Perfil</class>
+        <class>br.com.siec.model.persistence.entity.Preco</class>
+        <class>br.com.siec.model.persistence.entity.Produto</class>
+        <class>br.com.siec.model.persistence.entity.Telefone</class>
+        <class>br.com.siec.model.persistence.entity.Usuario</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/siec"/>
+            <property name="javax.persistence.jdbc.user" value="siecAdmin"/>
+            <property name="javax.persistence.jdbc.password" value="foxdelta@danko"/>
+            <!-- Configuracoes Jelastic -->
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://mysql-smartPizzaria.jelasticlw.com.br:3306/siec"/>-->
+            <!--<property name="javax.persistence.jdbc.user" value="root"/>-->
+            <!--<property name="javax.persistence.jdbc.password" value="NLjwCAyhCh"/>-->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.ejb.metamodel.population" value="disabled"/>
+            <property name="connection.useUnicode" value="true" />
+            <property name="connection.characterEncoding" value="UTF-8"/>
+            <!-- C3P0 - Configuração do Pool de Conexões -->
+            <property name="hibernate.c3p0.min_size" value="5"/>
+            <property name="hibernate.c3p0.max_size" value="20"/>
+            <property name="hibernate.c3p0.timeout" value="300"/>
+            <property name="hibernate.c3p0.max_statements" value="50"/>
+            <property name="hibernate.c3p0.idle_test_period" value="3000"/>
+            <!-- EhCache - Configuração do Cache de Segundo Nivel -->
+            <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory" />
+            <property name="hibernate.cache.use_second_level_cache" value="true" />
+            <property name="hibernate.cache.use_query_cache" value="true" />
+        </properties>
+    </persistence-unit>
 </persistence>

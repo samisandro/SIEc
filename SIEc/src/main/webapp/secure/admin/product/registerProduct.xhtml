@@ -21,7 +21,7 @@
             <div class="container-fluid">
 
                 <div class="row-fluid">
-                    <h:form id="formProduct" enctype="multipart/form-data">
+                    <h:form id="formProduct" acceptcharset="text/html; charset=UTF-8" enctype="multipart/form-data">
                         <div class="btn-toolbar">
                             <a class="btn btn-primary">
                                 <p:commandButton value="#{bundle.label_system_salve}" 
@@ -53,6 +53,14 @@
                                                  styleClass="input-xlarge"
                                                  requiredMessage="#{bundle.label_system_required}"/>
                                     <h:message for="nomeProduto"/>
+                                    
+                                    <h:outputLabel for="descricaoProduto" value="#{bundle.label_form_description}" />
+                                    <p:inputTextarea id="descricaoProduto" 
+                                                 value="#{produtoBean.produto.descricao}"
+                                                 required="true"
+                                                 styleClass="input-xlarge"
+                                                 requiredMessage="#{bundle.label_system_required}"/>
+                                    <h:message for="descricaoProduto"/>
 
                                     <h:outputLabel for="categoria" value="#{bundle.label_form_category}" />
                                     <p:selectOneMenu id="categoria"

@@ -6,7 +6,7 @@ package br.com.siec.test;
  */
 
 
-import br.com.siec.api.resource.EncryptData;
+import br.com.siec.resource.EncryptData;
 import java.security.NoSuchAlgorithmException;
 
 /**

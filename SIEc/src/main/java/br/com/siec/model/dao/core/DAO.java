@@ -100,6 +100,13 @@ public abstract class DAO<T> implements IDAO<T> {
         }
     }
 
+    /**
+     * Query dinamica de busca. Busca de acordo
+     * com o atributo passado.
+     * @param param
+     * @param attribute
+     * @return List<T> lista do objeto parametrizado. 
+     */
     @Override
     public List<T> findBy(String param, String attribute) {
         try {
@@ -110,7 +117,7 @@ public abstract class DAO<T> implements IDAO<T> {
             Query query = entityManager.createQuery(getFindByQuery(attribute));
 
             query.setParameter("param", "%" + param + "%");
-
+            query.setHint("org.hibernate.cacheable", true);
             return query.getResultList();
         } catch (Exception e) {
             if (logger.isDebugEnabled()) {

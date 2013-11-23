@@ -1,16 +1,20 @@
 package br.com.siec.controller.resource;
 
 import br.com.siec.config.jsf.ViewContext;
+
 import java.io.Serializable;
 import java.util.Locale;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
 import javax.faces.component.UIViewRoot;
+
 import javax.inject.Inject;
 
 /**
- * <b> LanaguageController </b> controle para 
- * a internaliozação.
+ * <b> LocaleController </b> controle para 
+ * a internalização.
  * @version 1.0.0 August 12, 2013.
  * @author Josimar Alves
  */

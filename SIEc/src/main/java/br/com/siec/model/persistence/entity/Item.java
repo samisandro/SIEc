@@ -19,8 +19,11 @@
 package br.com.siec.model.persistence.entity;
 
 import java.io.Serializable;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,11 +33,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 /**
  * Item do Pedido
+ *
  * @version 1.00 May 21, 2013.
  * @author Josimar Alves
  */
@@ -45,28 +46,46 @@ public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ITM_CODIGO")
-    private long id;
+    private long id;;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PRT_CODIGO", nullable = false, insertable = true, updatable = true)
-    @Fetch(FetchMode.JOIN)
+    @JoinColumn(name = "PRT_CODIGO", insertable = true, updatable = true)
     private Produto produto;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PDD_CODIGO", nullable = false, insertable = true, updatable = true)
-    @Fetch(FetchMode.JOIN)
+    @JoinColumn(name = "PDD_CODIGO", insertable = true, updatable = true)
     private Pedido pedido;
+    
+    @Column(name = "ITM_QUANTIDADE")
+    private int quantidade;
 
-    public long getId() {
-        return this.id;
+    public Item() {
     }
 
-    public void setId(long id) {
+    public Item(Produto produto, Pedido pedido, int quantidade) {
+        this.produto = produto;
+        this.pedido = pedido;
+        this.quantidade = quantidade;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setItemPK(long id) {
         this.id = id;
     }
 
+    public int getQuantidade() {
+        return this.quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
     public Produto getProduto() {
-        return this.produto;
+        return produto;
     }
 
     public void setProduto(Produto produto) {
@@ -74,7 +93,7 @@ public class Item implements Serializable {
     }
 
     public Pedido getPedido() {
-        return this.pedido;
+        return pedido;
     }
 
     public void setPedido(Pedido pedido) {

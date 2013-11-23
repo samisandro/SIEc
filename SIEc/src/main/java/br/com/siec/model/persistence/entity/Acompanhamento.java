@@ -25,6 +25,8 @@ import br.com.siec.business.price_strategy.notMultiplePrice;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Acompanhamento
@@ -33,6 +35,7 @@ import javax.persistence.Table;
  * @author Josimar Alves
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @PrimaryKeyJoinColumn(name = "ACP_CODIGO")
 @Table(name = "TB_ACOMPANHAMENTO_ACP", schema = "siec")
 public class Acompanhamento

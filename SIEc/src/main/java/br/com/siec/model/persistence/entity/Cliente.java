@@ -21,8 +21,10 @@ package br.com.siec.model.persistence.entity;
 import br.com.siec.model.persistence.interfaces.IPedido;
 import br.com.siec.model.persistence.interfaces.IUsuario;
 import br.com.siec.model.persistence.interfaces.ICliente;
+import br.com.siec.model.persistence.interfaces.IPerfil;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -56,15 +58,23 @@ public class Cliente implements ICliente, Serializable {
     @OneToOne(targetEntity = Usuario.class)
     private IUsuario usuario;
     
-    @OneToMany(mappedBy = "cliente",
-            targetEntity = Pedido.class, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "cliente", targetEntity = Perfil.class)
     @Cascade(CascadeType.ALL)
-    private List<IPedido> pedidos;
+    private IPerfil perfil;
+    
+    @OneToMany(mappedBy = "cliente",
+            targetEntity = Pedido.class, fetch = FetchType.EAGER)
+    @Cascade(CascadeType.ALL)
+    private List<IPedido> pedidos = new ArrayList<IPedido>();
 
     public Cliente() {
     }
 
     public Cliente(IUsuario user) {
+        this.usuario = user;
+    }
+    
+    public void setUsuario(IUsuario user){
         this.usuario = user;
     }
 
@@ -79,6 +89,16 @@ public class Cliente implements ICliente, Serializable {
     }
 
     @Override
+    public IPerfil getPerfil() {
+        return perfil;
+    }
+
+    @Override
+    public void setPerfil(IPerfil perfil) {
+        this.perfil = perfil;
+    }  
+
+    @Override
     public List<IPedido> getPedidos() {
         return this.pedidos;
     }
@@ -88,6 +108,7 @@ public class Cliente implements ICliente, Serializable {
         this.pedidos.add(pedido);
     }
 
+    @Override
     public IUsuario getUsuario() {
         return this.usuario;
     }

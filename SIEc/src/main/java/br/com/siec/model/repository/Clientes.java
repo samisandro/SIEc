@@ -15,8 +15,6 @@ public interface Clientes {
     
     public boolean save(Cliente cliente);
 
-    public boolean delete(Cliente cliente);
-
     public Cliente find(Long id);
 
     public List<Cliente> findBy(String param, String attribute);

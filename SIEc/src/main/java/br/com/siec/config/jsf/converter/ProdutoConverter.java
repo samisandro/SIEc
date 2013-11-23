@@ -5,7 +5,7 @@
 package br.com.siec.config.jsf.converter;
 
 import br.com.siec.model.persistence.entity.Produto;
-import br.com.siec.facade.ProdutoFacade;
+import br.com.siec.service.impl.ProdutoServiceImpl;
 import br.com.siec.service.qualifiers.ProdutoServiceQualifier;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -27,7 +27,7 @@ public class ProdutoConverter implements Converter {
 
     @Inject
     @ProdutoServiceQualifier
-    ProdutoFacade produtoService;
+    ProdutoServiceImpl produtoService;
     
     Logger logger = Logger.getLogger(ProdutoConverter.class);
 

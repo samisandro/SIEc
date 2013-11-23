@@ -4,7 +4,6 @@ import br.com.siec.model.dao.core.DAO;
 import br.com.siec.model.persistence.entity.Componente;
 import br.com.siec.model.persistence.entity.Composicao;
 import br.com.siec.model.persistence.entity.Produto;
-import br.com.siec.model.persistence.interfaces.Composite;
 import br.com.siec.model.persistence.resource.Categorias;
 import br.com.siec.model.repository.Produtos;
 import java.util.List;
@@ -26,6 +25,7 @@ public class ProdutoDAO
         Query query = super.getEntityManager().createQuery("select p from Produto p "
                 + "where p.categoria != :categoria", Produto.class);
         query.setParameter("categoria", Categorias.Composicao);
+        query.setHint("org.hibernate.cacheable", true);
         return query.getResultList();
     }
 
@@ -72,12 +72,14 @@ public class ProdutoDAO
          Query query = super.getEntityManager().createQuery("select p from Produto p "
                 + "where p.categoria = :categoria", Produto.class);
         query.setParameter("categoria", categoria);
+        query.setHint("org.hibernate.cacheable", true);
         return query.getResultList();
     }
 
     @Override
     public List<Composicao> listComposite() {
         Query query = super.getEntityManager().createQuery("select c from Composicao c ", Composicao.class);
+        query.setHint("org.hibernate.cacheable", true);
         return query.getResultList();
     }    
 
@@ -86,6 +88,56 @@ public class ProdutoDAO
         Query query = super.getEntityManager().createQuery("select c from Componente c "
                 + "where c.categoria = :categoria", Componente.class);
         query.setParameter("categoria", categoria);
+        query.setHint("org.hibernate.cacheable", true);
         return query.getResultList();
+    }
+
+    @Override
+    public List<Produto> getTopSellingProducts(int quantity) {
+        Query query = super.getEntityManager().createQuery(getQueryTopSellingProducts(), Produto.class);
+        query.setMaxResults(quantity);
+        query.setHint("org.hibernate.cacheable", true);
+        return query.getResultList();
+    }
+    
+    private String getQueryTopSellingProducts(){
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT p FROM Produto p ")
+                .append(" WHERE  p in ( ")
+                .append(" SELECT i.produto, ")
+                .append(" COUNT(i.produto) as quantitySeller ")
+                .append(" FROM ITEM i ")
+                .append(" GROUP BY i.produto ") 
+                .append(" ORDER BY quantitySeller ASC ")
+                .append(" ) ");
+        
+        return query.toString();
+    }
+
+    @Override
+    public List<Produto> getProductsSoldLess(int quantity) {
+        Query query = super.getEntityManager().createQuery(getQueryProductsSoldLess(), Produto.class);
+        query.setMaxResults(quantity);
+        query.setHint("org.hibernate.cacheable", true);
+        return query.getResultList();
+    }
+    
+    private String getQueryProductsSoldLess(){
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT p FROM Produto p ")
+                .append(" WHERE  p in ( ")
+                .append(" SELECT i.produto, ")
+                .append(" COUNT(i.produto) as quantitySeller ")
+                .append(" FROM ITEM i ")
+                .append(" GROUP BY i.produto ") 
+                .append(" ORDER BY quantitySeller DESC ")
+                .append(" ) ");        
+        
+        return query.toString();
+    }
+
+    @Override
+    public Produto validate(Produto produto) {
+        return super.validate(produto);
     }
 }

@@ -41,6 +41,8 @@ import javax.persistence.TemporalType;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -51,6 +53,7 @@ import org.hibernate.annotations.CascadeType;
  * @author Josimar Alves
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "TB_USUARIO_USR", schema = "siec")
 public class Usuario implements IUsuario {
 

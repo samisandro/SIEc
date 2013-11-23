@@ -4,9 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:stella="http://stella.caelum.com.br/faces2"
-      xmlns:sccbf="http://stella.caelum.com.br/faces">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:composition template="/templates/principal.xhtml">
 
@@ -124,14 +122,15 @@
                             <p:calendar id="dataNascimento"     
                                         styleClass="dataNascimento"
                                         mode="popup"                                        
-                                        locale="pt" 
+                                        locale="#{localeController.currentLocale}" 
                                         showButtonPanel="true" 
                                         navigator="true"
+                                        pattern="dd-MM-yyyy"
                                         value="#{clienteController.pf.dataNascimento}"
                                         rendered="#{clienteController.typeCustomerPf}"
                                         required="#{clienteController.typeCustomerPf}"                                         
-                                        requiredMessage="#{bundle.msg_required_birthday}">                                 
-                                <f:convertDateTime pattern="dd-MM-yyyy"/>
+                                        requiredMessage="#{bundle.msg_required_birthday}">
+                                <f:validator binding="#{ageValidator}" />
                             </p:calendar>
 
 
@@ -190,7 +189,7 @@
 
                         <p:panel id="panelPhones" header="#{bundle.label_form_phones}" >
 
-                            <h:outputLabel for="principal" value="#{bundle.label_form_number}" >
+                            <h:outputLabel for="principal" value="#{bundle.label_form_phone_main}" >
                                 <h:outputText title="#{bundle.label_form_number}" value=" *" styleClass="required" />
                             </h:outputLabel>
                             <p:inputMask id="principal"
@@ -202,7 +201,7 @@
                             </p:inputMask>
                             <br />
                             <br />                            
-                            <h:outputLabel for="comercial" value="#{bundle.label_form_number}" >
+                            <h:outputLabel for="comercial" value="#{bundle.label_form_phone_commercial}" >
                                 <h:outputText title="#{bundle.label_form_number}" value="" styleClass="required" />
                             </h:outputLabel>
                             <p:inputMask id="comercial"
@@ -213,7 +212,7 @@
                             </p:inputMask>
                             <br />
                             <br />                            
-                            <h:outputLabel for="residencial" value="#{bundle.label_form_number}" >
+                            <h:outputLabel for="residencial" value="#{bundle.label_form_phone_residential}" >
                                 <h:outputText title="#{bundle.label_form_number}" value="" styleClass="required" />
                             </h:outputLabel>
                             <p:inputMask id="residencial"
@@ -305,7 +304,39 @@
                             <br />                            
                         </p:panel>
 
-                        <h:commandButton action="#{clienteController.save()}" styleClass="button" value="Submit" type="submit"/>
+                        <h:commandButton action="#{clienteController.save()}" styleClass="button" value="#{bundle.label_save}" type="submit"/>
+                       
+<!--                        <p:commandLink process="@this"
+                                       oncomplete="preferencias.show();"
+                                       styleClass="button"
+                                       type="submit"
+                                       value="#{bundle.label_form_register}"/>
+
+                        <p:dialog id="preferencias"
+                                  appendToBody="true"
+                                  header="#{bundle.label_form_finish}"
+                                  modal="true"
+                                  widgetVar="preferencias">
+                            <h:outputText value="Ajude-nos a te atender melhor. Diga-nos quais suas preferencias!"/>
+
+                            <p:selectManyCheckbox id="preferenciasCheckBox"
+                                                  value="#{clienteController.perfil.preferencias}"
+                                                  layout="pageDirection"
+                                                  converter="#{produtoConverter}"
+                                                  required="true">
+                                <f:selectItems value="#{clienteController.produtosPreferencia}" />
+                            </p:selectManyCheckbox>
+
+                            <p:commandButton id="confirm" 
+                                             value="#{bundle.label_system_confirm}"
+                                             process="@this"
+                                             action="#{clienteController.save()}" />
+
+                            <p:commandButton id="decline" 
+                                             value="#{bundle.label_system_cancel}" 
+                                             onclick="preferencias.hide();" 
+                                             type="button" /> 
+                        </p:dialog>-->
                     </h:form>
                     <br />
                     <br />

@@ -8,12 +8,16 @@ import br.com.siec.config.jsf.resource.MessageResourceBundle;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Produces;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -81,5 +85,20 @@ public class ViewContext implements Serializable {
     
     public void removeObjectInSession(String key){
         getHttpSession().removeAttribute(key);
+    }
+    
+    @Produces
+    public ServletRequest getServletRequest(){
+        return (ServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    }
+    
+    @Produces
+    public HttpServletResponse getHttpServletResponse(){
+        return (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+    }
+    
+    @Produces
+    public ServletContext getServletContext(){
+        return (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
     }
 }

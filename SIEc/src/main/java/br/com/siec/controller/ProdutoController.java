@@ -8,7 +8,7 @@ import br.com.siec.model.persistence.entity.Produto;
 import br.com.siec.model.persistence.resource.Categorias;
 import br.com.siec.model.persistence.resource.TipoPreco;
 
-import br.com.siec.api.factory.entity.ListEnumModel;
+import br.com.siec.factory.entity.ListEnumModel;
 
 import br.com.siec.controller.resource.FileUpload;
 
@@ -47,6 +47,7 @@ public class ProdutoController implements Serializable {
     
     @Inject
     ViewContext viewContext;
+    
     private Produto produto;
     
     private List<Produto> produtos;

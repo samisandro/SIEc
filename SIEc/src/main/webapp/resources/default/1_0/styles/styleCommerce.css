@@ -862,3 +862,228 @@ footer {
 .ddd {
     width: 40px;
 }
+
+.ui-accordion .ui-accordion-header.ui-state-default a {
+    padding: 8px 15px;
+    background: #9c5959;
+    font-family: 'Lobster13Regular', cursive;
+    color: rgb(245, 245, 245);
+    font-size: 15px;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    font-weight: normal;
+}
+
+.ui-accordion .ui-accordion-header.ui-state-default a:hover {
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+}
+
+/* Custom Price Table */
+#pricing-table-custom {
+    /* margin:  100px auto;
+    */
+    text-align: center; /*        width:  892px; /* total computed width = 222 x 3 + 226 */
+}
+#pricing-table-custom .plan {
+    font-size: 5px;
+    background: rgba(255, 255, 255, 0.40);
+    border: 1px solid #ddd;
+    color: #333;
+    padding: 8px;
+    float: left;
+    position: relative;
+    width: 120px;
+    float: left;
+    margin-right: 3px;
+    margin-bottom: 22px;
+}
+#pricing-table-custom #most-popular {
+    z-index: 1;
+    top: -5px;
+    border-width: 1px;
+    padding: 13px 8px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 20px 0 10px -10px rgba(0, 0, 0, .15), -20px 0 10px -10px rgba(0, 0, 0, .15);
+    -moz-box-shadow: 20px 0 10px -10px rgba(0, 0, 0, .15), -20px 0 10px -10px rgba(0, 0, 0, .15);
+    box-shadow: 20px 0 10px -10px rgba(0, 0, 0, .15), -20px 0 10px -10px rgba(0, 0, 0, .15);
+}
+#pricing-table-custom .plan:nth-child(1) {
+    -webkit-border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
+}
+#pricing-table-custom .plan:nth-child(4) {
+    -webkit-border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
+}
+/* ---------------*/
+#pricing-table-custom h3 {
+    font-size: 15px;
+    font-weight: normal;
+    color: #fff;
+    letter-spacing: 1px;
+    padding: 8px;
+    margin: -8px -8px 8px -8px;
+    background-color: #9c5959;
+    background-image: -webkit-linear-gradient(#d07a7a, #9c5959);
+    background-image: -moz-linear-gradient(#d07a7a, #9c5959);
+    background-image: -o-linear-gradient(#d07a7a, #9c5959);
+    background-image: -ms-linear-gradient(#d07a7a, #9c5959);
+    background-image: linear-gradient(#d07a7a, #9c5959);
+    color: #f5f5f5;
+    text-decoration: none;
+}
+#pricing-table-custom #most-popular h3 {
+    background-color: #ddd;
+    background-image: -webkit-linear-gradient(#eee, #ddd);
+    background-image: -moz-linear-gradient(#eee, #ddd);
+    background-image: -o-linear-gradient(#eee, #ddd);
+    background-image: -ms-linear-gradient(#eee, #ddd);
+    background-image: linear-gradient(#eee, #ddd);
+    -image margin-top: -15px;
+    padding-top: 15px;
+    -webkit-border-radius: 2px 2px 0 0;
+    -moz-border-radius: 2px 2px 0 0;
+    border-radius: 2px 2px 0 0;
+}
+#pricing-table-custom .plan h3 {
+    -webkit-border-radius: 2px 2px 0 0;
+    -moz-border-radius: 2px 2px 0 0;
+    border-radius: 2px 2px 0 0;
+}
+#pricing-table-custom h3 span {
+    display: block;
+    font: bold 10px/48px Georgia, Serif;
+    color: #9c5959;
+    background: #fff;
+    border: 2px solid #9c5959;
+    height: 40px;
+    width: 40px;
+    margin: 5px auto -20px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    border-radius: 40px;
+    -webkit-box-shadow: 0 5px 10px #ddd inset, 0 3px 0 #999 inset;
+    -moz-box-shadow: 0 2px 10px #ddd inset, 0 3px 0 #999 inset;
+    box-shadow: 0 2px 10px #ddd inset, 0 3px 0 #999 inset;
+}
+/* ---------------*/
+#pricing-table-custom ul {
+    margin: 10px 0 0 0;
+    padding: 0;
+    list-style: none;
+}
+#pricing-table-custom li {
+    border-top: 1px solid #ddd;
+    padding: 1px 0;
+    font-size: 10px;
+}
+
+.button-custom {
+    font-family: 'Lobster13Regular', cursive;
+    color: #f5f5f5;
+    padding: 8px 14px 10px;
+    background-color: #9c5959;
+    border: none;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-box-shadow: inset 0px -3px 1px rgba(0, 0, 0, 0.45), 0px 2px 2px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: inset 0px -3px 1px rgba(0, 0, 0, 0.45), 0px 2px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0px -3px 1px rgba(0, 0, 0, 0.45), 0px 2px 2px rgba(0, 0, 0, 0.25);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+    -moz-text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    font-size: 15px;
+}
+.button-custom:active {
+    position: relative;
+    top: 3px;
+    -webkit-box-shadow: inset 0px -3px 1px rgba(255, 255, 255, 1), inset 0 0px 3px rgba(0, 0, 0, 0.9);
+    -moz-box-shadow: inset 0px -3px 1px rgba(255, 255, 255, 1), inset 0 0px 3px rgba(0, 0, 0, 0.9);
+    box-shadow: inset 0px -3px 1px rgba(255, 255, 255, 1), inset 0 0px 3px rgba(0, 0, 0, 0.9);
+}
+.button-custom:active:after {
+    content: "";
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+}
+
+.ui-widget-content a {
+    color: white; 
+}
+
+.ui-widget-content ui-datatable-odd ui-state-highlight{
+    background-color: #9c5959;
+}
+
+.ui-dialog-title {
+    font-family: 'Lobster13Regular', cursive;
+    color: #9c5959;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    font-weight: normal;
+}
+
+.ui-state-default{
+    padding: 8px 15px;
+    background: #9c5959;
+    font-family: 'Lobster13Regular', cursive;
+    color: rgb(245, 245, 245);
+    font-size: 15px;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    font-weight: normal;
+}
+
+.ui-dt-c {
+    font-family: 'Lobster13Regular', cursive;
+    color: #9c5959;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    font-weight: normal;
+}
+
+.ui-tabs .ui-tabs-nav.ui-widget-header li.ui-state-active a, .ui-tabs .ui-tabs-nav.ui-widget-header li.ui-state-active a {
+    background-color: #9c5959;
+    color: rgb(245, 245, 245);
+    font-size: 15px;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    font-weight: normal;
+}
+
+.ui-tabs .ui-tabs-nav.ui-widget-header li {
+    margin-bottom: -1px;
+    line-height: 18px;
+    background: transparent none;
+    background-color: rgb(208, 122, 122);
+    color: rgb(245, 245, 245);
+    font-size: 15px;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    font-weight: normal;
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.ui-tabs .ui-tabs-nav.ui-widget-header li a{
+    color: rgb(245, 245, 245);
+}
+
+.ui-tabs .ui-tabs-nav.ui-widget-header li.ui-state-hover a{
+    background-color: rgb(150, 80, 80);
+    color: rgb(245, 245, 245);
+}
+
+.ui-growl-item-container ui-state-highlight ui-corner-all ui-helper-hidden ui-shadow{
+    background-color: rgb(245, 245, 245);
+}

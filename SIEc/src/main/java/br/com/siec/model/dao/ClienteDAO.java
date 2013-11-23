@@ -24,27 +24,26 @@ import javax.persistence.Query;
 public class ClienteDAO
         extends DAO<Cliente> implements Clientes {
 
-    
     @Override
-    public boolean save(Cliente cliente){
+    public boolean save(Cliente cliente) {
         try {
             if (logger.isDebugEnabled()) {
                 logger.debug("{save(Cliente cliente)} Salvando Cliente");
             }
             List<ITelefone> telefones = new ArrayList<ITelefone>();
-            for(ITelefone phone : cliente.getUsuario().getPessoa().getTelefones()){
+            for (ITelefone phone : cliente.getUsuario().getPessoa().getTelefones()) {
                 telefones.add(super.validate(phone));
             }
             cliente.getUsuario().getPessoa().addTelefones(telefones);
-            
+
             List<IEndereco> enderecos = new ArrayList<IEndereco>();
-            for(IEndereco end : cliente.getUsuario().getPessoa().getEnderecos()){                
-                enderecos.add(super.validate(end));                
-            }            
-            
+            for (IEndereco end : cliente.getUsuario().getPessoa().getEnderecos()) {
+                enderecos.add(super.validate(end));
+            }
+
             cliente.getUsuario().getPessoa().addEnderecos(enderecos);
             super.getEntityManager().persist(cliente.getUsuario());
-            super.getEntityManager().flush();            
+            super.getEntityManager().flush();
             super.getEntityManager().persist(cliente);
 
             return true;
@@ -56,6 +55,39 @@ public class ClienteDAO
             return false;
         }
     }
+    
+    @Override
+    public boolean update(Cliente cliente) {
+        try {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{update(Cliente cliente)} Atualizando Cliente");
+            }
+            List<ITelefone> telefones = new ArrayList<ITelefone>();
+            for (ITelefone phone : cliente.getUsuario().getPessoa().getTelefones()) {
+                telefones.add(super.validate(phone));
+            }
+            cliente.getUsuario().getPessoa().addTelefones(telefones);
+
+            List<IEndereco> enderecos = new ArrayList<IEndereco>();
+            for (IEndereco end : cliente.getUsuario().getPessoa().getEnderecos()) {
+                enderecos.add(super.validate(end));
+            }            
+            
+            super.getEntityManager().flush();
+
+            cliente.getUsuario().getPessoa().addEnderecos(enderecos);
+            super.getEntityManager().merge(cliente);
+
+            return true;
+
+        } catch (Exception e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{update(Cliente cliente) --> erro } Ocorreu um problema ao tentar atualizar o Cliente. -> Exception: " + e);
+            }
+            return false;
+        }
+    }
+
     @Override
     public Long getQuantityOfClients() {
         try {
@@ -84,7 +116,7 @@ public class ClienteDAO
             }
 
             Query query = super.getEntityManager().createQuery(getQueryCPF(), Pf.class);
-            query.setParameter("cpf", cpf);           
+            query.setParameter("cpf", cpf);
 
             return query.getSingleResult() != null;
 
@@ -95,7 +127,7 @@ public class ClienteDAO
             return false;
         } catch (Exception e) {
             if (logger.isDebugEnabled()) {
-                logger.debug("{isCPFAlreadyInUse(String cpf)-->} Ocorreu um problema."+e);
+                logger.debug("{isCPFAlreadyInUse(String cpf)-->} Ocorreu um problema." + e);
             }
             return false;
         }
@@ -119,7 +151,7 @@ public class ClienteDAO
             }
 
             Query query = super.getEntityManager().createQuery(getQueryCNPJ(), Pj.class);
-            query.setParameter("cnpj", cnpj);           
+            query.setParameter("cnpj", cnpj);
 
             return query.getSingleResult() != null;
 
@@ -128,22 +160,56 @@ public class ClienteDAO
                 logger.debug("{isCnpjAlreadyInUse(String cnpj)} CNPJ não está em uso.");
             }
             return false;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             if (logger.isDebugEnabled()) {
-                logger.debug("{isCnpjAlreadyInUse(String cnpj)-->} Ocorreu um problema."+e);
+                logger.debug("{isCnpjAlreadyInUse(String cnpj)-->} Ocorreu um problema." + e);
             }
             return false;
         }
     }
-    
-    private String getQueryCNPJ(){
+
+    private String getQueryCNPJ() {
         StringBuilder query = new StringBuilder();
         query.append(" Select pj From Pj pj ")
                 .append(" Where pj.cnpj = ")
                 .append(" :cnpj ");
-        
+
         return query.toString();
-        
+
+    }
+
+    @Override
+    public List<Cliente> findBy(String attribute, String value) {
+        try {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{findBy(String param, String attribute)} Buscando entidade por: [" + attribute + "]" + " - Parametro" + "[" + value + "]");
+            }
+            Query query = super.getEntityManager().createQuery(getFindByLoginQuery());
+
+            query.setParameter("login", value);
+            query.setHint("org.hibernate.cacheable", true);
+
+            return query.getResultList();
+
+        } catch (NoResultException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{findBy(String param, String attribute) Nenhum Cliente Encontrado. ");
+            }
+            return null;
+        } catch (Exception e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("{findBy(String param, String attribute) -> Erro} Erro de busca: " + e);
+            }
+            return null;
+        }
+    }
+
+    private String getFindByLoginQuery() {
+        StringBuilder query = new StringBuilder();
+        query.append("Select c From Cliente c ")
+                .append(" Where c.usuario.login = ")
+                .append(" :login ");
+
+        return query.toString();
     }
 }

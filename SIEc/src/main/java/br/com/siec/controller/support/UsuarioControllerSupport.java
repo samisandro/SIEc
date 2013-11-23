@@ -15,8 +15,6 @@ import javax.faces.bean.SessionScoped;
 
 import javax.inject.Inject;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
@@ -32,8 +30,6 @@ public class UsuarioControllerSupport implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    SecurityContext context = SecurityContextHolder.getContext();
-    
     @Inject
     @UsuarioServiceQualifier
     private UsuarioService usuarioService;
@@ -42,6 +38,8 @@ public class UsuarioControllerSupport implements Serializable {
     private ViewContext viewContext;
     
     private Usuario user;
+    
+    private boolean logado = false;
 
     public UsuarioControllerSupport() {
     }
@@ -58,21 +56,32 @@ public class UsuarioControllerSupport implements Serializable {
     }
 
     public Usuario loggedUser() {
-        if (context instanceof SecurityContext) {
-            Authentication authentication = context.getAuthentication();
-            if (authentication instanceof Authentication) {
-                user = new Usuario();
-                user.setLogin((((User) authentication.getPrincipal()).getUsername()));
-            }
+        
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof String){
+            return user;
         }
-
+        
+        User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
+        user = usuarioService.create("Usuario");
+        user.setLogin(userDetails.getUsername());       
+        
         user = (Usuario) usuarioService.findBy(user.getLogin(), "login").get(0);
-
+        setLogado(true);
+        
         return user;
     }
 
     public String myAccount() {
         viewContext.setObjectInSession("usuario", getUser());
         return "/secure/admin/myAccount.jsf";
+    }
+
+    public boolean isLogado() {
+        return logado;
+    }
+
+    public void setLogado(boolean logado) {
+        this.logado = logado;
     }
 }

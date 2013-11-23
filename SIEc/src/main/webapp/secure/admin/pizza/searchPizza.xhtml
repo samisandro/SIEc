@@ -36,7 +36,9 @@
                             <p:panel id="searchResult">
                                 <p:dataTable id="productsFiltrated"
                                              value="#{composicaoController.pizzas}"
-                                             rows="15"
+                                             rows="5"
+                                             paginator="true"
+                                             paginatorPosition="bottom"
                                              emptyMessage="#{bundle.label_system_composition_nothing_filter}"
                                              var="pizza"
                                              widgetVar="pizzaTable"

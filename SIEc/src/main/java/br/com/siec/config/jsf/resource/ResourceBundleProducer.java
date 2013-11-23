@@ -1,5 +1,6 @@
 package br.com.siec.config.jsf.resource;
 
+import java.io.Serializable;
 import java.util.ResourceBundle;
 
 import javax.enterprise.context.RequestScoped;
@@ -8,7 +9,7 @@ import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 
 @RequestScoped
-public class ResourceBundleProducer {
+public class ResourceBundleProducer implements Serializable {
 
     private ResourceBundle messageResourceBundle;
     protected Logger logger = Logger.getLogger(ResourceBundleProducer.class);

@@ -23,6 +23,8 @@ public interface Produtos {
     public Produto find(Long id);
 
     public boolean update(Produto produto);
+    
+    public Produto validate(Produto produto);
 
     public List<Produto> listAll();
     
@@ -35,5 +37,9 @@ public interface Produtos {
     public List<Produto> filterByCategory(Categorias categoria);
     
     public List<Componente> filterComponenteByCategory(Categorias categoria);
+    
+    public List<Produto> getTopSellingProducts(int quantity);
+    
+    public List<Produto> getProductsSoldLess(int quantity);
     
 }

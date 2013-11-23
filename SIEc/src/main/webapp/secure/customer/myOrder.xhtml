@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/principal.xhtml">
+        <ui:define name="content">           
+            <div class="border"></div>
+            <article>
+                <h3>Finalizar Pedido</h3>                
+                <h:form id="formFinaliza" prependId="true">
+                    <h:messages />
+                    <p:tabView id="tabFinaliza" dynamic="true" cache="true">
+                        <p:tab id="tabPizza" title="Seu Pedido" >
+                            <p:dataTable id="finalizaGrid"
+                                         value="#{carrinhoController.pedido.itens}"
+                                         emptyMessage="#{bundle.label_system_composition_nothing}"
+                                         rowKey="#{item.produto.id}"
+                                         editable="true"                                    
+                                         tableStyleClass="table"
+                                         rows="15"
+                                         var="item">                         
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.label_form_name}"/>
+                                    </f:facet>
+                                    #{item.produto.nome}
+                                </p:column>
+
+                                <p:column headerText="Quantidade" >
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{item.quantidade}" />
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText id="modelInput" value="#{item.quantidade}"/>
+                                        </f:facet>  
+                                    </p:cellEditor>                                
+                                </p:column>
+
+                                <p:column headerText="Alterar Quantidade">
+                                    <p:rowEditor />
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Valor"/>
+                                    </f:facet>
+                                    <ui:repeat var="preco" value="#{item.produto.precos}">                                    
+                                        <h:outputText rendered="#{(preco.tipo.descricao eq 'Comum')||(preco.tipo.descricao eq carrinhoController.precoPizza.descricao)}" value="#{bundle.label_currency} #{preco.valor}">
+                                            <f:convertNumber pattern="#0.00" />
+                                        </h:outputText>                                    
+                                    </ui:repeat>
+                                </p:column>
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab id="tabPagamento" title="Formas de Pagamento">
+                            <div class="plan">
+                                <h6>
+                                    <h:outputText value="Formas de Pagamento" />
+                                </h6> 
+                            </div>
+                        </p:tab>
+                        <p:tab id="tabEndereco" title="Endereço de Entrega">
+                            <p:panel id="panelEndereco">
+
+                                <ui:repeat var="endereco" value="#{usuarioSupport.user.pessoa.enderecos}" >
+
+                                    <h:outputLabel for="cep" value="#{bundle.label_form_cep}" >
+                                        <h:outputText title="#{bundle.label_form_cep}" />
+                                    </h:outputLabel>
+                                    <h:outputText id="cep" value="#{endereco.cep}"/>
+                                    <br />
+                                    <br />
+                                    <h:outputLabel for="logradouro" value="#{bundle.label_form_logradouro}" >
+                                        <h:outputText title="#{bundle.label_form_logradouro}"/>
+                                    </h:outputLabel>
+                                    <h:outputText id="logradouro" value="#{endereco.logradouro}" />
+
+                                    <h:outputLabel for="numero" value="#{bundle.label_form_number}" >
+                                        <h:outputText title="#{bundle.label_form_number}"/>
+                                    </h:outputLabel>
+                                    <h:outputText id="numero" value="#{endereco.numero}" />
+
+                                    <br />
+                                    <br /> 
+                                    <h:outputLabel for="bairro" value="#{bundle.label_form_neighborhood}" >
+                                        <h:outputText title="#{bundle.label_form_neighborhood}"/>
+                                    </h:outputLabel>
+                                    <h:outputText id="bairro" value="#{endereco.bairro}" />
+
+                                    <h:outputLabel for="complemento" value="#{bundle.label_form_complement}" >
+                                        <h:outputText title="#{bundle.label_form_complement}"/>
+                                    </h:outputLabel>
+                                    <h:outputText id="complemento" value="#{endereco.complemento}" />
+
+                                    <br />
+                                    <br />                           
+
+                                    <h:outputLabel for="cidade" value="#{bundle.label_form_city}" >
+                                        <h:outputText title="#{bundle.label_form_city}" />
+                                    </h:outputLabel>
+                                    <h:outputText id="cidade" value="#{endereco.cidade}" />
+
+                                    <h:outputLabel for="estado" value="#{bundle.label_form_state}" >
+                                        <h:outputText title="#{bundle.label_form_state}"/>
+                                    </h:outputLabel>
+                                    <h:outputText id="estado" value="#{endereco.estado}" />
+                                    <br />
+                                    <br />      
+
+                                </ui:repeat>
+                            </p:panel>
+                        </p:tab>
+                    </p:tabView>
+                    <div class="plan">
+                        <h5>
+                            <h:outputText value="Valor Total: #{bundle.label_currency} #{carrinhoController.pedido.valorTotal}">
+                                <f:convertNumber pattern="#0.00" />
+                            </h:outputText>
+                        </h5>
+                        <p:commandButton ajax="false" process="@this" action="#{carrinhoController.finalizaVenda(usuarioSupport.user.cliente)}" styleClass="button" value="Finalizar a Compra" type="submit"/>
+                    </div>
+                </h:form>
+
+            </article>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="border2"></div>
+            <br />
+        </ui:define>
+
+    </ui:composition>
+</html>

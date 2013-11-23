@@ -31,6 +31,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import javax.persistence.PrimaryKeyJoinColumn;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Componente
@@ -39,6 +41,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
  * @author Josimar Alves
  */
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @PrimaryKeyJoinColumn(name = "CPT_CODIGO")
 @Table(name = "TB_COMPONENTE_CPT", schema = "siec")
 public class Componente

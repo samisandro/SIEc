@@ -1,22 +1,33 @@
 package br.com.siec.controller;
 
 import br.com.siec.config.jsf.ViewContext;
+
 import br.com.siec.model.persistence.entity.Componente;
 import br.com.siec.model.persistence.entity.Composicao;
+
 import br.com.siec.model.persistence.resource.Categorias;
+
 import br.com.siec.service.ProdutoService;
 import br.com.siec.service.qualifiers.ProdutoServiceQualifier;
+
+import java.io.Serializable;
+
 import java.util.List;
+
 import javax.annotation.PostConstruct;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import javax.faces.event.ActionEvent;
+
 import javax.inject.Inject;
+
 import org.primefaces.event.SelectEvent;
 
 @ManagedBean(name = "composicaoController")
 @ViewScoped
-public class ComposicaoController {
+public class ComposicaoController implements Serializable{
 
     @Inject
     @ProdutoServiceQualifier
@@ -38,7 +49,7 @@ public class ComposicaoController {
     
     private static final String HOME = "home";
     private static final String PIZZAS = "allPizza";
-    private static final String UPDATE = "updatePizza"/*?faces-redirect=true&includeViewParams=true"*/;
+    private static final String UPDATE = "updatePizza";
 
     @PostConstruct
     public void init() {
